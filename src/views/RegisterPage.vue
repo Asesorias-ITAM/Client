@@ -4,9 +4,8 @@
 
             <div class="col-span-1 min-h-full">
                 <div class="text-2xl subpixel-antialiased font-sans ">
-
                     <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
-                        <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold">Regístrate</h2>
+                        <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 ">
                             
                             <label class="mt-6">Correo Electrónico</label>
@@ -24,9 +23,10 @@
                                     <label>Quiero ser asesor </label>
                                     <input id="" type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton text="Crear cuenta" type="primary"/>
-                                <label class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</label>
+                                <ActionButton text="Crear cuenta" @click="Registrar" type="primary"/>
+                                <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -40,6 +40,8 @@
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 
+
+
 export default{
     name: "RegisterPage",
     components: {ActionButton, TextInput},
@@ -50,8 +52,16 @@ export default{
             passwd: "",
             passwd2: "",
             correo: "",
-            asesor:0
+            asesor:0,
+            compara: true
+
         }
+    },
+    methods:{
+        Registar() {
+
+        },
+
     }
 }
 

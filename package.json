@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.2.40",
+    "amazon-cognito-identity-js": "^5.2.10",
     "autoprefixer": "^10",
     "core-js": "^3.8.3",
     "postcss": "^8",
