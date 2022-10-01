@@ -1,7 +1,7 @@
 <template>
   <div>
     <upper-bar/>
-    <router-view/>
+    <router-view class="min-h-[90.2vh]"/>
   </div>
     
 </template>
