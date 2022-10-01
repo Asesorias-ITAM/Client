@@ -38,18 +38,13 @@ name: "LoginPage",
 components: {ActionButton, TextInput},
 data(){
     return {
-        nombre: "",
-        apellido: "",
-        passwd: "",
-        passwd2: "",
         correo: "",
-        asesor:0,
-        compara: true
+        passwd:"",
 
     }
 },
 methods:{
-    Registar() {
+    Login() {
 
     },
 

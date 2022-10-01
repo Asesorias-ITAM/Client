@@ -4,9 +4,9 @@
     </button>
   </template>
   
-  <script>
+<script>
   export default {
-    name: "ActionButton",
+    name: "MenuButton",
     props: {
       text: {
         type: String,
@@ -15,9 +15,9 @@
       type: {
         type: String,
         required: false,
-        default: "primary",
+        default: "unPressed",
         validator(value) {
-          return ["primary", "secondary"].includes(value);
+          return ["unPressed", "pressed"].includes(value);
         },
       },
     },
@@ -33,16 +33,16 @@
   
   <style scoped>
   button {
-    @apply text-white;
+    @apply text-white rounded-full font-bold;
   }
   
-  .primary {
-    @apply text-white outline rounded-full bg-verde-itam-2
-     hover:bg-white hover:text-verde-itam-2 hover:outline-verde-itam-2 hover:font-bold;
+  .unPressed {
+    @apply bg-verde-itam-2
+      hover:bg-rojo-complemento;
   }
   
-  .secondary {
-    @apply text-white bg-transparent hover:bg-verde-itam-2 hover:text-white;
+  .pressed {
+    @apply bg-rojo-complemento;
   }
   </style>
   
