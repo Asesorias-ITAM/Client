@@ -8,6 +8,8 @@
                         <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 ">
                             
+                            <CustomLabel class="bad" :text="error" v-if="error!==''"/>
+
                             <label class="mt-6">Correo Electrónico</label>
                             <TextInput v-model="correo" placeholder=""/>
                             
@@ -52,12 +54,12 @@ import CustomLabel from "@/components/shared/CustomLabel"
 
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
-/* import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import {
   CognitoUserPool,
   CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
-import { POOL_DATA } from "../../config/cognito";
+import { POOL_DATA } from "@/config/cognito.js";
 
 //get access to Vuex router
 const router = useRouter();
@@ -66,7 +68,7 @@ const router = useRouter();
         The object parameter references the Cognito user pool data held in a constant that we 
         setup in the Configure application to use Cognito User Pool section
         */
-// const userPool = new CognitoUserPool(POOL_DATA);
+const userPool = new CognitoUserPool(POOL_DATA);
 
 export default{
     name: "RegisterPage",
@@ -79,7 +81,7 @@ export default{
             psswd2: "",
             correo: "",
             asesor: false,
-            //compara: true
+            error: "",
 
         }
     },
@@ -90,8 +92,8 @@ export default{
     },
 
     methods:{
-        registrar() {
-            //const attrList = [];
+        async registrar() {
+            const attrList = [];
             const emailAttribute = {
                 Name: "email",
                 Value: this.correo,
@@ -108,12 +110,20 @@ export default{
                 Name: "custom:Asesor",
                 Value: this.asesor === true ? 1 : 0,
             };
-            /* attrList.push(new CognitoUserAttribute(emailAttribute));
+            attrList.push(new CognitoUserAttribute(emailAttribute));
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
-            attrList.push(new CognitoUserAttribute(asesorAttribute)); */
-            console.log(emailAttribute,nameAttribute, familyAttribute, asesorAttribute)
-            console.log(this.psswd,this.psswd2)
+            attrList.push(new CognitoUserAttribute(asesorAttribute));
+            
+            await userPool.signUp(this.correo, this.psswd, attrList, null, (err, result ) => {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                console.log(result)
+
+                router.replace("/home")
+            });
 
         },
     },

@@ -32,6 +32,18 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 
 
+import { POOL_DATA } from "@/config/cognito.js";
+import {
+  CognitoUserPool,
+  CognitoUser,
+  AuthenticationDetails,
+} from "amazon-cognito-identity-js";
+
+// sets up Cognito User pool data
+const userPool = new CognitoUserPool(POOL_DATA);
+
+//get access to Vuex router
+const router = useRouter();
 
 export default{
 name: "LoginPage",
@@ -45,10 +57,57 @@ data(){
 },
 methods:{
     Login() {
+        // sets up Cognito authentication data from sign in form
+        const authData = {
+            Username: this.correo,
+            Password: this.passwd,
+        };
 
-    },
+        // sets up authentication details - includes username and user pool info
+        const authDetails = new AuthenticationDetails(authData);
+        const userData = {
+            Username: authData.Username,
+            Pool: userPool,
+        };
+        // creates a Cognito User object based on user auth details and user pool info
+        const cognitoUser = new CognitoUser(userData);
 
-}
+        //calls the authenticate user method
+        cognitoUser.authenticateUser(authDetails, {
+            onSuccess(session) {
+                console.log(session);
+                // saves user session info to Vue state system
+                setUserSessionInfo(session);
+
+                // after logging in user is navigated to contacts list
+                router.replace({
+                name: "Contacts",
+                params: { message: "You have successfully signed in" },
+                });
+            },
+            onFailure(error) {
+                console.log(error);
+
+                // If MFA code is invalid error message is displayed
+                if (!error.message.includes("SOFTWARE_TOKEN_MFA_CODE")) {
+                setMessage(error.message, "alert-danger");
+                }
+
+                store.dispatch("setIsLoading", false);
+            },
+            totpRequired(codeDeliveryDetails) {
+                /* 
+                    Checks to see if MFA is required
+                    If MFA is required to complete user authentication.
+                    this will prompt the user for the MFA code
+                    */
+                //confirmMFACode.value = true;
+                //cognitoUser.sendMFACode(mfaCode.value, this, codeDeliveryDetails);
+            },
+        });
+            },
+
+        }
 }
 
 </script>
