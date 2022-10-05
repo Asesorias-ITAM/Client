@@ -107,14 +107,14 @@ export default{
                 Value: this.apellido,
             };
             const asesorAttribute = {
-                Name: "custom:Asesor",
-                Value: this.asesor === true ? 1 : 0,
+                Name: 'custom:Asesor',
+                Value: (this.asesor === true ? 1 : 0).toString(),
             };
             attrList.push(new CognitoUserAttribute(emailAttribute));
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
-            
+            console.log(attrList)
             await userPool.signUp(this.correo, this.psswd, attrList, null, (err, result ) => {
                 if (err) {
                     console.log(err)

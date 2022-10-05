@@ -76,11 +76,15 @@ methods:{
         console.log(cognitoUser)
         
         //calls the authenticate user method
-        
+        cognitoUser.authenticateUser(authDetails, {
+            onSuccess (Session){
+                console.log(Session)
+            },
+            onFailure(error){
+                console.log(error);
+            }
 
-                
-            
-       
+        });   
     },
 
 }
