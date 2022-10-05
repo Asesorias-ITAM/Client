@@ -10,20 +10,30 @@
                             
                             <label class="mt-6">Correo Electrónico</label>
                             <TextInput v-model="correo" placeholder=""/>
+                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+                            
                             <label>Nombres(s)</label>
                             <TextInput v-model="nombre" placeholder=""/>
+                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+                            
                             <label>Apellidos</label>
                             <TextInput v-model="apellido" placeholder=""/>
+                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+
                             <label>Contraseña</label>
-                            <TextInput v-model="passwd" placeholder=""/>
+                            <TextInput type="password" v-model="psswd" placeholder=""/>
+
                             <label>Confirma Contraseña</label>
-                            <TextInput v-model="passwd2" placeholder=""/>
+                            <TextInput type="password" v-model="psswd2" placeholder=""/>
+
+                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+                            
                             <div class="grid grid-cols-1">
                                 <div>
                                     <label>Quiero ser asesor </label>
                                     <input id="" type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton text="Crear cuenta" @click="Registrar" type="primary"/>
+                                <ActionButton text="Crear cuenta" @click="registrar" type="primary"/>
                                 <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
 
@@ -40,7 +50,23 @@
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 
+//Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
+/* import { useRouter } from "vue-router";
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+} from "amazon-cognito-identity-js";
+import { POOL_DATA } from "../../config/cognito";
+
+//get access to Vuex router
+const router = useRouter();
+        /*  
+        Create a user pool object
+        The object parameter references the Cognito user pool data held in a constant that we 
+        setup in the Configure application to use Cognito User Pool section
+        */
+// const userPool = new CognitoUserPool(POOL_DATA);
 
 export default{
     name: "RegisterPage",
@@ -49,20 +75,53 @@ export default{
         return {
             nombre: "",
             apellido: "",
-            passwd: "",
-            passwd2: "",
+            psswd: "",
+            psswd2: "",
             correo: "",
-            asesor:0,
+            asesor: false,
             compara: true
 
         }
     },
-    methods:{
-        Registar() {
-            console.log("Hello")
+    watch:{
+        psswd: function() {
+            this.compararPsswd()
         },
+        psswd2: function() {
+            this.compararPsswd()
+        },
+    },
+    methods:{
+        compararPsswd(){
+            this.compara = (this.psswd===this.psswd2)
+        },
+        registrar() {
+            //const attrList = [];
+            const emailAttribute = {
+                Name: "email",
+                Value: this.correo,
+            };
+            const nameAttribute = {
+                Name: "name",
+                Value: this.nombre,
+            };
+            const familyAttribute = {
+                Name: "family_name",
+                Value: this.apellido,
+            };
+            const asesorAttribute = {
+                Name: "custom:Asesor",
+                Value: this.asesor === true ? 1 : 0,
+            };
+            /* attrList.push(new CognitoUserAttribute(emailAttribute));
+            attrList.push(new CognitoUserAttribute(nameAttribute));
+            attrList.push(new CognitoUserAttribute(familyAttribute));
+            attrList.push(new CognitoUserAttribute(asesorAttribute)); */
+            console.log(emailAttribute,nameAttribute, familyAttribute, asesorAttribute)
+            console.log(this.psswd,this.psswd2)
 
-    }
+        },
+    },
 }
 
 </script>
