@@ -10,15 +10,14 @@
                             
                             <label class="mt-6">Correo Electrónico</label>
                             <TextInput v-model="correo" placeholder=""/>
-                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+                            
                             
                             <label>Nombres(s)</label>
                             <TextInput v-model="nombre" placeholder=""/>
-                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+                            
                             
                             <label>Apellidos</label>
                             <TextInput v-model="apellido" placeholder=""/>
-                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
 
                             <label>Contraseña</label>
                             <TextInput type="password" v-model="psswd" placeholder=""/>
@@ -26,7 +25,7 @@
                             <label>Confirma Contraseña</label>
                             <TextInput type="password" v-model="psswd2" placeholder=""/>
 
-                            <label class="text-center mb-6" v-if="!compara">Las contraseñas no coinciden</label>
+                            <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
                             <div class="grid grid-cols-1">
                                 <div>
@@ -49,6 +48,7 @@
 <script>
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
+import CustomLabel from "@/components/shared/CustomLabel"
 
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
@@ -70,7 +70,7 @@ const router = useRouter();
 
 export default{
     name: "RegisterPage",
-    components: {ActionButton, TextInput},
+    components: {ActionButton, TextInput, CustomLabel},
     data(){
         return {
             nombre: "",
@@ -79,22 +79,17 @@ export default{
             psswd2: "",
             correo: "",
             asesor: false,
-            compara: true
+            //compara: true
 
         }
     },
-    watch:{
-        psswd: function() {
-            this.compararPsswd()
-        },
-        psswd2: function() {
-            this.compararPsswd()
-        },
+    computed: {
+        compara(){
+            return this.psswd===this.psswd2
+        }
     },
+
     methods:{
-        compararPsswd(){
-            this.compara = (this.psswd===this.psswd2)
-        },
         registrar() {
             //const attrList = [];
             const emailAttribute = {
