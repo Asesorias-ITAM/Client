@@ -5,7 +5,7 @@ import router from "./router";
 import "./assets/tailwind.css";
 import { createPinia } from 'pinia'
 
-const app = createApp(App);
+const app = createApp(App).use(createPinia());
 const pinia = createPinia();
 app.use(pinia);
 app.use(router);
