@@ -62,7 +62,7 @@ import {
 import { POOL_DATA } from "@/config/cognito.js";
 
 //get access to Vuex router
-const router = useRouter();
+let router;
         /*  
         Create a user pool object
         The object parameter references the Cognito user pool data held in a constant that we 
@@ -84,6 +84,10 @@ export default{
             error: "",
 
         }
+    },
+    setup() {
+        //get access to Vuex router
+        router = useRouter();
     },
     computed: {
         compara(){
@@ -122,7 +126,12 @@ export default{
                 }
                 console.log(result)
 
-                router.replace("/home")
+                router.replace({
+                    name: "Home",
+                    params: {
+                        message: "You have successfully confirmed your account",
+                    },
+                });
             });
 
         },

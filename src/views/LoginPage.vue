@@ -32,7 +32,7 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 
 
-//import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { POOL_DATA } from "@/config/cognito.js";
 import {
   CognitoUserPool,
@@ -41,53 +41,73 @@ import {
 } from "amazon-cognito-identity-js";
 
 // sets up Cognito User pool data
-const userPool = new CognitoUserPool(POOL_DATA);
+//const userPool = new CognitoUserPool(POOL_DATA);
 
 //get access to Vuex router
 //const router = useRouter();
 
+/*  
+Create a user pool object
+The object parameter references the Cognito user pool data held in a constant that we 
+setup in the Configure application to use Cognito User Pool section
+*/
+const userPool = new CognitoUserPool(POOL_DATA);
+let router;
+
 export default{
-name: "LoginPage",
-components: {ActionButton, TextInput},
-data(){
-    return {
-        correo: "",
-        passwd:"",
+    name: "LoginPage",
+    components: {ActionButton, TextInput},
+    data(){
+        return {
+            correo: "",
+            passwd:"",
+            router: null,
+
+        }
+    },
+    setup() {
+        //get access to Vuex router
+        router = useRouter();
+    },
+    methods:{
+        login() {
+            // sets up Cognito authentication data from sign in form
+            const authData = {
+                Username: this.correo,
+                Password: this.passwd,
+            };
+
+            // sets up authentication details - includes username and user pool info
+            const authDetails = new AuthenticationDetails(authData);
+            console.log(authDetails)
+            const userData = {
+                Username: authData.Username,
+                Pool: userPool,
+            };
+            // creates a Cognito User object based on user auth details and user pool info
+            const cognitoUser = new CognitoUser(userData);
+            console.log(cognitoUser)
+            
+            //calls the authenticate user method
+            cognitoUser.authenticateUser(authDetails, {
+                onSuccess (Session){
+                    console.log(Session)
+
+                    router.replace({
+                        name: "Home",
+                        params: {
+                        message: "You have successfully confirmed your account",
+                        },
+                    });
+                },
+                onFailure(error){
+                    console.log(error);
+                }
+
+            });   
+        },
 
     }
-},
-methods:{
-    login() {
-        // sets up Cognito authentication data from sign in form
-        const authData = {
-            Username: this.correo,
-            Password: this.passwd,
-        };
-
-        // sets up authentication details - includes username and user pool info
-        const authDetails = new AuthenticationDetails(authData);
-        console.log(authDetails)
-        const userData = {
-            Username: authData.Username,
-            Pool: userPool,
-        };
-        // creates a Cognito User object based on user auth details and user pool info
-        const cognitoUser = new CognitoUser(userData);
-        console.log(cognitoUser)
-        
-        //calls the authenticate user method
-        cognitoUser.authenticateUser(authDetails, {
-            onSuccess (Session){
-                console.log(Session)
-            },
-            onFailure(error){
-                console.log(error);
-            }
-
-        });   
-    },
-
-}
 }
 
 </script>
