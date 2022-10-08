@@ -97,10 +97,17 @@ export default{
 
     methods:{
         async registrar() {
+            let emailString = this.correo.toLowerCase()
+
+            if (!this.validarCorreo(emailString)) {
+                console.log("Debe ser correo del itam")
+                return
+            }
+
             const attrList = [];
             const emailAttribute = {
                 Name: "email",
-                Value: this.correo,
+                Value: emailString,
             };
             const nameAttribute = {
                 Name: "name",
@@ -119,6 +126,7 @@ export default{
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
             console.log(attrList)
+
             await userPool.signUp(this.correo, this.psswd, attrList, null, (err, result ) => {
                 if (err) {
                     console.log(err)
@@ -127,14 +135,16 @@ export default{
                 console.log(result)
 
                 router.replace({
-                    name: "Home",
-                    params: {
-                        message: "You have successfully confirmed your account",
-                    },
+                    name: "Confirm",
                 });
             });
 
         },
+
+        //Migrar esto a validator.js
+        validarCorreo(correo) {
+            return correo.endsWith("@itam.mx")
+        }
     },
 }
 
