@@ -14,7 +14,7 @@
                         <label class="mt-6">Código</label>
                         <TextInput v-model="codigo" placeholder=""/>
                         
-                        <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
+                        <CustomLabel class="bad" text="Código Incorrecto" v-if="error"/>
                             
                             <div class="grid grid-cols-1">
                                 <ActionButton text="Confirmar" @click="confirmar" type="primary"/>
@@ -39,6 +39,7 @@ import { useRouter } from "vue-router";
 import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js";
 
 
+
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
@@ -54,6 +55,7 @@ export default{
         return {
             correo:"",
             codigo:"",
+            error: false,
         }
     },
     setup(){
@@ -81,6 +83,7 @@ export default{
             await cognitUser.confirmRegistration(this.codigo, true, (err, result) => {
                 if (err) {
                     //setMessage(err.message, "alert-danger");
+                    this.error = true
                     return;
                 }
 

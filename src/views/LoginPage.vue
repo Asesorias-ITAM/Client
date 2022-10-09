@@ -12,7 +12,9 @@
                         <TextInput v-model="correo" placeholder=""/>
                         <label>Contraseña</label>
                         <TextInput type="password" v-model="passwd" placeholder=""/>
+                        
                         <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto"/>
+
                         <div class="grid grid-cols-1">
                             <ActionButton text="Iniciar Sesión" @click="login" type="primary"/>
                             <router-link to="/register" class="text-center mb-6">¿No tienes cuenta? Regístrate</router-link>

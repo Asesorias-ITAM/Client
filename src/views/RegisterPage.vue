@@ -6,11 +6,11 @@
                 <div class="text-2xl subpixel-antialiased font-sans ">
                     <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
                         <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
-                        <div id="registro" class="flex flex-col mx-14 ">
+                        <div id="registro" class="flex flex-col mx-14 mb-2">
                             
                             <CustomLabel class="bad" :text="error" v-if="error!==''"/>
 
-                            <label class="mt-6">Correo Electrónico</label>
+                            <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" placeholder=""/>
                             
                             
@@ -51,6 +51,8 @@
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
+
+import {validateRegisterForm } from "@/utils/validator.js"
 
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
@@ -99,8 +101,22 @@ export default{
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
+            const datos = {
+                correo: emailString,
+                nombre: this.nombre,
+                apellido: this.apellido,
+                passwd: this.passwd,
+            }
+
+            if (!validateRegisterForm(datos)){
+                this.error = "Todos los campos deben contener información"
+                
+                return
+            }
+
             if (!this.validarCorreo(emailString)) {
-                console.log("Debe ser correo del itam")
+                this.error = "Se debe utilizar el correo del ITAM"
+                
                 return
             }
 
@@ -111,11 +127,11 @@ export default{
             };
             const nameAttribute = {
                 Name: "name",
-                Value: this.nombre,
+                Value: datos.nombre,
             };
             const familyAttribute = {
                 Name: "family_name",
-                Value: this.apellido,
+                Value: datos.apellido,
             };
             const asesorAttribute = {
                 Name: 'custom:Asesor',
@@ -127,11 +143,12 @@ export default{
             attrList.push(new CognitoUserAttribute(asesorAttribute));
             console.log(attrList)
 
-            await userPool.signUp(this.correo, this.psswd, attrList, null, (err, result ) => {
+            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, result ) => {
                 if (err) {
                     console.log(err)
                     return
                 }
+                this.error=""
                 console.log(result)
 
                 router.replace({
