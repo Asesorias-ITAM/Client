@@ -105,7 +105,7 @@ export default{
                 correo: emailString,
                 nombre: this.nombre,
                 apellido: this.apellido,
-                passwd: this.passwd,
+                passwd: this.psswd,
             }
 
             if (!validateRegisterForm(datos)){
