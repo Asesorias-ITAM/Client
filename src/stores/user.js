@@ -4,7 +4,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
-export const useCounterStore = defineStore('counter', {
+export const useMainStore = defineStore('main', {
   state: () => (
       { 
         cognitoUserName: null,

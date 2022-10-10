@@ -34,6 +34,8 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
+import { useUserStore } from '@/stores/user.js'
+
 import { useRouter } from "vue-router";
 import { POOL_DATA } from "@/config/cognito.js";
 import {
@@ -58,6 +60,13 @@ export default{
     setup() {
         //get access to Vuex router
         router = useRouter();
+        const store = useUserStore()
+
+        return {
+            // you can return the whole store instance to use it in the template
+            store,
+        }
+
     },
     data(){
         return {
