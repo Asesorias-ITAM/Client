@@ -19,7 +19,8 @@
                             <ActionButton text="Iniciar Sesión" @click="login" type="primary"/>
                             <router-link to="/register" class="text-center mb-6">¿No tienes cuenta? Regístrate</router-link>
                         </div>
-
+                        {{store.test}}
+                        {{store.doubleTest}}
                     </div>
                 </div>
             </div>
@@ -35,6 +36,7 @@ import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
 import { useUserStore } from '@/stores/user.js'
+//import { storeToRefs } from 'pinia'
 
 import { useRouter } from "vue-router";
 import { POOL_DATA } from "@/config/cognito.js";
@@ -53,6 +55,7 @@ setup in the Configure application to use Cognito User Pool section
 // sets up Cognito User pool data
 const userPool = new CognitoUserPool(POOL_DATA);
 let router;
+//let store;
 
 export default{
     name: "LoginPage",
@@ -61,18 +64,19 @@ export default{
         //get access to Vuex router
         router = useRouter();
         const store = useUserStore()
-
+        //const { test} = storeToRefs(store)
+        store.test++
         return {
             // you can return the whole store instance to use it in the template
-            store,
+            store
         }
-
     },
     data(){
         return {
             correo: "",
             passwd:"",
             incorrecto: false,
+            
         }
     },
     computed:{
@@ -80,7 +84,8 @@ export default{
     },
     methods:{
         login() {
-            console.log(this.incorrecto)
+            //console.log(this.store.test)
+            //console.log(this.incorrecto)
             
             // sets up Cognito authentication data from sign in form
             const authData = {
@@ -104,11 +109,13 @@ export default{
             cognitoUser.authenticateUser(authDetails, {
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
-                    console.log(Session)
-
+                    //console.log(Session)
+                    this.setUserSessionInfo(Session)
                     router.replace({
                         name: "Home",
                     });
+                    //console.log(Session.idToken.payload)
+                    //console.log(Session.idToken.payload.aud)
                     this.incorrecto=false;
                 },
                 onFailure: error => {
@@ -120,6 +127,37 @@ export default{
 
             });   
         },
+
+        setUserSessionInfo(session){
+            //console.log(session)
+            // starts timer to auto logout after 1 hour
+            setTimeout(() =>  {
+                this.store.autoLogout();
+                console.log("auto logging out");
+                router.replace({
+                    name: "Login",
+                });
+                alert("You have been automatically logged out");
+            }, this.autoTimeout(session));
+
+            this.store.login(session)
+        },
+
+        // calculates when user will be auto logged out
+        autoTimeout(result) {
+            const seconds_timeout = 3600;
+                  // sets user login to expire after 1 hour
+            const expirationDate =
+                +result.idToken.payload["auth_time"] + seconds_timeout;
+                console.log(
+                    "Auth Time " + +result.idToken.payload["auth_time"],
+                    " Expire Date " + expirationDate
+                );
+            let expires_millseconds =
+                (expirationDate - +result.idToken.payload["auth_time"]) * 1000;
+            console.log("Expires in milliseconds ", expires_millseconds);
+            return expires_millseconds;
+        }
 
     }
 }

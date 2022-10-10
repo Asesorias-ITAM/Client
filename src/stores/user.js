@@ -4,7 +4,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
-export const useMainStore = defineStore('main', {
+export const useUserStore = defineStore('user', {
   state: () => (
       { 
         cognitoUserName: null,
@@ -18,6 +18,7 @@ export const useMainStore = defineStore('main', {
         session: null,
         // gets reference to the Cognito user pool
         userPool: new CognitoUserPool(POOL_DATA),
+        test: 14,
 
       }
     ),
@@ -25,9 +26,39 @@ export const useMainStore = defineStore('main', {
 
     //gets current logged in user
     cognitoUser: (state) => state.userPool.getCurrentUser(),
+    doubleTest: (state) => state.test*2
     
   },
   actions: {
-    
+    incrementTest(state) {
+      state.test++
+    },
+
+    logout(){
+      // gets reference to the Cognito user pool
+      const userPool = new CognitoUserPool(POOL_DATA);
+      //gets current logged in user
+      const cognitoUser = userPool.getCurrentUser();
+
+      localStorage.clear();
+
+      cognitoUser.signOut();
+
+      this.isAuthenticated = false
+    },
+
+    autoLogout(state){
+      this.didAutoLogout = true
+      this.logout(state)
+    },
+
+    login(Session){
+      this.session = Session
+      this.idToken = Session.getIdToken().getJwtToken()
+      
+      this.isAuthenticated = true
+      
+      console.log(this.session.idToken.payload.email)
+    }
   },
 })
