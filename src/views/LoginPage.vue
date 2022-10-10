@@ -19,8 +19,6 @@
                             <ActionButton text="Iniciar Sesión" @click="login" type="primary"/>
                             <router-link to="/register" class="text-center mb-6">¿No tienes cuenta? Regístrate</router-link>
                         </div>
-                        {{store.test}}
-                        {{store.doubleTest}}
                     </div>
                 </div>
             </div>
@@ -64,8 +62,6 @@ export default{
         //get access to Vuex router
         router = useRouter();
         const store = useUserStore()
-        //const { test} = storeToRefs(store)
-        store.test++
         return {
             // you can return the whole store instance to use it in the template
             store
@@ -78,9 +74,6 @@ export default{
             incorrecto: false,
             
         }
-    },
-    computed:{
-        
     },
     methods:{
         login() {
@@ -118,8 +111,8 @@ export default{
                     //console.log(Session.idToken.payload.aud)
                     this.incorrecto=false;
                 },
-                onFailure: error => {
-                    console.log(error);
+                onFailure: () => {
+                    //console.log(error);
 
                     this.incorrecto=true;
                     
@@ -133,7 +126,7 @@ export default{
             // starts timer to auto logout after 1 hour
             setTimeout(() =>  {
                 this.store.autoLogout();
-                console.log("auto logging out");
+                //console.log("auto logging out");
                 router.replace({
                     name: "Login",
                 });

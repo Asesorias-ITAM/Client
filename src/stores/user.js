@@ -18,7 +18,6 @@ export const useUserStore = defineStore('user', {
         session: null,
         // gets reference to the Cognito user pool
         userPool: new CognitoUserPool(POOL_DATA),
-        test: 14,
 
       }
     ),
@@ -26,7 +25,6 @@ export const useUserStore = defineStore('user', {
 
     //gets current logged in user
     cognitoUser: (state) => state.userPool.getCurrentUser(),
-    doubleTest: (state) => state.test*2
     
   },
   actions: {
@@ -43,7 +41,7 @@ export const useUserStore = defineStore('user', {
       localStorage.clear();
 
       cognitoUser.signOut();
-
+      
       this.isAuthenticated = false
     },
 
@@ -55,10 +53,10 @@ export const useUserStore = defineStore('user', {
     login(Session){
       this.session = Session
       this.idToken = Session.getIdToken().getJwtToken()
-      
+      this.username = Session.idToken.payload["cognito:username"]
       this.isAuthenticated = true
+      this.email = Session.idToken.payload.email
       
-      console.log(this.session.idToken.payload.email)
     }
   },
 })

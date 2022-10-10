@@ -8,11 +8,12 @@
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
                 <div class="my-48"></div>
                 <MenuButton text="Mi Perfi" type="unPressed" class=""/>
-                <MenuButton text="Cerrar Sesión" type="unPressed" class="mt-10"/>
+                <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
             </div>
         </div>
         <div class="col-span-6 min-h-[90.2vh]  bg-gris-itam-1">
             <router-view name="grid"></router-view>
+            {{store.email}}
         </div>
 
     </div>
@@ -22,9 +23,32 @@
 <script>
 import MenuButton from "@/components/shared/MenuButton"
 
+import { useUserStore } from '@/stores/user.js'
+import { useRouter } from "vue-router";
+
+let router;
+
 export default {
     name: "HomePage",
-    components: {MenuButton}
+    components: {MenuButton},
+    setup(){
+        router = useRouter();
+        const store = useUserStore()
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
+    },
+    methods: {
+        logout(){
+            this.store.logout(); 
+            this.store.$reset()
+            console.log(this.store.session)
+            router.replace({
+                name: "Login",
+            });
+        }
+    }
 }
 
 </script>
