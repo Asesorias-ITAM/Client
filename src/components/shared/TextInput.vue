@@ -1,10 +1,10 @@
 <template>
     <input
-      type="text"
+      :type="type"
       :value="modelValue"
       :placeholder="placeholder"
       class="w-full text-lg font-normal border-2 mb-6 focus:outline-blue-500"
-      @input="handleInput"
+      @input="$emit('update:modelValue', $event.target.value)"
     />
 </template>
 
@@ -21,13 +21,16 @@ export default {
       type: String,
       required: true,
     },
+    type:{
+      type: String,
+      required: false,
+      default: "text"
+    }
   },
   emits: ["update:modelValue"],
-  methods: {
-    handleInput($event) {
-      this.$emit("update:modelValue", $event.target.value);
-    },
-  },
+  
+
+  
 };
 
 

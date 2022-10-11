@@ -6,24 +6,35 @@
                 <div class="text-2xl subpixel-antialiased font-sans ">
                     <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
                         <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
-                        <div id="registro" class="flex flex-col mx-14 ">
+                        <div id="registro" class="flex flex-col mx-14 mb-2">
                             
-                            <label class="mt-6">Correo Electrónico</label>
+                            <CustomLabel class="bad" :text="error" v-if="error!==''"/>
+
+                            <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" placeholder=""/>
+                            
+                            
                             <label>Nombres(s)</label>
                             <TextInput v-model="nombre" placeholder=""/>
+                            
+                            
                             <label>Apellidos</label>
                             <TextInput v-model="apellido" placeholder=""/>
+
                             <label>Contraseña</label>
-                            <TextInput v-model="passwd" placeholder=""/>
+                            <TextInput type="password" v-model="psswd" placeholder=""/>
+
                             <label>Confirma Contraseña</label>
-                            <TextInput v-model="passwd2" placeholder=""/>
+                            <TextInput type="password" v-model="psswd2" placeholder=""/>
+
+                            <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
+                            
                             <div class="grid grid-cols-1">
                                 <div>
                                     <label>Quiero ser asesor </label>
                                     <input id="" type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton text="Crear cuenta" @click="Registrar" type="primary"/>
+                                <ActionButton text="Crear cuenta" @click="registrar" type="primary"/>
                                 <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
 
@@ -39,30 +50,119 @@
 <script>
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
+import CustomLabel from "@/components/shared/CustomLabel"
 
+import {validateRegisterForm } from "@/utils/validator.js"
 
+//Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
+
+import { useRouter } from "vue-router";
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+} from "amazon-cognito-identity-js";
+import { POOL_DATA } from "@/config/cognito.js";
+
+//get access to Vuex router
+let router;
+        /*  
+        Create a user pool object
+        The object parameter references the Cognito user pool data held in a constant that we 
+        setup in the Configure application to use Cognito User Pool section
+        */
+const userPool = new CognitoUserPool(POOL_DATA);
 
 export default{
     name: "RegisterPage",
-    components: {ActionButton, TextInput},
+    components: {ActionButton, TextInput, CustomLabel},
     data(){
         return {
             nombre: "",
             apellido: "",
-            passwd: "",
-            passwd2: "",
+            psswd: "",
+            psswd2: "",
             correo: "",
-            asesor:0,
-            compara: true
+            asesor: false,
+            error: "",
 
         }
     },
+    setup() {
+        //get access to Vuex router
+        router = useRouter();
+    },
+    computed: {
+        compara(){
+            return this.psswd===this.psswd2
+        }
+    },
+
     methods:{
-        Registar() {
+        async registrar() {
+            let emailString = this.correo.toLowerCase()
+
+            const datos = {
+                correo: emailString,
+                nombre: this.nombre,
+                apellido: this.apellido,
+                passwd: this.psswd,
+            }
+
+            if (!validateRegisterForm(datos)){
+                this.error = "Todos los campos deben contener información"
+                
+                return
+            }
+
+            if (!this.validarCorreo(emailString)) {
+                this.error = "Se debe utilizar el correo del ITAM"
+                
+                return
+            }
+
+            const attrList = [];
+            const emailAttribute = {
+                Name: "email",
+                Value: emailString,
+            };
+            const nameAttribute = {
+                Name: "name",
+                Value: datos.nombre,
+            };
+            const familyAttribute = {
+                Name: "family_name",
+                Value: datos.apellido,
+            };
+            const asesorAttribute = {
+                Name: 'custom:Asesor',
+                Value: (this.asesor === true ? 1 : 0).toString(),
+            };
+            attrList.push(new CognitoUserAttribute(emailAttribute));
+            attrList.push(new CognitoUserAttribute(nameAttribute));
+            attrList.push(new CognitoUserAttribute(familyAttribute));
+            attrList.push(new CognitoUserAttribute(asesorAttribute));
+            console.log(attrList)
+
+            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, result ) => {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                this.error=""
+                console.log(result)
+
+                router.replace({
+                    name: "Confirm",
+                });
+            });
 
         },
 
-    }
+        //Migrar esto a validator.js
+        validarCorreo(correo) {
+            return correo.endsWith("@itam.mx")
+        }
+    },
 }
 
 </script>
