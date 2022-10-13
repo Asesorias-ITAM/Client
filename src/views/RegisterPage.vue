@@ -108,15 +108,10 @@ export default{
                 passwd: this.psswd,
             }
 
-            if (!validateRegisterForm(datos)){
-                this.error = "Todos los campos deben contener información"
-                
-                return
-            }
+            let validation = validateRegisterForm(datos)
 
-            if (!this.validarCorreo(emailString)) {
-                this.error = "Se debe utilizar el correo del ITAM"
-                
+            if (!validation[0]){
+                this.error=validation[1]
                 return
             }
 
@@ -158,10 +153,6 @@ export default{
 
         },
 
-        //Migrar esto a validator.js
-        validarCorreo(correo) {
-            return correo.endsWith("@itam.mx")
-        }
     },
 }
 
