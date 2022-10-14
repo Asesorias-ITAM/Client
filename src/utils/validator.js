@@ -13,7 +13,7 @@ export function validateRegisterForm(datos){
 }
 
 
-
+//Help
 export function validateConfirmationForm(datos){
     if (datos.correo === "" || datos.codigo==="" ) {
         return false
