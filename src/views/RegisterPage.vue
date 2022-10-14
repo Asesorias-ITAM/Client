@@ -8,13 +8,13 @@
                         <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 mb-2">
                             
-                            <CustomLabel class="bad" :text="error" v-if="error!==''"/>
+                            <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                             <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" placeholder=""/>
                             
                             
-                            <label>Nombres(s)</label>
+                            <label id="test">Nombres(s)</label>
                             <TextInput v-model="nombre" placeholder=""/>
                             
                             
@@ -27,14 +27,14 @@
                             <label>Confirma Contraseña</label>
                             <TextInput type="password" v-model="psswd2" placeholder=""/>
 
-                            <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
+                            <CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
                             <div class="grid grid-cols-1">
                                 <div>
                                     <label>Quiero ser asesor </label>
-                                    <input id="" type="checkbox" v-model="asesor" class="mb-6">
+                                    <input type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton text="Crear cuenta" @click="registrar" type="primary"/>
+                                <ActionButton data-test="register-button" text="Crear cuenta" @click="registrar" type="primary" :disabled="!compara"/>
                                 <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
 
@@ -108,15 +108,10 @@ export default{
                 passwd: this.psswd,
             }
 
-            if (!validateRegisterForm(datos)){
-                this.error = "Todos los campos deben contener información"
-                
-                return
-            }
+            let validation = validateRegisterForm(datos)
 
-            if (!this.validarCorreo(emailString)) {
-                this.error = "Se debe utilizar el correo del ITAM"
-                
+            if (!validation[0]){
+                this.error=validation[1]
                 return
             }
 
@@ -141,7 +136,7 @@ export default{
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
-            console.log(attrList)
+            
 
             await userPool.signUp(emailString, datos.passwd, attrList, null, (err, result ) => {
                 if (err) {
@@ -158,10 +153,6 @@ export default{
 
         },
 
-        //Migrar esto a validator.js
-        validarCorreo(correo) {
-            return correo.endsWith("@itam.mx")
-        }
     },
 }
 
