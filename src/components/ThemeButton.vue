@@ -74,7 +74,7 @@
   .switch-label {
     align-items: center;
     background: var(--text-primary-color);
-    border: calc(var(--element-size) * 0.025) solid var(--accent-color);
+    /*border: calc(var(--element-size) * 0.025) solid var(--accent-color);*/
     border-radius: var(--element-size);
     cursor: pointer;
     display: flex;
@@ -84,7 +84,7 @@
     padding: calc(var(--element-size) * 0.1);
     transition: background 0.5s ease;
     justify-content: space-between;
-    width: var(--element-size);
+    width: calc(var(--element-size) * 1.07);
     z-index: 1;
   }
   
@@ -92,8 +92,8 @@
     position: absolute;
     background-color: var(--background-color-primary);
     border-radius: 50%;
-    top: calc(var(--element-size) * 0.07);
-    left: calc(var(--element-size) * 0.07);
+    top: calc(var(--element-size) * 0.17);
+    left: calc(var(--element-size) * 0.15);
     height: calc(var(--element-size) * 0.4);
     width: calc(var(--element-size) * 0.4);
     transform: translateX(0);

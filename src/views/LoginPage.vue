@@ -4,11 +4,10 @@
 
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
-                <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
+                <div class=" mt-16 border-4 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
                     <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
-                    <div id="registro" class="flex flex-col mx-14 ">
-                        
-                        <label class="mt-6">Correo Electrónico</label>
+                    <div id="registro" class="flex flex-col mx-14">
+                        <label class="mt-6 text-texto-light-1 dark:text-texto-dark-1">Correo Electrónico</label>
                         <TextInput v-model="correo" placeholder=""/>
                         <label>Contraseña</label>
                         <TextInput type="password" v-model="passwd" placeholder=""/>
@@ -17,7 +16,9 @@
 
                         <div class="grid grid-cols-1">
                             <ActionButton text="Iniciar Sesión" @click="login" type="primary"/>
-                            <router-link to="/register" class="text-center mb-6">¿No tienes cuenta? Regístrate</router-link>
+                            <router-link to="/register" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1">
+                                ¿No tienes cuenta? Regístrate
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -138,8 +139,7 @@ export default{
 
         // calculates when user will be auto logged out
         autoTimeout(result) {
-            const seconds_timeout = 3600;
-                  // sets user login to expire after 1 hour
+            const seconds_timeout = 3600; // sets user login to expire after 1 hour
             const expirationDate =
                 +result.idToken.payload["auth_time"] + seconds_timeout;
                 console.log(
