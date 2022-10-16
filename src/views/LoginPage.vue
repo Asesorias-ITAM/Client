@@ -1,4 +1,5 @@
 <template>
+    <form>
     <div class="grid grid-cols-3 min-h-full">
         <div class="col-span-1 min-h-full"></div>
 
@@ -27,6 +28,7 @@
 
         <div class="col-span-1 min-h-full"></div>
     </div>
+    </form>
 </template>
 
 <script>

@@ -13,12 +13,11 @@
 
 <script>
 
-import ThemeButton from '@/components/ThemeButton.vue'; 
 import ThemeButton2 from '@/components/ThemeButton2.vue'; 
 
 export default{
     name: "UpperBar",
-    components: { ThemeButton, ThemeButton2 },
+    components: { ThemeButton2 },
 }
 
 </script>
@@ -28,25 +27,25 @@ html.dark {
   color-scheme: dark;
 }
 
-body {
-    @apply bg-zinc-50 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-50;
-}
+/*body {
+    /*@apply bg-zinc-50 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-50;
+}*/
 
 :root {
---background-color-primary: #ebebeb;
-/*--text-primary-color: #222;*/
-/*--background-color-secondary: #fafafa;
---accent-color: #cacaca;*/
---element-size: 4rem;
-
+    /*--background-color-primary: #ebebeb;*/
+    /*--text-primary-color: #222;*/
+    /*--background-color-secondary: #fafafa;
+    --accent-color: #cacaca;*/
+    --element-size: 4rem;
+    /*position:sticky;*/
 }
 
-:root.isDark {
---background-color-primary: #1e1e1e;
+/*:root.isDark {
+/*--background-color-primary: #1e1e1e;*/
 /*--text-primary-color: #ddd;*/
 /*--background-color-secondary: #2d2d30;
---accent-color: #3f3f3f;*/
-}
+--accent-color: #3f3f3f;
+}*/
 
 .card {
   /*padding: 0rem 2rem;*/

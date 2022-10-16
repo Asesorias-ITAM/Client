@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-7">
+    <div class="grid grid-cols-7 bgfondo-dark-1">
         <div class="col-span-1 min-h-[90.2vh] bg-verde-itam-2">
             <div class="flex flex-col justify-items-center px-14 text-center text-2xl">
                 <div class=""></div>
