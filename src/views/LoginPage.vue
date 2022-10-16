@@ -1,5 +1,4 @@
 <template>
-    <form>
     <div class="grid grid-cols-3 min-h-full">
         <div class="col-span-1 min-h-full"></div>
 
@@ -9,9 +8,9 @@
                     <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
                     <div id="registro" class="flex flex-col mx-14">
                         <label class="mt-6 text-texto-light-1 dark:text-texto-dark-1">Correo Electrónico</label>
-                        <TextInput v-model="correo" placeholder=""/>
+                        <TextInput v-model="correo" v-on:keyup.enter="onEnter" placeholder=""/>
                         <label>Contraseña</label>
-                        <TextInput type="password" v-model="passwd" placeholder=""/>
+                        <TextInput type="password" v-model="passwd" v-on:keyup.enter="onEnter" placeholder=""/>
                         
                         <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto"/>
 
@@ -28,7 +27,6 @@
 
         <div class="col-span-1 min-h-full"></div>
     </div>
-    </form>
 </template>
 
 <script>
@@ -65,6 +63,13 @@ export default{
         //get access to Vuex router
         router = useRouter();
         const store = useUserStore()
+        
+        /*document.querySelector("#addPwd").addEventListener("keyup", event => {
+            if(event.key !== "Enter") return; // Use `.key` instead.
+            document.querySelector("#login").click(); // Things you want to do.
+            event.preventDefault(); // No need to `return false;`.
+        });*/
+
         return {
             // you can return the whole store instance to use it in the template
             store
@@ -79,10 +84,14 @@ export default{
         }
     },
     methods:{
+        onEnter() {
+            // Hace que al presionar enter se presione el botón de log in
+            // Make sure this code gets executed after the DOM is loaded.
+            this.login();
+        },
         login() {
             //console.log(this.store.test)
             //console.log(this.incorrecto)
-            
             // sets up Cognito authentication data from sign in form
             const authData = {
                 Username: this.correo,

@@ -8,6 +8,10 @@
   export default {
     name: "ActionButton",
     props: {
+      id: {
+        type: String,
+        require: true,
+      },
       text: {
         type: String,
         required: true,
