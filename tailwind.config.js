@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         /*Fondos*/
         "fondo-light-1": "#ffffff",
+        "fondo-light-2": "#e1e1e1",
         "verde-itam-1": "#006853",
         "verde-itam-2": "#028067",
         "gris-itam-1": "#f7f6f6",

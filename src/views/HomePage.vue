@@ -7,11 +7,11 @@
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
                 <div class="my-48"></div>
-                <MenuButton text="Mi Perfi" type="unPressed" class=""/>
+                <MenuButton text="Mi Perfil" type="unPressed" class=""/>
                 <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
             </div>
         </div>
-        <div class="col-span-6 min-h-[90.2vh]  bg-gris-itam-1">
+        <div class="col-span-6 min-h-[90.2vh]">
             <router-view name="grid"></router-view>
             {{store.email}}
         </div>
