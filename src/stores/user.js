@@ -3,6 +3,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
+import axios from 'axios';
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -70,8 +71,20 @@ export const useUserStore = defineStore('user', {
     },
 
     //checa si ya existe el usuario
-    checkUser(user){
+    async checkUser(user){
       console.log(user)
+        try{
+          const res = await axios.post("http://localhost:5000/users/check",user)
+          if (res.status===200){
+            return true
+
+          }else{
+            throw new Error()
+          }
+        }catch (err) {
+          console.log(err)
+          return false
+        } 
     }
   },
 })

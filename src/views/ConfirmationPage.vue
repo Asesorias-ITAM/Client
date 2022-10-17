@@ -87,11 +87,16 @@ export default{
             users email address used to when signing up
             */
            //userData.Username
-            this.store.confirmUser({
+            /* this.store.confirmUser({
                     "correo" :userData.Username, 
                     "confirmed": true
-            })
+            }) */
+
+            if(! await this.store.checkUser({"correo" :userData.Username})){
+                return
+            }
             
+
             await cognitoUser.confirmRegistration(this.codigo, true, (err, /*result*/) => {
                 if (err) {  
                     //setMessage(err.message, "alert-danger");

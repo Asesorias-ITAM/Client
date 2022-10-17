@@ -96,8 +96,8 @@ export default{
             };
             // creates a Cognito User object based on user auth details and user pool info
             const cognitoUser = new CognitoUser(userData);
-            console.log("Pre Autenticación")
-            console.log(cognitoUser)
+            //console.log("Pre Autenticación")
+            //console.log(cognitoUser)
             //console.log(Object.keys(cognitoUser["signInUserSession"]))
             //https://bitcoden.com/answers/component-variable-cant-be-modified-in-a-callback-method-in-vuejs
             //calls the authenticate user method
