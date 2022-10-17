@@ -5,7 +5,7 @@
                 <h1 class="text-texto-light-2 text-7xl font-bold">ASESORÍAS ITAM</h1>
             </div>
             <div class="card" >
-                <ThemeButton2/>
+                <ThemeButton/>
             </div>
         </div>
     </header>
@@ -13,11 +13,11 @@
 
 <script>
 
-import ThemeButton2 from '@/components/ThemeButton2.vue'; 
+import ThemeButton from '@/components/ThemeButton.vue'; 
 
 export default{
     name: "UpperBar",
-    components: { ThemeButton2 },
+    components: { ThemeButton },
 }
 
 </script>
@@ -52,7 +52,6 @@ html.dark {
   position: absolute; /* usar fixed para mantener el botón en la página aunque nos movamos hacia abajo*/
   top: 32px;
   right: 200px;
-  background-color: #1e1e1e;
   height: 30px;
   width: 50px;
   text-align: right;
