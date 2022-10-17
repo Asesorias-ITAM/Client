@@ -53,7 +53,7 @@ const toggleDark = useToggle(isDark)
   display: flex; /*inline-block*/ 
   font-size: calc(var(--element-size) * 0.46);
   height: calc(var(--element-size) * 0.55); 
-  position: fixed;
+  position: absolute;
   padding: calc(var(--element-size) * 0.1);
   transition: background 0.5s ease;
   justify-content: space-between;

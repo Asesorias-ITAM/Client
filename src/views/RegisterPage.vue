@@ -4,28 +4,26 @@
 
             <div class="col-span-1 min-h-full">
                 <div class="text-2xl subpixel-antialiased font-sans ">
-                    <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
-                        <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
+                    <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
+                        <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 mb-2">
                             
                             <CustomLabel class="bad" :text="error" v-if="error!==''"/>
 
                             <label class="mt-2">Correo Electrónico</label>
-                            <TextInput v-model="correo" placeholder=""/>
-                            
+                            <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
                             <label>Nombres(s)</label>
-                            <TextInput v-model="nombre" placeholder=""/>
-                            
+                            <TextInput v-model="nombre" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
                             <label>Apellidos</label>
-                            <TextInput v-model="apellido" placeholder=""/>
+                            <TextInput v-model="apellido" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
                             <label>Contraseña</label>
-                            <TextInput type="password" v-model="psswd" placeholder=""/>
+                            <TextInput type="password" v-model="psswd" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
                             <label>Confirma Contraseña</label>
-                            <TextInput type="password" v-model="psswd2" placeholder=""/>
+                            <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
                             <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
@@ -35,7 +33,9 @@
                                     <input id="" type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
                                 <ActionButton text="Crear cuenta" @click="registrar" type="primary"/>
-                                <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
+                                <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1">
+                                    ¿Ya tienes cuenta? Inicia Sesión
+                                </router-link>
                             </div>
 
                         </div>
@@ -98,6 +98,10 @@ export default{
     },
 
     methods:{
+        onEnter() {
+            // Presionar enter para registrarse
+            this.login();
+        },
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
@@ -167,3 +171,8 @@ export default{
 
 </script>
 
+<style>
+.textBox {
+    border-radius: 7px;
+}
+</style>

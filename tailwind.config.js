@@ -31,6 +31,9 @@ module.exports = {
         "boton-tema-dark": "#94a3b8", /*slate-400*/
 
         /*Misc*/
+        "borde-light-1": "#e5e7eb", /*Bordes de login y registro*/
+        "borde-dark-1": "#3e434c",
+
         "color-prueba": "#ff0000" /*Un color llamativo para comprobar que se realizó un cambio*/
       },
     },

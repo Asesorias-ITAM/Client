@@ -4,13 +4,13 @@
 
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
-                <div class=" mt-16 border-4 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
-                    <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
+                <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl dark:drop-shadow-2x1">
+                    <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                     <div id="registro" class="flex flex-col mx-14">
                         <label class="mt-6 text-texto-light-1 dark:text-texto-dark-1">Correo Electrónico</label>
-                        <TextInput v-model="correo" v-on:keyup.enter="onEnter" placeholder=""/>
+                        <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                         <label>Contraseña</label>
-                        <TextInput type="password" v-model="passwd" v-on:keyup.enter="onEnter" placeholder=""/>
+                        <TextInput type="password" v-model="passwd" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                         
                         <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto"/>
 
@@ -64,12 +64,6 @@ export default{
         router = useRouter();
         const store = useUserStore()
         
-        /*document.querySelector("#addPwd").addEventListener("keyup", event => {
-            if(event.key !== "Enter") return; // Use `.key` instead.
-            document.querySelector("#login").click(); // Things you want to do.
-            event.preventDefault(); // No need to `return false;`.
-        });*/
-
         return {
             // you can return the whole store instance to use it in the template
             store
@@ -78,15 +72,14 @@ export default{
     data(){
         return {
             correo: "",
-            passwd:"",
+            passwd: "",
             incorrecto: false,
             
         }
     },
     methods:{
         onEnter() {
-            // Hace que al presionar enter se presione el botón de log in
-            // Make sure this code gets executed after the DOM is loaded.
+            // Presionar enter para hacer log in
             this.login();
         },
         login() {
@@ -168,3 +161,8 @@ export default{
 
 </script>
 
+<style>
+.textBox {
+    border-radius: 7px;
+}
+</style>

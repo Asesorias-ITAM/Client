@@ -49,7 +49,7 @@ html.dark {
 
 .card {
   /*padding: 0rem 2rem;*/
-  position: fixed; /*Mantiene el botón en la página aunque nos movamos hacia abajo*/
+  position: absolute; /* usar fixed para mantener el botón en la página aunque nos movamos hacia abajo*/
   top: 32px;
   right: 200px;
   background-color: #1e1e1e;
