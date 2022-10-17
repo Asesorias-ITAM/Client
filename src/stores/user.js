@@ -57,6 +57,21 @@ export const useUserStore = defineStore('user', {
       this.isAuthenticated = true
       this.email = Session.idToken.payload.email
       
+    },
+
+    //Agrega usuario al directorio
+    addUser(user){
+      console.log(user)
+      //asesorias-itam-cracop.koyeb.app/api/test
+    },
+    //Cambia el campo de comfirmed a true
+    confirmUser(user){
+      console.log(user)
+    },
+
+    //checa si ya existe el usuario
+    checkUser(user){
+      console.log(user)
     }
   },
 })

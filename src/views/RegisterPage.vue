@@ -54,6 +54,7 @@ import CustomLabel from "@/components/shared/CustomLabel"
 
 import {validateRegisterForm } from "@/utils/validator.js"
 
+import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
 import { useRouter } from "vue-router";
@@ -90,6 +91,11 @@ export default{
     setup() {
         //get access to Vuex router
         router = useRouter();
+        const store = useUserStore()
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
     },
     computed: {
         compara(){
@@ -136,16 +142,25 @@ export default{
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
-            
 
-            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, result ) => {
+            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, /*result*/ ) => {
                 if (err) {
                     console.log(err)
+
                     return
                 }
                 this.error=""
-                console.log(result)
+                const newUser = {"nombre": nameAttribute.Value,
+                    "apellido": familyAttribute.Value, 
+                    "correo": emailAttribute.Value, 
+                    "asesor": asesorAttribute.Value, 
+                    "confirmed": false}
 
+                this.store.addUser(newUser)
+                //console.log(result)
+                //Llamo a la api y creo el nuevo usuario sin ser confirmado
+                //Call API add
+                
                 router.replace({
                     name: "Confirm",
                 });
