@@ -107,6 +107,11 @@ export default{
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
+            if(await this.store.checkUser({"correo" :emailString})){
+                this.error="Ya existe un usuario con ese correo"
+                return
+            }
+
             const datos = {
                 correo: emailString,
                 nombre: this.nombre,
