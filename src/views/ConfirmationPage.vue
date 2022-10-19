@@ -87,7 +87,7 @@ export default{
             users email address used to when signing up
             */
            //userData.Username
-             this.store.confirmUser({
+                 this.store.confirmUser({
                     "correo" :userData.Username, 
                     "confirmed": true
             })
