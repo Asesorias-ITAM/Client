@@ -33,7 +33,6 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
-
 import { useUserStore } from '@/stores/user.js'
 //import { storeToRefs } from 'pinia'
 
@@ -96,27 +95,25 @@ export default{
             };
             // creates a Cognito User object based on user auth details and user pool info
             const cognitoUser = new CognitoUser(userData);
-            //console.log("Pre Autenticación")
             //console.log(cognitoUser)
-            //console.log(Object.keys(cognitoUser["signInUserSession"]))
             //https://bitcoden.com/answers/component-variable-cant-be-modified-in-a-callback-method-in-vuejs
             //calls the authenticate user method
             
             cognitoUser.authenticateUser(authDetails, {
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
+                    //console.log(Session)
                     this.setUserSessionInfo(Session)
-                    /* router.replace({
+                    router.replace({
                         name: "Home",
-                    }); */
-                    //console.log("Post Autenticación")
-                    //console.log(cognitoUser)
+                    });
                     //console.log(Session.idToken.payload)
                     //console.log(Session.idToken.payload.aud)
                     this.incorrecto=false;
                 },
                 onFailure: () => {
                     //console.log(error);
+
                     this.incorrecto=true;
                     
                 }
