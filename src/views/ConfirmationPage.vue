@@ -38,7 +38,7 @@ import CustomLabel from "@/components/shared/CustomLabel"
 import { useRouter } from "vue-router";
 import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js";
 
-
+import { useUserStore } from '@/stores/user.js'
 
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
@@ -60,7 +60,15 @@ export default{
     },
     setup(){
         router = useRouter();
+        //get access to Vuex router
+        router = useRouter();
+        const store = useUserStore()
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
     },
+
     methods: {
         async confirmar(){
 
@@ -72,22 +80,29 @@ export default{
             /*
             creates a Cognito User object and accepts the userData object
             */
-            const cognitUser = new CognitoUser(userData);
-            console.log(cognitUser);
-
+            const cognitoUser = new CognitoUser(userData);
             /*
             calls the Cognito confirm registration method
             the method accepts the confirmation code sent to the
             users email address used to when signing up
             */
-            await cognitUser.confirmRegistration(this.codigo, true, (err, result) => {
-                if (err) {
+           //userData.Username
+             this.store.confirmUser({
+                    "correo" :userData.Username, 
+                    "confirmed": true
+            })
+            
+
+            await cognitoUser.confirmRegistration(this.codigo, true, (err, /*result*/) => {
+                if (err) {  
                     //setMessage(err.message, "alert-danger");
                     this.error = true
                     return;
                 }
+                
 
-                console.log(result);
+                //Llamo a la API y activo el usuario
+                //call api confirm 
 
                 router.replace({
                     name: "Login",
