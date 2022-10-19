@@ -106,9 +106,9 @@ export default{
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
-                    /* router.replace({
+                    router.replace({
                         name: "Home",
-                    }); */
+                    });
                     //console.log("Post Autenticación")
                     //console.log(cognitoUser)
                     //console.log(Session.idToken.payload)

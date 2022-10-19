@@ -4,9 +4,9 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 import axios from 'axios';
-
-const API_URL = "http://localhost:5000";
-
+//http://localhost:5000
+const API_URL = "https://asesorias-itam-cracop.koyeb.app";
+//asesorias-itam-cracop.koyeb.app/api/test/
 export const useUserStore = defineStore('user', {
   state: () => (
       { 
