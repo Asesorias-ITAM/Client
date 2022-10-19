@@ -33,7 +33,7 @@ describe("RegisterPage", () =>{
             nombre: "Corlys",
             apellido: "Velaryon",
             psswd: "l",
-            correo: "hello@gmail.com", 
+            correo: "hello@itam.mx", 
 
         })
 
@@ -42,6 +42,30 @@ describe("RegisterPage", () =>{
         await button.trigger("click");
         const errorMSG = wrapper.find("[data-test='field-validator']");
         expect(errorMSG.text()).toBe("La contraseña debe ser al menos 6 caracteres")
+
+    })
+
+    it("Saca error si el correo no es del ITAM", async () =>{
+        const wrapper = mount(RegisterPage, {
+            global: {
+              stubs: { "router-link": RouterLinkStub },
+            },
+            
+        });
+        await wrapper.setData({
+            
+            nombre: "Corlys",
+            apellido: "Velaryon",
+            psswd: "l",
+            correo: "hello@gmail.com", 
+
+        })
+
+        console.log(wrapper.vm.psswd)
+        const button = wrapper.find("[data-test='register-button']");
+        await button.trigger("click");
+        const errorMSG = wrapper.find("[data-test='field-validator']");
+        expect(errorMSG.text()).toBe("Se debe utilizar el correo del ITAM")
 
     })
 })

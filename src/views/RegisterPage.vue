@@ -8,7 +8,7 @@
                         <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 mb-2">
                             
-                            <CustomLabel class="bad" :text="error" v-if="error!==''"/>
+                            <CustomLabel data-test='field-validator' class="bad" :text="error" v-if="error!==''"/>
 
                             <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
@@ -25,14 +25,14 @@
                             <label>Confirma Contraseña</label>
                             <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
-                            <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
+                            <CustomLabel data-test='password-validator' class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
                             <div class="grid grid-cols-1">
                                 <div>
                                     <label>Quiero ser asesor </label>
                                     <input id="" type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton text="Crear cuenta" @click="registrar" type="primary"/>
+                                <ActionButton data-test='register-button' text="Crear cuenta" @click="registrar" type="primary"/>
                                 <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1">
                                     ¿Ya tienes cuenta? Inicia Sesión
                                 </router-link>
@@ -114,13 +114,16 @@ export default{
 
             if (!validateRegisterForm(datos)){
                 this.error = "Todos los campos deben contener información"
-                
                 return
             }
 
             if (!this.validarCorreo(emailString)) {
                 this.error = "Se debe utilizar el correo del ITAM"
-                
+                return
+            }
+
+            if(this.psswd.trim().length < 6) {
+                this.error = "La contraseña debe ser al menos 6 caracteres"
                 return
             }
 
