@@ -3,8 +3,13 @@ import {mount, RouterLinkStub} from "@vue/test-utils";
 
 describe("RegisterPage", () =>{
     
-    it("Saca error si no hay información en todos los campos", async () =>{
-        const wrapper = mount(RegisterPage, {});
+    it("Saca error si no hay información en todos los campos", async () => {
+        const wrapper = mount(RegisterPage, {
+            global: {
+                //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
+                stubs: ["router-link"],
+            },
+        });
         
         const button = wrapper.find("[data-test='register-button']");
         await button.trigger("click");
@@ -13,8 +18,13 @@ describe("RegisterPage", () =>{
 
     })
 
-    it("Saca error si el correo no es del ITAM", async () =>{
-        const wrapper = mount(RegisterPage, {});
+    it("Saca error si el correo no es del ITAM", async () => {
+        const wrapper = mount(RegisterPage, {
+            global: {
+                //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
+                stubs: ["router-link"],
+            },
+        });
         await wrapper.setData({
             
             nombre: "Corlys",
@@ -32,8 +42,13 @@ describe("RegisterPage", () =>{
 
     })
 
-    it("Saca error si la contraseña no contiene mínimo 6 caracteres", async () =>{
-        const wrapper = mount(RegisterPage, {});
+    it("Saca error si la contraseña no contiene mínimo 6 caracteres", async () => {
+        const wrapper = mount(RegisterPage, {
+            global: {
+                //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
+                stubs: ["router-link"],
+            },
+        });
         await wrapper.setData({
             
             nombre: "Corlys",
@@ -51,7 +66,7 @@ describe("RegisterPage", () =>{
 
     })
     
-    it("Saca error si no redirecciona al login", async () =>{
+    it("Saca error si no redirecciona al login", async () => {
         const wrapper = mount(RegisterPage, {
             global: {
               //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
@@ -60,14 +75,15 @@ describe("RegisterPage", () =>{
             
         });
 
-        const back_to_login = wrapper.find("[data-test='back-to-login']")
-        //console.log(aWrapper.attributes().to)
-        expect(back_to_login.attributes().to).toBe('/')
+        const backToLogin = wrapper.find("[data-test='back-to-login']")
+        //console.log(backToLogin.attributes().to)
+        expect(backToLogin.attributes().to).toBe('/')
 
     })
 
+    /*
     // TODO
-    it("TODO: Saca error si el correo ya está registrado", async () =>{
+    it("TODO: Saca error si el correo ya está registrado", async () => {
         const wrapper = mount(RegisterPage, {});
         await wrapper.setData({
             
@@ -85,5 +101,5 @@ describe("RegisterPage", () =>{
         const errorMSG = wrapper.find("[data-test='field-validator']");
         expect(errorMSG.text()).toBe("Ya hay una cuenta asociada a este correo")
 
-    }) 
+    }) */
 })

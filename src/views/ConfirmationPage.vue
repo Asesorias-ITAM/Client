@@ -14,11 +14,11 @@
                         <label class="mt-6">Código</label>
                         <TextInput v-model="codigo" placeholder=""/>
                         
-                        <CustomLabel class="bad" text="Código Incorrecto" v-if="error" data-test=""/>
+                        <CustomLabel class="bad" :text="error" v-if="error!==''" data-test='field-validator'/>
                             
                             <div class="grid grid-cols-1">
-                                <ActionButton text="Confirmar" @click="confirmar" type="primary"/>
-                                <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
+                                <ActionButton text="Confirmar" @click="confirmar" type="primary" data-test='confirm-button'/>
+                                <router-link to="/" class="text-center mb-6" data-test='back-to-login'>¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
 
                     </div>
@@ -35,7 +35,8 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
-import { useRouter } from "vue-router";
+//import { useRouter } from "vue-router";
+//import { router } from "@/router/index.js";
 import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js";
 
 //imports userpool data from config
@@ -43,7 +44,7 @@ import { POOL_DATA } from "@/config/cognito.js";
 
 const userPool = new CognitoUserPool(POOL_DATA);
 
-let router;
+//let router;
 //let route;
 
 export default{
@@ -51,13 +52,13 @@ export default{
     components: {ActionButton, TextInput, CustomLabel},
     data() {
         return {
-            correo:"",
-            codigo:"",
-            error: false,
+            correo: "",
+            codigo: "",
+            error: "",
         }
     },
     setup() {
-        router = useRouter();
+        //router = useRouter();
     },
     methods: {
         async confirmar(){
@@ -81,11 +82,12 @@ export default{
             await cognitUser.confirmRegistration(this.codigo, true, (err, result) => {
                 if (err) {
                     //setMessage(err.message, "alert-danger");
-                    this.error = true
+                    this.error = "Código incorrecto"
                     return;
                 }
 
                 console.log(result);
+                console.log("Error en confPage.vue: " + this.error);
 
                 router.replace({
                     name: "Login",

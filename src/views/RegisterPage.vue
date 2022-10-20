@@ -57,7 +57,7 @@ import {validateRegisterForm } from "@/utils/validator.js"
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
 //import { useRouter } from "vue-router";
-import { router } from "@/router/index.js";
+//import router from "@/router/index.js";
 import {
   CognitoUserPool,
   CognitoUserAttribute,

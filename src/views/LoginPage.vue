@@ -34,10 +34,11 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 //import { storeToRefs } from 'pinia'
 
-import { useRouter } from "vue-router";
+//import { useRouter } from "vue-router";
+//import { router } from "@/router/index.js";
 import { POOL_DATA } from "@/config/cognito.js";
 import {
   CognitoUserPool,
@@ -53,7 +54,7 @@ setup in the Configure application to use Cognito User Pool section
 */
 // sets up Cognito User pool data
 const userPool = new CognitoUserPool(POOL_DATA);
-let router;
+//let router;
 //let store;
 
 export default{
@@ -61,8 +62,9 @@ export default{
     components: {ActionButton, TextInput, CustomLabel},
     setup() {
         //get access to Vuex router
-        router = useRouter();
+        //router = useRouter();
         const store = useUserStore()
+        console.log(2)
         
         return {
             // you can return the whole store instance to use it in the template
