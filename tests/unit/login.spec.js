@@ -1,5 +1,5 @@
 import LoginPage from "@/views/LoginPage.vue";
-import CustomLabel from '@/components/shared/CustomLabel'
+import '@testing-library/jest-dom'
 import {mount, shallowMount, RouterLinkStub} from "@vue/test-utils";
 import { createTestingPinia } from '@pinia/testing'
 
@@ -10,23 +10,19 @@ describe("LoginPage", () =>{
             global: {
               stubs: ["router-link"],
               plugins: [createTestingPinia()], // Crea un pinia de prueba
-              data() {
-                return {
-                    incorrecto: true,
-                }
-              },
+            },
+            data() {
+              return {
+                  incorrecto: true, // Hace que el field validator sea visible
+              }
             },
         });
         
         const button = wrapper.find("[data-test='login-button']");
         await button.trigger("click");
-        //const errorMSG = wrapper.find("[data-test='field-validator']")
-        //const errorMSG = wrapper.find("[class='bad']")
-        const errorMSG = wrapper.findAll('CustomLabel')
-        //const errorMSG = wrapper.findAll('TextInput')
-        console.log(errorMSG)
-        //expect(errorMSG.text()).toBe("Credenciales Incorrectas")
-        expect(wrapper.findComponent({ name: "CustomLabel" }).exists()).toBe(true)
+        const errorMSG = wrapper.find("[data-test='field-validator']")
+        expect(errorMSG.text()).toBe("Credenciales Incorrectas")
+        expect(wrapper.findComponent({ name: "CustomLabel" })).toBeVisible
     })
 
     it("Saca error si no redirecciona al registro", async () => {

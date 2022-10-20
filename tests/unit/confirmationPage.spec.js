@@ -1,4 +1,5 @@
 import ConfirmationPage from "@/views/ConfirmationPage.vue";
+import '@testing-library/jest-dom'
 import {mount, shallowMount, RouterLinkStub} from "@vue/test-utils";
 
 describe("ConfirmationPage", () =>{
@@ -8,12 +9,17 @@ describe("ConfirmationPage", () =>{
             global: {
               stubs: ["router-link"],
             },
+            data() {
+                return {
+                    error: "Código incorrecto"
+                }
+            }
         });
         
         const button = wrapper.find("[data-test='confirm-button']");
         await button.trigger("click");
         const errorMSG = wrapper.find("[data-test='field-validator']");
-        expect(errorMSG.text()).toBe("Todos los campos deben contener información")
+        expect(errorMSG.text()).toBe("Código incorrecto")
 
     })
 
