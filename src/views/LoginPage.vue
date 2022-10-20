@@ -6,7 +6,7 @@
             <div class="text-2xl subpixel-antialiased font-sans ">
                 <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl dark:drop-shadow-2x1">
                     <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
-                    <div id="registro" class="flex flex-col mx-14">
+                    <div id="login" class="flex flex-col mx-14">
                         <label class="mt-6 text-texto-light-1 dark:text-texto-dark-1">Correo Electrónico</label>
                         <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                         <label>Contraseña</label>
@@ -64,7 +64,6 @@ export default{
         //get access to Vuex router
         //router = useRouter();
         const store = useUserStore()
-        console.log(2)
         
         return {
             // you can return the whole store instance to use it in the template
