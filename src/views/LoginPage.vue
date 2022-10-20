@@ -12,11 +12,11 @@
                         <label>Contraseña</label>
                         <TextInput type="password" v-model="passwd" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                         
-                        <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto"/>
+                        <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto" data-test='field-validator'/>
 
                         <div class="grid grid-cols-1">
-                            <ActionButton text="Iniciar Sesión" @click="login" type="primary"/>
-                            <router-link to="/register" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1">
+                            <ActionButton text="Iniciar Sesión" @click="login" type="primary" data-test='login-button'/>
+                            <router-link to="/register" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1" data-test='go-to-register'>
                                 ¿No tienes cuenta? Regístrate
                             </router-link>
                         </div>

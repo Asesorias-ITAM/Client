@@ -14,7 +14,7 @@
                         <label class="mt-6">Código</label>
                         <TextInput v-model="codigo" placeholder=""/>
                         
-                        <CustomLabel class="bad" text="Código Incorrecto" v-if="error"/>
+                        <CustomLabel class="bad" text="Código Incorrecto" v-if="error" data-test=""/>
                             
                             <div class="grid grid-cols-1">
                                 <ActionButton text="Confirmar" @click="confirmar" type="primary"/>
@@ -38,8 +38,6 @@ import CustomLabel from "@/components/shared/CustomLabel"
 import { useRouter } from "vue-router";
 import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js";
 
-
-
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
@@ -58,7 +56,7 @@ export default{
             error: false,
         }
     },
-    setup(){
+    setup() {
         router = useRouter();
     },
     methods: {
