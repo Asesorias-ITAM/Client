@@ -3,13 +3,29 @@ import '@testing-library/jest-dom'
 import {mount, shallowMount, RouterLinkStub} from "@vue/test-utils";
 import { createTestingPinia } from '@pinia/testing'
 
+/*import { createRouter, createWebHashHistory } from 'vue-router'
+import { routes } from "@/router/index.js";
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: routes,
+})*/
+
 describe("LoginPage", () =>{
 
     it("Saca error si no hay información en todos los campos", async () => {
+        /*router.push('/') //Navegar a la página de login
+        await router.isReady()*/
+
         const wrapper = mount(LoginPage, {
             global: {
               stubs: ["router-link"],
-              plugins: [createTestingPinia()], // Crea un pinia de prueba
+              plugins: [createTestingPinia()],
+
+              /*plugins: { 
+                testPinia: [createTestingPinia()], // Crea un pinia de prueba 
+                r: [router] 
+              },*/ 
             },
             data() {
               return {

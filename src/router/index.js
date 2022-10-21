@@ -38,7 +38,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: routes,
 });
 
 export { routes } // Las rutas individuales son usadas en los tests
