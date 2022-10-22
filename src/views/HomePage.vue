@@ -39,13 +39,14 @@ export default {
             store
         }
     },
-    beforeCreate(){
+    /* beforeCreate(){
         if (this.store.session === null){
             router.replace({
                 name: "Login",
             });
         }
-    },
+    }, */
+    
     methods: {
         logout(){
             this.store.logout(); 

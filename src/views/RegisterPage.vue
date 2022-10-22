@@ -158,7 +158,7 @@ export default{
                 const newUser = {"nombre": nameAttribute.Value,
                     "apellido": familyAttribute.Value, 
                     "correo": emailAttribute.Value, 
-                    "asesor": asesorAttribute.Value, 
+                    "asesor": this.asesor, 
                     "confirmed": false}
 
                 this.store.addUser(newUser)
