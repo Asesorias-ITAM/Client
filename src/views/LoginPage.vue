@@ -2,7 +2,6 @@
     <div class="grid grid-cols-3 min-h-full">
         <div class="col-span-1 min-h-full"></div>
 
-        <div>TITLE: {{ title }}</div>
 
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
@@ -65,7 +64,7 @@ export default{
         //get access to Vuex router
         router = useRouter();
         const store = useUserStore()
-        console.log(process.env.VUE_APP_BACKEND_URL);
+        
         return {
             // you can return the whole store instance to use it in the template
             store
@@ -77,7 +76,6 @@ export default{
             correo: "",
             passwd:"",
             incorrecto: false,
-            title: process.env.VUE_APP_URL
         }
     },
     methods:{

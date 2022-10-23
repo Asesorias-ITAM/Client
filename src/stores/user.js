@@ -7,6 +7,14 @@ import axios from 'axios';
 //http://localhost:5000
 const API_URL = "https://asesorias-itam-cracop.koyeb.app";
 //asesorias-itam-cracop.koyeb.app/api/test/
+
+
+
+import {createAlum, checkAlum} from "../../services/alumnos.js"
+
+
+
+
 export const useUserStore = defineStore('user', {
   state: () => (
       { 
@@ -31,9 +39,6 @@ export const useUserStore = defineStore('user', {
     
   },
   actions: {
-    incrementTest(state) {
-      state.test++
-    },
 
     logout(){
       // gets reference to the Cognito user pool
@@ -63,16 +68,16 @@ export const useUserStore = defineStore('user', {
     },
 
     //Agrega usuario al directorio
-    async addUser(user){
+    async crearAlumno(user){
       //console.log(user)
       try{
-        const res = await axios.post(API_URL+"/users/add",user)
-        if (res.status!==200){
-          throw new Error()
+        const res = await createAlum(user)
+        if ('errors' in res){
+          throw new Error("Ya hay una cuenta con ese correo")
         }
       }catch(err){
-        //console.log(err)
-        throw new Error(err)
+        console.log(err)
+        //throw new Error(err)
       }
       //asesorias-itam-cracop.koyeb.app/api/test
     },
@@ -89,18 +94,20 @@ export const useUserStore = defineStore('user', {
 
     //checa si ya existe el usuario
     async checkUser(user){
-      console.log(user)
+      //console.log(user)
         try{
-          const res = await axios.post(API_URL+"/users/check",user)
-          if (res.status===200){
-            return true
-
-          }else{
-            //throw new Error()
-            return false
+          const res = await checkAlum(user.correo)
+          console.log(res)
+          console.log(res.alumno)
+          if (res.alumno!==null){
+              //throw new Error("Ya hay un alumno con ese correo")
+              console.log("Ya existe")
+              return true
           }
-        }catch {
+          return false
+        }catch(err) {
           //throw new Error()console.log(err)
+          console.log(err)
           return false
         } 
     }
