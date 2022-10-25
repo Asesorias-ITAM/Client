@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-7">
+    <div class="grid grid-cols-7 bgfondo-dark-1">
         <div class="col-span-1 min-h-[90.2vh] bg-verde-itam-2">
             <div class="flex flex-col justify-items-center px-14 text-center text-2xl">
                 <div class=""></div>
@@ -7,11 +7,11 @@
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
                 <div class="my-48"></div>
-                <MenuButton text="Mi Perfi" type="unPressed" class=""/>
+                <MenuButton text="Mi Perfil" type="unPressed" class=""/>
                 <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
             </div>
         </div>
-        <div class="col-span-6 min-h-[90.2vh]  bg-gris-itam-1">
+        <div class="col-span-6 min-h-[90.2vh]">
             <router-view name="grid"></router-view>
             {{store.email}}
         </div>

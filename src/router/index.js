@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import LoginPage from "@/views/LoginPage.vue";
+import NotFoundPage from "@/views/NotFoundPage.vue";
 
 const routes = [
   {
@@ -27,12 +28,19 @@ const routes = [
     name: "Confirm",
     component: () =>
       import(/* webpackChunkName: "about" */ "@/views/ConfirmationPage.vue"),
+  }, 
+  {
+    // Cualquier otra URL se redirecciona a esta página
+    path: "/:catchAll(.*)",
+    component: NotFoundPage,
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: routes,
 });
+
+export { routes } // Las rutas individuales son usadas en los tests
 
 export default router;

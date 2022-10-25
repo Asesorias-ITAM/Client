@@ -11,7 +11,7 @@ export default {
   name: "App",
   components: {
     UpperBar,
-},
+  },
 };
 </script>
 <style scoped>

@@ -8,6 +8,10 @@
   export default {
     name: "ActionButton",
     props: {
+      id: {
+        type: String,
+        require: true,
+      },
       text: {
         type: String,
         required: true,
@@ -37,8 +41,8 @@
   }
   
   .primary {
-    @apply text-white outline rounded-full bg-verde-itam-2
-     hover:bg-white hover:text-verde-itam-2 hover:outline-verde-itam-2 hover:font-bold;
+    @apply text-white outline rounded-full bg-verde-itam-2 dark:outline-fondo-dark-2
+     hover:bg-fondo-light-1 hover:text-verde-itam-2 hover:outline-verde-itam-2 hover:font-bold;
   }
   
   .secondary {
