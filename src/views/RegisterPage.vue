@@ -8,12 +8,12 @@
                         <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 mb-2">
                             
-                            <CustomLabel class="bad" :text="error" v-if="error!==''"/>
+                            <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                             <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
-                            <label>Nombres(s)</label>
+                            <label id="test">Nombres(s)</label>
                             <TextInput v-model="nombre" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
                             <label>Apellidos</label>
@@ -25,14 +25,14 @@
                             <label>Confirma Contraseña</label>
                             <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
-                            <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
+                            <CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
                             <div class="grid grid-cols-1">
                                 <div>
                                     <label>Quiero ser asesor </label>
-                                    <input id="" type="checkbox" v-model="asesor" class="mb-6">
+                                    <input type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton text="Crear cuenta" @click="registrar" type="primary"/>
+                                <ActionButton data-test="register-button" text="Crear cuenta" @click="registrar" type="primary" :disabled="!compara"/>
                                 <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1">
                                     ¿Ya tienes cuenta? Inicia Sesión
                                 </router-link>
@@ -54,6 +54,7 @@ import CustomLabel from "@/components/shared/CustomLabel"
 
 import {validateRegisterForm } from "@/utils/validator.js"
 
+import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
 import { useRouter } from "vue-router";
@@ -90,6 +91,11 @@ export default{
     setup() {
         //get access to Vuex router
         router = useRouter();
+        const store = useUserStore()
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
     },
     computed: {
         compara(){
@@ -105,6 +111,11 @@ export default{
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
+            if(await this.store.checkUser({"correo" :emailString})){
+                this.error="Ya existe un usuario con ese correo"
+                return
+            }
+
             const datos = {
                 correo: emailString,
                 nombre: this.nombre,
@@ -112,15 +123,10 @@ export default{
                 passwd: this.psswd,
             }
 
-            if (!validateRegisterForm(datos)){
-                this.error = "Todos los campos deben contener información"
-                
-                return
-            }
+            let validation = validateRegisterForm(datos)
 
-            if (!this.validarCorreo(emailString)) {
-                this.error = "Se debe utilizar el correo del ITAM"
-                
+            if (!validation[0]){
+                this.error=validation[1]
                 return
             }
 
@@ -145,16 +151,25 @@ export default{
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
-            console.log(attrList)
 
-            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, result ) => {
+            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, /*result*/ ) => {
                 if (err) {
                     console.log(err)
+
                     return
                 }
                 this.error=""
-                console.log(result)
+                const newUser = {"nombre": nameAttribute.Value,
+                    "apellido": familyAttribute.Value, 
+                    "correo": emailAttribute.Value, 
+                    "asesor": asesorAttribute.Value, 
+                    "confirmed": false}
 
+                this.store.addUser(newUser)
+                //console.log(result)
+                //Llamo a la api y creo el nuevo usuario sin ser confirmado
+                //Call API add
+                
                 router.replace({
                     name: "Confirm",
                 });
@@ -162,10 +177,6 @@ export default{
 
         },
 
-        //Migrar esto a validator.js
-        validarCorreo(correo) {
-            return correo.endsWith("@itam.mx")
-        }
     },
 }
 

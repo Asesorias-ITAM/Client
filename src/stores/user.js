@@ -3,7 +3,10 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
-
+import axios from 'axios';
+//http://localhost:5000
+const API_URL = "https://asesorias-itam-cracop.koyeb.app";
+//asesorias-itam-cracop.koyeb.app/api/test/
 export const useUserStore = defineStore('user', {
   state: () => (
       { 
@@ -57,6 +60,49 @@ export const useUserStore = defineStore('user', {
       this.isAuthenticated = true
       this.email = Session.idToken.payload.email
       
+    },
+
+    //Agrega usuario al directorio
+    async addUser(user){
+      //console.log(user)
+      try{
+        const res = await axios.post(API_URL+"/users/add",user)
+        if (res.status!==200){
+          throw new Error()
+        }
+      }catch(err){
+        //console.log(err)
+        throw new Error(err)
+      }
+      //asesorias-itam-cracop.koyeb.app/api/test
+    },
+    //Cambia el campo de comfirmed a true
+    async confirmUser(user){
+      console.log(user)
+      try{
+        await axios.post(API_URL+"/users/confirm",user)
+        
+      }catch (err){
+        throw new Error(err)
+      }
+    },
+
+    //checa si ya existe el usuario
+    async checkUser(user){
+      console.log(user)
+        try{
+          const res = await axios.post(API_URL+"/users/check",user)
+          if (res.status===200){
+            return true
+
+          }else{
+            //throw new Error()
+            return false
+          }
+        }catch {
+          //throw new Error()console.log(err)
+          return false
+        } 
     }
   },
 })
