@@ -13,7 +13,7 @@
                             <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
-                            <label id="test">Nombres(s)</label>
+                            <label>Nombre(s)</label>
                             <TextInput v-model="nombre" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
                             <label>Apellidos</label>
@@ -32,8 +32,8 @@
                                     <label>Quiero ser asesor </label>
                                     <input type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton data-test="register-button" text="Crear cuenta" @click="registrar" type="primary" :disabled="!compara"/>
-                                <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1">
+                                <ActionButton text="Crear cuenta" @click="registrar" type="primary" data-test='register-button'/>
+                                <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1" data-test='back-to-login'>
                                     ¿Ya tienes cuenta? Inicia Sesión
                                 </router-link>
                             </div>
@@ -57,7 +57,8 @@ import {validateRegisterForm } from "@/utils/validator.js"
 import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
-import { useRouter } from "vue-router";
+//import { useRouter } from "vue-router";
+//import router from "@/router/index.js";
 import {
   CognitoUserPool,
   CognitoUserAttribute,
@@ -65,7 +66,7 @@ import {
 import { POOL_DATA } from "@/config/cognito.js";
 
 //get access to Vuex router
-let router;
+//let router;
         /*  
         Create a user pool object
         The object parameter references the Cognito user pool data held in a constant that we 
@@ -85,7 +86,6 @@ export default{
             correo: "",
             asesor: false,
             error: "",
-
         }
     },
     setup() {
@@ -106,7 +106,7 @@ export default{
     methods:{
         onEnter() {
             // Presionar enter para registrarse
-            this.login();
+            this.registrar();
         },
         async registrar() {
             let emailString = this.correo.toLowerCase()
