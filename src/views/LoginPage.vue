@@ -5,20 +5,21 @@
 
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
-                <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
-                    <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
-                    <div id="registro" class="flex flex-col mx-14 ">
-                        
-                        <label class="mt-6">Correo Electrónico</label>
-                        <TextInput v-model="correo" placeholder=""/>
+                <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl dark:drop-shadow-2x1">
+                    <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
+                    <div id="login" class="flex flex-col mx-14">
+                        <label class="mt-6 text-texto-light-1 dark:text-texto-dark-1">Correo Electrónico</label>
+                        <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                         <label>Contraseña</label>
-                        <TextInput type="password" v-model="passwd" placeholder=""/>
+                        <TextInput type="password" v-model="passwd" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                         
-                        <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto"/>
+                        <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto" data-test='field-validator'/>
 
                         <div class="grid grid-cols-1">
-                            <ActionButton text="Iniciar Sesión" @click="login" type="primary"/>
-                            <router-link to="/register" class="text-center mb-6">¿No tienes cuenta? Regístrate</router-link>
+                            <ActionButton text="Iniciar Sesión" @click="login" type="primary" data-test='login-button'/>
+                            <router-link to="/register" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1" data-test='go-to-register'>
+                                ¿No tienes cuenta? Regístrate
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -34,11 +35,11 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
-
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 //import { storeToRefs } from 'pinia'
 
 import { useRouter } from "vue-router";
+//import { router } from "@/router/index.js";
 import { POOL_DATA } from "@/config/cognito.js";
 import {
   CognitoUserPool,
@@ -74,15 +75,18 @@ export default{
     data(){
         return {
             correo: "",
-            passwd:"",
+            passwd: "",
             incorrecto: false,
         }
     },
     methods:{
+        onEnter() {
+            // Presionar enter para hacer log in
+            this.login();
+        },
         login() {
             //console.log(this.store.test)
             //console.log(this.incorrecto)
-            
             // sets up Cognito authentication data from sign in form
             const authData = {
                 Username: this.correo,
@@ -143,8 +147,7 @@ export default{
 
         // calculates when user will be auto logged out
         autoTimeout(result) {
-            const seconds_timeout = 3600;
-                  // sets user login to expire after 1 hour
+            const seconds_timeout = 3600; // sets user login to expire after 1 hour
             const expirationDate =
                 +result.idToken.payload["auth_time"] + seconds_timeout;
                 console.log(
@@ -162,3 +165,8 @@ export default{
 
 </script>
 
+<style>
+.textBox {
+    border-radius: 7px;
+}
+</style>

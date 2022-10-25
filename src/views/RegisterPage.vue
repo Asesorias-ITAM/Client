@@ -4,28 +4,26 @@
 
             <div class="col-span-1 min-h-full">
                 <div class="text-2xl subpixel-antialiased font-sans ">
-                    <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
-                        <h2 class="text-center py-5 bg-verde-itam-1 text-white text-4xl font-bold"></h2>
+                    <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
+                        <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 mb-2">
                             
                             <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                             <label class="mt-2">Correo Electrónico</label>
-                            <TextInput v-model="correo" placeholder=""/>
+                            <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
-                            
-                            <label id="test">Nombres(s)</label>
-                            <TextInput v-model="nombre" placeholder=""/>
-                            
+                            <label>Nombre(s)</label>
+                            <TextInput v-model="nombre" @keyup.enter="onEnter" placeholder="" class="textBox"/>
                             
                             <label>Apellidos</label>
-                            <TextInput v-model="apellido" placeholder=""/>
+                            <TextInput v-model="apellido" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
                             <label>Contraseña</label>
-                            <TextInput type="password" v-model="psswd" placeholder=""/>
+                            <TextInput type="password" v-model="psswd" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
                             <label>Confirma Contraseña</label>
-                            <TextInput type="password" v-model="psswd2" placeholder=""/>
+                            <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
                             <CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
@@ -34,8 +32,10 @@
                                     <label>Quiero ser asesor </label>
                                     <input type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
-                                <ActionButton data-test="register-button" text="Crear cuenta" @click="registrar" type="primary" :disabled="!compara"/>
-                                <router-link to="/" class="text-center mb-6">¿Ya tienes cuenta? Inicia Sesión</router-link>
+                                <ActionButton text="Crear cuenta" @click="registrar" type="primary" data-test='register-button'/>
+                                <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1" data-test='back-to-login'>
+                                    ¿Ya tienes cuenta? Inicia Sesión
+                                </router-link>
                             </div>
 
                         </div>
@@ -58,6 +58,7 @@ import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
 import { useRouter } from "vue-router";
+//import router from "@/router/index.js";
 import {
   CognitoUserPool,
   CognitoUserAttribute,
@@ -85,7 +86,6 @@ export default{
             correo: "",
             asesor: false,
             error: "",
-
         }
     },
     setup() {
@@ -104,6 +104,10 @@ export default{
     },
 
     methods:{
+        onEnter() {
+            // Presionar enter para registrarse
+            this.registrar();
+        },
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
@@ -186,3 +190,8 @@ export default{
 
 </script>
 
+<style>
+.textBox {
+    border-radius: 7px;
+}
+</style>
