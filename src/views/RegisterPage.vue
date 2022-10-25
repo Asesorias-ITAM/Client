@@ -57,7 +57,7 @@ import {validateRegisterForm } from "@/utils/validator.js"
 import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
-//import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 //import router from "@/router/index.js";
 import {
   CognitoUserPool,
@@ -66,7 +66,7 @@ import {
 import { POOL_DATA } from "@/config/cognito.js";
 
 //get access to Vuex router
-//let router;
+let router;
         /*  
         Create a user pool object
         The object parameter references the Cognito user pool data held in a constant that we 
