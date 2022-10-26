@@ -1,6 +1,6 @@
 import ConfirmationPage from "@/views/ConfirmationPage.vue";
 import '@testing-library/jest-dom'
-import {mount, shallowMount, RouterLinkStub} from "@vue/test-utils";
+import {mount, shallowMount, /*RouterLinkStub*/} from "@vue/test-utils";
 
 describe("ConfirmationPage", () =>{
     

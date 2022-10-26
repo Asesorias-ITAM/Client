@@ -48,3 +48,18 @@ export const checkAlum = async(email) => {
     return result
 } 
 
+export const confirmUser = async(email)=>{
+  const query = gql`
+    mutation confirmAlumno($correo: String!) {
+        updateAlumno(data: {confirmed: true}, where: {correo: $correo}) {
+          id
+        }
+      }
+    `;
+    const variables = {
+      "correo": email,
+    }
+    const result = await graphQLClient.request(query, variables)
+    return result
+}
+

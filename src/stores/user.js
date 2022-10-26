@@ -3,14 +3,11 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
-import axios from 'axios';
-//http://localhost:5000
-const API_URL = "https://asesorias-itam-cracop.koyeb.app";
-//asesorias-itam-cracop.koyeb.app/api/test/
 
 
 
-import {createAlum, checkAlum} from "../../services/alumnos.js"
+
+import {createAlum, checkAlum, confirmUser} from "../../services/alumnos.js"
 
 
 
@@ -79,13 +76,12 @@ export const useUserStore = defineStore('user', {
         console.log(err)
         //throw new Error(err)
       }
-      //asesorias-itam-cracop.koyeb.app/api/test
     },
     //Cambia el campo de comfirmed a true
     async confirmUser(user){
       console.log(user)
       try{
-        await axios.post(API_URL+"/users/confirm",user)
+        await confirmUser(user.correo)
         
       }catch (err){
         throw new Error(err)
@@ -108,7 +104,7 @@ export const useUserStore = defineStore('user', {
         }catch(err) {
           //throw new Error()console.log(err)
           console.log(err)
-          return false
+          return true
         } 
     }
   },
