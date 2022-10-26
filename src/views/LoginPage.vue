@@ -2,6 +2,7 @@
     <div class="grid grid-cols-3 min-h-full">
         <div class="col-span-1 min-h-full"></div>
 
+
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
                 <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl dark:drop-shadow-2x1">
@@ -69,13 +70,13 @@ export default{
             // you can return the whole store instance to use it in the template
             store
         }
+        
     },
     data(){
         return {
             correo: "",
             passwd: "",
             incorrecto: false,
-            
         }
     },
     methods:{

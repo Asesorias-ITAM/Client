@@ -111,6 +111,7 @@ export default{
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
+             
             if(await this.store.checkUser({"correo" :emailString})){
                 this.error="Ya existe un usuario con ese correo"
                 return
@@ -151,6 +152,11 @@ export default{
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
+            
+             // eslint-disable-next-line
+            /* if (1==1){
+                return
+            } */
 
             await userPool.signUp(emailString, datos.passwd, attrList, null, (err, /*result*/ ) => {
                 if (err) {
@@ -162,10 +168,12 @@ export default{
                 const newUser = {"nombre": nameAttribute.Value,
                     "apellido": familyAttribute.Value, 
                     "correo": emailAttribute.Value, 
-                    "asesor": asesorAttribute.Value, 
+                    "asesor": this.asesor, 
                     "confirmed": false}
 
-                this.store.addUser(newUser)
+                          
+                this.store.crearAlumno(newUser)
+                                       
                 //console.log(result)
                 //Llamo a la api y creo el nuevo usuario sin ser confirmado
                 //Call API add
