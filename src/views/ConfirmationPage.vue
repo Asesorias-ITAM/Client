@@ -60,7 +60,6 @@ export default{
         }
     },
     setup(){
-        router = useRouter();
         //get access to Vuex router
         router = useRouter();
         const store = useUserStore()

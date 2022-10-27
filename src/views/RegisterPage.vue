@@ -92,6 +92,7 @@ export default{
         //get access to Vuex router
         router = useRouter();
         const store = useUserStore()
+
         return {
             // you can return the whole store instance to use it in the template
             store
@@ -125,7 +126,7 @@ export default{
             }
 
             let validation = validateRegisterForm(datos)
-
+            
             if (!validation[0]){
                 this.error=validation[1]
                 return
