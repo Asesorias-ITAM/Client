@@ -1,5 +1,6 @@
 import RegisterPage from "@/views/RegisterPage.vue";
 import {mount, /*RouterLinkStub*/} from "@vue/test-utils";
+import { createTestingPinia } from '@pinia/testing'
 
 describe("RegisterPage", () =>{
     
@@ -8,6 +9,7 @@ describe("RegisterPage", () =>{
             global: {
                 //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
                 stubs: ["router-link"],
+                plugins: [createTestingPinia()],
             },
         });
         
@@ -23,13 +25,14 @@ describe("RegisterPage", () =>{
             global: {
                 //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
                 stubs: ["router-link"],
+                plugins: [createTestingPinia()],
             },
         });
         await wrapper.setData({
             
             nombre: "Corlys",
             apellido: "Velaryon",
-            psswd: "l",
+            psswd: "contra123",
             correo: "test@gmail.com", 
 
         })
@@ -47,6 +50,7 @@ describe("RegisterPage", () =>{
             global: {
                 //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
                 stubs: ["router-link"],
+                plugins: [createTestingPinia()],
             },
         });
         await wrapper.setData({
@@ -71,6 +75,7 @@ describe("RegisterPage", () =>{
             global: {
               //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
               stubs: ["router-link"],
+              plugins: [createTestingPinia()],
             },
             
         });
