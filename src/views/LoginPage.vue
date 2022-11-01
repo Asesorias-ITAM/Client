@@ -36,7 +36,7 @@ import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
 import { useUserStore } from '@/stores/user'
-//import { storeToRefs } from 'pinia'
+
 
 import { useRouter } from "vue-router";
 //import { router } from "@/router/index.js";
@@ -121,10 +121,13 @@ export default{
                     //console.log(Session.idToken.payload.aud)
                     this.incorrecto=false;
                 },
-                onFailure: () => {
-                    //console.log(error);
+                onFailure: (error) => {
+                    console.log(error);
                     this.incorrecto=true;
                     
+                },
+                newPasswordRequired: () =>{
+
                 }
 
             });   
