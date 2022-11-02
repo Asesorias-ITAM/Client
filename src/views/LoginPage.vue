@@ -126,10 +126,6 @@ export default{
                     this.incorrecto=true;
                     
                 },
-                newPasswordRequired: () =>{
-
-                }
-
             });   
         },
 

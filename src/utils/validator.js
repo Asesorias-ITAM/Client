@@ -19,3 +19,12 @@ export function validateConfirmationForm(datos){
         return false
     }
 }
+
+export function validateAdminForm(datos){
+    //let ans = [true,""];
+    if (datos.passwd.length < 6) {
+        return [false,"La contraseña debe ser al menos 6 caracteres"];  
+    }
+    
+    return [true,""]
+}

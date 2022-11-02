@@ -39,3 +39,5 @@ export const useAdminStore = defineStore("admin", {
         }
       }
 })
+
+//https://stackoverflow.com/questions/51103676/aws-cognito-react-js-newpasswordrequired-challenge
