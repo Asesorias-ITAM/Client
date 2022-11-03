@@ -5,9 +5,9 @@
                 <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                 <div id="login" class="flex flex-col mx-14">
                     <label class="mt-6 text-texto-light-1 dark:text-texto-dark-1">Correo Electrónico</label>
-                    <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
+                    <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
                     <label>Contraseña</label>
-                    <TextInput type="password" v-model="passwd" @keyup.enter="onEnter" placeholder="" class="textBox"/>
+                    <TextInput type="password" v-model="passwd" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
                     
                     <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto" data-test='field-validator'/>
 

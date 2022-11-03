@@ -1,65 +1,22 @@
 <template>
-
     <!--{{store.email}}-->
 
-    <!--
-    <div class="page-container">
-        <div class="content">
-            <div class="grid grid-cols-3 min-h-full">
-
-            <div class="col-span-1 min-h-full">
-            
-            <div class="side-bar">
-                <div class="grid grid-cols-7 bgfondo-dark-1">
-                    <div class="col-span-1 min-h-[90.2vh] bg-verde-itam-2">
-                        <div class="flex flex-col justify-items-center px-14 text-center text-2xl">
-                            <div class="tabs">
-                                <MenuButton text="Buscar" type="unPressed" class="mt-20"/>
-                                <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
-                                <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
-                                <div class="my-48"></div>
-                                <MenuButton text="Mi Perfil" type="unPressed" class=""/>
-                                <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-            <div class="col-span-1 min-h-full">
-            <div class="card-grid">
-                
-                <div class="card">
-                    <div class="card-body">
-                        <p>Collaboration between designers and developers.</p>
-                    </div>
-                </div>
-
-                <router-view name="grid"></router-view>
-                
-            </div>
-            </div>
-
-
-            </div>
-        </div>
-    </div> 
-    -->
     <div class="grid grid-cols-7 bgfondo-dark-1">
         <div class="sidebar col-span-1 min-h-[90.2vh] bg-verde-itam-2">
             <section class="flex flex-col justify-items-center px-14 text-center text-2xl">
                 <MenuButton text="Buscar" type="unPressed" class="mt-20"/>
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
-                <div class="my-14"></div>
-                <MenuButton text="Mi Perfil" type="unPressed" class=""/>
+                <MenuButton text="Mis Asesorías" type="unPressed" class="mt-10"/>
+                <MenuButton text="Mi Perfil" type="unPressed" class="mt-10"/>
                 <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
             </section>
         </div>
         
         <section class="card-grid col-span-6">
             <div class="grid grid-cols-4 gap-6">
+                <PublicationCard/>
+
                 <article class="col-span-1 rounded-lg overflow-hidden bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
                     <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
                         <h1 class="px-3 py-4 text-3xl font-bold">Economía I.</h1>
@@ -67,7 +24,10 @@
                     <h2 class="mx-3 my-5 text-xl">Juan Acosta.</h2>
                     <p  class="mx-3 my-5 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. 
                     Nullam sed augue eget elit viverra dignissim. Ut nec urna in.</p>
-                    <footer></footer>
+                    <footer class="card-footer">
+                        <button class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Ver curso</button>
+                        <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Inscribirme</button>
+                    </footer>
                 </article>
 
                 <article class="col-span-1 rounded-lg overflow-hidden bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
@@ -88,14 +48,15 @@
 </template>
 
 <script>
-import MenuButton from "@/components/shared/MenuButton"
+import MenuButton from "@/components/shared/MenuButton.vue"
+import PublicationCard from "@/components/PublicationCard.vue"
 import { useUserStore } from '@/stores/user.js'
 import { useRouter } from "vue-router";
 let router;
 export default {
     name: "HomePage",
     components: {MenuButton},
-    setup(){
+    setup() {
         router = useRouter();
         const store = useUserStore()
         return {
@@ -112,7 +73,7 @@ export default {
     }, */
     
     methods: {
-        logout(){
+        logout() {
             this.store.logout(); 
             this.store.$reset()
             console.log(this.store.session)
@@ -127,16 +88,6 @@ export default {
 <style scoped>
 .sidebar {
     max-width: 14rem;
-}
-
-.card-grid_ {
-    padding-top: 2rem;
-	padding-bottom: 6rem;
-    display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	column-gap: 1.5rem;
-	row-gap: 1.5rem;
-    flex-grow: 1;
 }
 
 .card_ {
@@ -158,12 +109,18 @@ export default {
 	padding: 1rem 2rem;
 	font-size: 0.875rem;
     overflow: hidden;
-
 }
 
 .card {
     border-radius: 0.375rem;
 }
+.card-footer {
+	padding: 1rem 1rem;
+	display: flex;
+	justify-content: flex-end;
+	border-top: 1px solid var(#efefef);
+}
+
 
 .temp {
     display: grid;
