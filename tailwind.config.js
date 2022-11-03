@@ -8,12 +8,16 @@ module.exports = {
         /*Fondos*/
         "fondo-light-1": "#ffffff",
         "fondo-light-2": "#e1e1e1",
+        "fondo-tarjeta-1": "#e8e8e8",
+        "fondo-tarjeta-2": "#e8e8e8",
         "verde-itam-1": "#006853",
         "verde-itam-2": "#028067",
         "gris-itam-1": "#f7f6f6",
         
         "fondo-dark-1": "#283243",
         "fondo-dark-2": "#4b5158",
+        "fondo-dark-tarjeta-1": "#49494d",
+        "fondo-dark-tarjeta-2": "#58585e",
 
         /*Highlighting*/
         "rojo-complemento": "#80021b",
