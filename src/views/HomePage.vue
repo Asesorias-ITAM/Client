@@ -15,7 +15,8 @@
         
         <section class="card-grid col-span-6">
             <div class="grid grid-cols-4 gap-6">
-                <PublicationCard/>
+                
+                <PublicationCard :materia="{materia:mater}" asesor="Juan" desc=""/>
 
                 <article class="col-span-1 rounded-lg overflow-hidden bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
                     <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
@@ -30,6 +31,7 @@
                     </footer>
                 </article>
 
+                
                 <article class="col-span-1 rounded-lg overflow-hidden bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
                     <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
                         <h1 class="px-3 py-4 text-3xl font-bold">Ideas III.</h1>
@@ -38,7 +40,7 @@
                     <p  class="mx-3 my-5 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. 
                     Nullam sed augue eget elit viverra dignissim. Ut nec urna in.</p>
                 </article>
-                
+
             </div>
         </section>
 
@@ -51,11 +53,15 @@
 import MenuButton from "@/components/shared/MenuButton.vue"
 import PublicationCard from "@/components/PublicationCard.vue"
 import { useUserStore } from '@/stores/user.js'
-import { useRouter } from "vue-router";
-let router;
+import { useRouter } from "vue-router"
+let router
+let mater = "eco"
+let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. Nullam sed augue eget elit viverra dignissim. Ut nec urna in."
+let pub_list = [{materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc}]
+
 export default {
     name: "HomePage",
-    components: {MenuButton},
+    components: {MenuButton, PublicationCard},
     setup() {
         router = useRouter();
         const store = useUserStore()
@@ -88,6 +94,10 @@ export default {
 <style scoped>
 .sidebar {
     max-width: 14rem;
+}
+
+.border { 
+    border-color: red;
 }
 
 .card_ {
