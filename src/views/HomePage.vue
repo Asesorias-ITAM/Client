@@ -15,32 +15,7 @@
         
         <section class="card-grid col-span-6">
             <div class="grid grid-cols-4 gap-6">
-                
-                <PublicationCard :materia="{materia:mater}" asesor="Juan" desc=""/>
-
-                <article class="col-span-1 rounded-lg overflow-hidden bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
-                    <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
-                        <h1 class="px-3 py-4 text-3xl font-bold">Economía I.</h1>
-                    </div>
-                    <h2 class="mx-3 my-5 text-xl">Juan Acosta.</h2>
-                    <p  class="mx-3 my-5 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. 
-                    Nullam sed augue eget elit viverra dignissim. Ut nec urna in.</p>
-                    <footer class="card-footer">
-                        <button class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Ver curso</button>
-                        <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Inscribirme</button>
-                    </footer>
-                </article>
-
-                
-                <article class="col-span-1 rounded-lg overflow-hidden bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
-                    <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
-                        <h1 class="px-3 py-4 text-3xl font-bold">Ideas III.</h1>
-                    </div>
-                    <h2 class="mx-3 my-5 text-xl">Rosa Santillana.</h2>
-                    <p  class="mx-3 my-5 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. 
-                    Nullam sed augue eget elit viverra dignissim. Ut nec urna in.</p>
-                </article>
-
+                <PublicationCard v-for="pub of pub_list" v-bind="pub"/>
             </div>
         </section>
 
@@ -55,9 +30,7 @@ import PublicationCard from "@/components/PublicationCard.vue"
 import { useUserStore } from '@/stores/user.js'
 import { useRouter } from "vue-router"
 let router
-let mater = "eco"
 let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. Nullam sed augue eget elit viverra dignissim. Ut nec urna in."
-let pub_list = [{materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc}]
 
 export default {
     name: "HomePage",
@@ -68,6 +41,17 @@ export default {
         return {
             // you can return the whole store instance to use it in the template
             store
+        }
+    },
+    data() {
+        return {
+            /*pub: {materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc},*/
+            pub_list: [{materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc},
+                       {materia: "Ideas III", asesor: "Rosa Sarmiento", desc: placeholder_desc},
+                       {materia: "SCE", asesor: "POJO", desc: placeholder_desc},
+                       {materia: "OPC", asesor: "Don Ramón", desc: placeholder_desc},
+                       {materia: "Redes I", asesor: "1ms", desc: placeholder_desc},
+                      ],
         }
     },
     /* beforeCreate(){
