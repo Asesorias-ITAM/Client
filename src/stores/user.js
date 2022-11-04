@@ -7,7 +7,7 @@ import { POOL_DATA } from "@/config/cognito.js";
 
 
 
-import {createAlum, checkAlum, confirmUser} from "../../services/alumnos.js"
+import {createAlum, checkAlum, confirmUser} from "@/services/alumnos.js"
 
 
 
@@ -61,6 +61,7 @@ export const useUserStore = defineStore('user', {
       this.username = Session.idToken.payload["cognito:username"]
       this.isAuthenticated = true
       this.email = Session.idToken.payload.email
+      console.log(this.session)
       
     },
 

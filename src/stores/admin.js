@@ -2,7 +2,9 @@ import { defineStore } from 'pinia'
 //import { useRouter } from "vue-router";
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
-import { POOL_DATA } from "@/config/cognito.js";
+import { POOL_DATA } from "@/config/cognito2.js";
+
+import {getListaAlumnos} from "@/services/admin.js"
 
 //const router = useRouter();
 export const useAdminStore = defineStore("admin", {
@@ -31,12 +33,37 @@ export const useAdminStore = defineStore("admin", {
       },
       actions:{
         
-        async loginAdmin(){
-            this.router.replace({
-                name: "Admin",
-            }); 
-            console.log("deberíaentrar")
+        logout(){
+          // gets reference to the Cognito user pool
+          const userPool = new CognitoUserPool(POOL_DATA);
+          //gets current logged in user
+          const cognitoUser = userPool.getCurrentUser();
+    
+          localStorage.clear();
+    
+          cognitoUser.signOut();
+          
+          this.isAuthenticated = false
+        },
+    
+        autoLogout(state){
+          this.didAutoLogout = true
+          this.logout(state)
+        },
+    
+        login(Session){
+          this.session = Session
+          this.idToken = Session.getIdToken().getJwtToken()
+          this.username = Session.idToken.payload["cognito:username"]
+          this.isAuthenticated = true
+
+          console.log(Session.idToken.payload)
+        },
+
+        async listaAlumnos(){
+          return await getListaAlumnos()
         }
+        
       }
 })
 

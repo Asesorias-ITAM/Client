@@ -118,7 +118,7 @@ export default{
             this.cognitoUser.authenticateUser(authDetails, {
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
-                    //this.setUserSessionInfo(Session)
+                    this.setUserSessionInfo(Session)
                     console.log(Session)
                     this.router.replace({
                         name: "Admin",
@@ -157,7 +157,7 @@ export default{
 
             this.cognitoUser.completeNewPasswordChallenge(datos.passwd,this.sessionUserAttributes,{
                 onSuccess: Session => {
-                    //this.setUserSessionInfo(Session)
+                    this.setUserSessionInfo(Session)
                     //console.log(Session)
                     this.router.replace({
                         name: "Admin",
@@ -172,6 +172,33 @@ export default{
 
             });
         },
+        setUserSessionInfo(session){
+            // starts timer to auto logout after 1 hour
+            setTimeout(() =>  {
+                this.store.autoLogout();
+                //console.log("auto logging out");
+                router.replace({
+                    name: "AdminLogin",
+                });
+                alert("You have been automatically logged out");
+            }, this.autoTimeout(session));
+
+            this.store.login(session)
+        },
+        // calculates when user will be auto logged out
+        autoTimeout(result) {
+            const seconds_timeout = 1800; // sets user login to expire after 1 hour
+            const expirationDate =
+                +result.idToken.payload["auth_time"] + seconds_timeout;
+                console.log(
+                    "Auth Time " + +result.idToken.payload["auth_time"],
+                    " Expire Date " + expirationDate
+                );
+            let expires_millseconds =
+                (expirationDate - +result.idToken.payload["auth_time"]) * 1000;
+            console.log("Expires in milliseconds ", expires_millseconds);
+            return expires_millseconds;
+        }
   
     }
 }
