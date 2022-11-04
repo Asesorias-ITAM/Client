@@ -1,5 +1,5 @@
 <template>
-    <article class="col-span-1 min-h-48 rounded-lg overflow-hidden shadow-md bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
+    <article class="col-span-1 min-w-8 min-h-48 rounded-lg overflow-hidden shadow-md bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
         <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
             <h1 class="px-3 py-4 text-3xl font-bold">{{materia}}</h1>
         </div>

@@ -15,7 +15,7 @@
         
         <section class="card-grid grid-flow-col auto-cols-auto">
             <div class="grid grid-flow-col auto-cols-auto gap-6"> <!--grid-cols-4-->
-                <PublicationCard v-for="pub of pub_list" v-bind="pub"/>
+                <PublicationCard v-for="pub of pub_list" :key="pub.id" v-bind="pub"/>
             </div>
         </section>
 
@@ -46,11 +46,11 @@ export default {
     data() {
         return {
             /*pub: {materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc},*/
-            pub_list: [{materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc},
-                       {materia: "Ideas III", asesor: "Rosa Sarmiento", desc: placeholder_desc},
-                       {materia: "SCE", asesor: "POJO", desc: placeholder_desc},
-                       {materia: "OPC", asesor: "Don Ramón", desc: placeholder_desc},
-                       {materia: "Redes I", asesor: "1ms", desc: placeholder_desc},
+            pub_list: [{id: 0, materia: "Economía I", asesor: "Juan Acosta", desc: placeholder_desc},
+                       {id: 1, materia: "Ideas III", asesor: "Rosa Sarmiento", desc: placeholder_desc},
+                       {id: 2, materia: "SCE", asesor: "POJO", desc: placeholder_desc},
+                       {id: 3, materia: "OPC", asesor: "Don Ramón", desc: placeholder_desc},
+                       {id: 4, materia: "Redes I", asesor: "1ms", desc: placeholder_desc},
                       ],
             session: this.store.session,
             asesor: this.store.session,

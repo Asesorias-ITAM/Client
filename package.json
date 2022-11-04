@@ -23,6 +23,7 @@
     "graphql-request": "^5.0.0",
     "graphql-tag": "^2.12.6",
     "pinia": "^2.0.21",
+    "pinia-plugin-persistedstate": "^2.3.0",
     "postcss": "^8",
     "tailwindcss": "^3",
     "vue": "^3.2.13",
