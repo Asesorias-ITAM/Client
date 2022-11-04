@@ -169,7 +169,7 @@ methods:{
 
                       
             this.store.crearAlumno(newUser)
-                                   
+            
             //console.log(result)
             //Llamo a la api y creo el nuevo usuario sin ser confirmado
             //Call API add

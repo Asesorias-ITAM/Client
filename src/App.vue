@@ -14,7 +14,10 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
+html.dark {
+  color-scheme: dark;
+}
 /*#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

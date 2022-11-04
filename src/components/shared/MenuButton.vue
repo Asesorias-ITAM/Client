@@ -1,6 +1,6 @@
 <template>
-  <div class="hover:bg-menu-button-hover">
-    <button :class="buttonClass">
+  <div class="flex-initial hover:bg-menu-button-hover">
+    <button :class="buttonClass" class="flex-initial">
       {{ text }}
     </button>
   </div>
