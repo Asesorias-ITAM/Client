@@ -1,7 +1,8 @@
 <template>
     <!--{{store.email}}-->
 
-    <div class="grid grid-flow-col auto-cols-auto bgfondo-dark-1">
+    <!--div class="grid grid-flow-col auto-cols-auto bgfondo-dark-1"-->
+    <div class="grid grid-cols-7">
         <div class="sidebar col-span-1 min-h-[90.2vh] bg-verde-itam-2">
             <section class="flex flex-col justify-items-center px-14  text-center text-2xl">
                 <MenuButton text="Buscar" type="unPressed" class="mt-20"/>
@@ -13,14 +14,17 @@
             </section>
         </div>
         
-        <section class="card-grid grid-flow-col auto-cols-auto">
-            <div class="grid grid-flow-col auto-cols-auto gap-6"> <!--grid-cols-4-->
+        <!--section class="card-grid grid-flow-col auto-cols-auto"-->
+        <section class="card-grid col-span-6">
+            <!--div class="grid grid-flow-col auto-cols-auto gap-6"-->
+            <div class="grid grid-cols-4 gap-6">
                 <PublicationCard v-for="pub of pub_list" :key="pub.id" v-bind="pub"/>
             </div>
         </section>
 
         <router-view name="grid"></router-view>
         {{session}}
+        {{asesor}}
     </div>
 </template>
 
@@ -38,6 +42,7 @@ export default {
     setup() {
         router = useRouter();
         const store = useUserStore()
+        
         return {
             // you can return the whole store instance to use it in the template
             store
@@ -53,7 +58,7 @@ export default {
                        {id: 4, materia: "Redes I", asesor: "1ms", desc: placeholder_desc},
                       ],
             session: this.store.session,
-            asesor: this.store.session,
+            asesor: this.store.session.asesor,
         }
     },
     /* beforeCreate(){
