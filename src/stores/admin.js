@@ -61,7 +61,9 @@ export const useAdminStore = defineStore("admin", {
         },
 
         async listaAlumnos(){
-          return await getListaAlumnos()
+          const l = await getListaAlumnos()
+          console.log(l.alumnos)
+          return l.alumnos
         }
         
       }

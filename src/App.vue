@@ -1,7 +1,7 @@
 <template>
   <div>
     <upper-bar/>
-    <router-view/>
+    <router-view/>                                                                        
   </div>
     
 </template>

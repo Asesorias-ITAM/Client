@@ -13,11 +13,12 @@ export const getListaAlumnos = async () =>{
         alumnos {
             id
             nombre
+            correo
             apellido
             asesor
         }
     }`
     const result = await graphQLClient.request(query)
-    console.log(result)
+    
     return result
 }
