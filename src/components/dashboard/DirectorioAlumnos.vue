@@ -88,7 +88,7 @@ export default {
     },
     computed: {
         listaVisible(){
-            
+            console.log(this.filtroNombre)
             if (this.filtroNombre){
                 const regexObj = new RegExp("\\s*"+this.filtroNombre,'i')
             // /^(.*?)abc/

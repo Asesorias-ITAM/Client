@@ -39,7 +39,15 @@ const routes = [
     path: "/dashboard",
     name: "Admin",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/AdminPage.vue"),
+      import(/* webpackChunkName: "about" */ "@/views/Dashboard/AdminPage.vue"),
+    children: [
+      {path:"directorio", 
+      component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/Dashboard/DirectorioPage.vue")},
+      {path:"publicaciones", 
+      component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/Dashboard/PublicacionesPage.vue")}
+    ],
   },    
   {
     // Cualquier otra URL se redirecciona a esta página
