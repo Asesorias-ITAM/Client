@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import LoginPage from "@/views/LoginPage.vue";
-import NotFoundPage from "@/views/NotFoundPage.vue";
+import LoginPage from "@/views/LoginPage.vue"
+import NotFoundPage from "@/views/NotFoundPage.vue"
+//import StudentGroupView from "@/views/StudentGroupView.vue"
+//import PublishGroupView from "@/views/PublishGroupView.vue"
 
 const routes = [
   {
@@ -22,6 +24,20 @@ const routes = [
     name: "Home",
     component: () =>
       import(/* webpackChunkName: "about" */ "@/views/HomePage.vue"),
+      children: [
+        {
+          path: "student_groups",
+          name: "Student Groups",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/views/StudentGroupView.vue"),
+        },
+        {
+          path: "publish_group",
+          name: "Publish group",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/views/PublishGroupView.vue"),
+        },
+      ],
   },
   {
     path: "/confirmation",

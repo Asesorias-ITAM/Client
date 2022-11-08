@@ -10,6 +10,7 @@
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
                 <MenuButton text="Mis Asesorías" type="unPressed" class="mt-10"/> <!--v-if="store.session.asesor"-->
+                <RouterButton text="Crear grupo" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed' "/>
                 <MenuButton text="Mi Perfil" type="unPressed" @click="view_perfil" class="mt-10"/>
                 <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
             </section>
@@ -23,7 +24,7 @@
             </div>
         </section>
 
-        <router-view name="grid"></router-view>
+        <router-view></router-view>
         {{session}}
         {{asesor}}
     </div>
@@ -31,15 +32,17 @@
 
 <script>
 import MenuButton from "@/components/shared/MenuButton.vue"
+import RouterButton from "@/components/shared/RouterButton.vue"
 import PublicationCard from "@/components/PublicationCard.vue"
 import { useUserStore } from '@/stores/user.js'
 import { useRouter } from "vue-router"
+
 let router
 let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. Nullam sed augue eget elit viverra dignissim. Ut nec urna in."
 
 export default {
     name: "HomePage",
-    components: {MenuButton, PublicationCard},
+    components: { MenuButton, PublicationCard, RouterButton },
     setup() {
         router = useRouter();
         const store = useUserStore()
