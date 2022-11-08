@@ -5,7 +5,6 @@
     <div class="grid grid-cols-7">
         <div class="sidebar col-span-1 min-h-[90.2vh] bg-verde-itam-2">
             <section class="flex flex-col justify-items-center px-14  text-center text-2xl">
-                
                 <MenuButton text="Buscar" type="unPressed" class="mt-20"/>
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
@@ -16,7 +15,7 @@
         </div>
         
         <!--section class="card-grid grid-flow-col auto-cols-auto"-->
-        <section class="card-grid col-span-6 my-3">
+        <section class="card-grid col-span-6">
             <!--div class="grid grid-flow-col auto-cols-auto gap-6"-->
             <div class="grid grid-cols-4 gap-6">
                 <PublicationCard v-for="pub of pub_list" :key="pub.id" v-bind="pub"/>
