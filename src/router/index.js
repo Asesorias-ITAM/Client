@@ -26,16 +26,22 @@ const routes = [
       import(/* webpackChunkName: "about" */ "@/views/HomePage.vue"),
       children: [
         {
+          path: "search",
+          name: "Search Groups",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/views/SearchGroupsPage.vue"),
+        },
+        {
           path: "student_groups",
           name: "Student Groups",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/StudentGroupView.vue"),
+            import(/* webpackChunkName: "about" */ "@/views/StudentGroupPage.vue"),
         },
         {
           path: "publish_group",
           name: "Publish group",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/PublishGroupView.vue"),
+            import(/* webpackChunkName: "about" */ "@/views/PublishGroupPage.vue"),
         },
       ],
   },
