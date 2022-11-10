@@ -70,34 +70,34 @@ let router;
 const userPool = new CognitoUserPool(POOL_DATA);
 
 export default{
-name: "RegisterPage",
-components: {ActionButton, TextInput, CustomLabel},
-data(){
-    return {
-        nombre: "",
-        apellido: "",
-        psswd: "",
-        psswd2: "",
-        correo: "",
-        asesor: false,
-        error: "",
-    }
-},
-setup() {
-    //get access to Vuex router
-    router = useRouter();
-    const store = useUserStore()
+    name: "RegisterPage",
+    components: {ActionButton, TextInput, CustomLabel},
+    data(){
+        return {
+            nombre: "",
+            apellido: "",
+            psswd: "",
+            psswd2: "",
+            correo: "",
+            asesor: false,
+            error: "",
+        }
+    },
+    setup() {
+        //get access to Vuex router
+        router = useRouter();
+        const store = useUserStore()
 
-    return {
-        // you can return the whole store instance to use it in the template
-        store
-    }
-},
-computed: {
-    compara(){
-        return this.psswd===this.psswd2
-    }
-},
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
+    },
+    computed: {
+        compara(){
+            return this.psswd===this.psswd2
+        }
+    },
 
 methods:{
     onEnter() {
@@ -120,12 +120,12 @@ methods:{
             passwd: this.psswd,
         }
 
-        let validation = validateRegisterForm(datos)
-        
-        if (!validation[0]){
-            this.error=validation[1]
-            return
-        }
+            let validation = validateRegisterForm(datos)
+            
+            if (!validation[0]){
+                this.error=validation[1]
+                return
+            }
 
         const attrList = [];
         const emailAttribute = {

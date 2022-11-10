@@ -1,12 +1,8 @@
 <template>
-    <div>
-        
-        <router-link :to="destination" :class="buttonClass" class="btn hover:bg-menu-button-hover">
-        {{ text }}
-        </router-link >
-
-    </div>
-</template>
+    <router-link :to="destination" :class="buttonClass" class="btn">
+      {{ text }}
+    </router-link >
+  </template>
   
 <script>
   export default {
@@ -37,14 +33,20 @@
       },
     },
   };
-</script>
+  </script>
   
   <style scoped>
   .btn {
     @apply text-white rounded-full font-bold;
   }
   
+  .unPressed {
+    @apply bg-verde-itam-2
+      hover:bg-rojo-complemento;
+  }
+  
   .pressed {
-    @apply bg-menu-button-hover;
+    @apply bg-rojo-complemento;
   }
   </style>
+  

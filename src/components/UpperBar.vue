@@ -1,6 +1,6 @@
 <template>
-    <header class="flex-row">
-        <div class="flex justify-center items-center w-full h-24 bg-verde-itam-1">
+    <header>
+        <div class="flex justify-center items-center w-full h-[10vh] bg-verde-itam-1">
             <div class="text-center" style="display: inline-block;">
                 <h1 class="text-texto-light-2 text-7xl font-bold">ASESORÍAS ITAM</h1>
             </div>
