@@ -2,6 +2,7 @@
     <div class="grid grid-cols-3 min-h-full">
         <div class="col-span-1 min-h-full"></div>
 
+
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
                 <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl dark:drop-shadow-2x1">
@@ -69,13 +70,13 @@ export default{
             // you can return the whole store instance to use it in the template
             store
         }
+        
     },
     data(){
         return {
             correo: "",
             passwd: "",
             incorrecto: false,
-            
         }
     },
     methods:{
@@ -101,25 +102,27 @@ export default{
             };
             // creates a Cognito User object based on user auth details and user pool info
             const cognitoUser = new CognitoUser(userData);
+            //console.log("Pre Autenticación")
             //console.log(cognitoUser)
+            //console.log(Object.keys(cognitoUser["signInUserSession"]))
             //https://bitcoden.com/answers/component-variable-cant-be-modified-in-a-callback-method-in-vuejs
             //calls the authenticate user method
             
             cognitoUser.authenticateUser(authDetails, {
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
-                    //console.log(Session)
                     this.setUserSessionInfo(Session)
                     router.replace({
                         name: "Home",
                     });
+                    //console.log("Post Autenticación")
+                    //console.log(cognitoUser)
                     //console.log(Session.idToken.payload)
                     //console.log(Session.idToken.payload.aud)
                     this.incorrecto=false;
                 },
                 onFailure: () => {
                     //console.log(error);
-
                     this.incorrecto=true;
                     
                 }

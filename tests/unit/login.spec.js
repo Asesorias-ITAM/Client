@@ -1,6 +1,6 @@
 import LoginPage from "@/views/LoginPage.vue";
 import '@testing-library/jest-dom'
-import {mount, shallowMount, RouterLinkStub} from "@vue/test-utils";
+import {mount, shallowMount, /*RouterLinkStub*/} from "@vue/test-utils";
 import { createTestingPinia } from '@pinia/testing'
 
 /*import { createRouter, createWebHashHistory } from 'vue-router'
@@ -14,7 +14,7 @@ const router = createRouter({
 describe("LoginPage", () =>{
 
     it("Saca error si no hay información en todos los campos", async () => {
-        /*router.push('/') //Navegar a la página de login
+        /*router.push('/') //Navega524548r a la página de login
         await router.isReady()*/
 
         const wrapper = mount(LoginPage, {
@@ -55,7 +55,7 @@ describe("LoginPage", () =>{
         //console.log(goToRegister.attributes().to)
         expect(goToRegister.attributes().to).toBe('/register')
 
-    })
+    })524548
 
     
 })

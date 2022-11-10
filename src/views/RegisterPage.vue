@@ -8,7 +8,7 @@
                         <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                         <div id="registro" class="flex flex-col mx-14 mb-2">
                             
-                            <CustomLabel class="bad" :text="error" v-if="error!==''" data-test='field-validator'/>
+                            <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                             <label class="mt-2">Correo Electrónico</label>
                             <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox"/>
@@ -25,12 +25,12 @@
                             <label>Confirma Contraseña</label>
                             <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter" placeholder="" class="textBox"/>
 
-                            <CustomLabel class="bad" text="Las contraseñas no coinciden" v-if="!compara" data-test='password-validator'/>
+                            <CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                             
                             <div class="grid grid-cols-1">
                                 <div>
                                     <label>Quiero ser asesor </label>
-                                    <input id="" type="checkbox" v-model="asesor" class="mb-6">
+                                    <input type="checkbox" v-model="asesor" class="mb-6">
                                 </div>
                                 <ActionButton text="Crear cuenta" @click="registrar" type="primary" data-test='register-button'/>
                                 <router-link to="/" class="text-center mb-6 hover:text-texto-hover-light-1 hover:dark:text-texto-hover-dark-1" data-test='back-to-login'>
@@ -54,9 +54,10 @@ import CustomLabel from "@/components/shared/CustomLabel"
 
 import {validateRegisterForm } from "@/utils/validator.js"
 
+import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
 
-//import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 //import router from "@/router/index.js";
 import {
   CognitoUserPool,
@@ -89,7 +90,12 @@ export default{
     },
     setup() {
         //get access to Vuex router
-        //router = useRouter();
+        router = useRouter();
+        const store = useUserStore()
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
     },
     computed: {
         compara(){
@@ -105,6 +111,12 @@ export default{
         async registrar() {
             let emailString = this.correo.toLowerCase()
 
+             
+            if(await this.store.checkUser({"correo" :emailString})){
+                this.error="Ya existe un usuario con ese correo"
+                return
+            }
+
             const datos = {
                 correo: emailString,
                 nombre: this.nombre,
@@ -112,18 +124,10 @@ export default{
                 passwd: this.psswd,
             }
 
-            if (!validateRegisterForm(datos)){
-                this.error = "Todos los campos deben contener información"
-                return
-            }
+            let validation = validateRegisterForm(datos)
 
-            if (!this.validarCorreo(emailString)) {
-                this.error = "Se debe utilizar un correo del ITAM"
-                return
-            }
-
-            if(this.psswd.trim().length < 6) {
-                this.error = "La contraseña debe contener al menos 6 caracteres"
+            if (!validation[0]){
+                this.error=validation[1]
                 return
             }
 
@@ -148,41 +152,49 @@ export default{
             attrList.push(new CognitoUserAttribute(nameAttribute));
             attrList.push(new CognitoUserAttribute(familyAttribute));
             attrList.push(new CognitoUserAttribute(asesorAttribute));
-            console.log(attrList)
+            
+             // eslint-disable-next-line
+            /* if (1==1){
+                return
+            } */
 
-            //TODO: ver por qué no funciona el catch
-            try{
-                //Intenta registrar al usuario
-                await userPool.signUp(emailString, datos.passwd, attrList, null, (err, result ) => {
-                    if (err) {
-                        console.log(err)
-                        return
-                    }
-                    this.error=""
-                    console.log(result)
+            await userPool.signUp(emailString, datos.passwd, attrList, null, (err, /*result*/ ) => {
+                if (err) {
+                    console.log(err)
 
-                    router.replace({
-                        name: "Confirm",
-                    });
-                });
-            } catch(err) { 
-                if(err instanceof UsernameExistsException) {
-                    this.error = "Ya hay una cuenta asociada a este correo"
                     return
                 }
-            }
+                this.error=""
+                const newUser = {"nombre": nameAttribute.Value,
+                    "apellido": familyAttribute.Value, 
+                    "correo": emailAttribute.Value, 
+                    "asesor": this.asesor, 
+                    "confirmed": false}
+
+                          
+                this.store.crearAlumno(newUser)
+                                       
+                //console.log(result)
+                //Llamo a la api y creo el nuevo usuario sin ser confirmado
+                //Call API add
+                
+                router.replace({
+                    name: "Confirm",
+                });
+            });
 
         },
 
-        //Migrar esto a validator.js
-        validarCorreo(correo) {
-            return correo.endsWith("@itam.mx")
-        }
     },
 }
 
 </script>
 
+<style>
+.textBox {
+    border-radius: 7px;
+}
+</style>
 <style>
 .textBox {
     border-radius: 7px;

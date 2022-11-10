@@ -4,7 +4,7 @@
 
         <div class="col-span-1 min-h-full">
             <div class="text-2xl subpixel-antialiased font-sans ">
-                <div class=" mt-16 border-4 bg-white drop-shadow-2xl">
+                <div class="mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
                     <h5 class="text-center py-5 bg-verde-itam-1 text-white text3xl ">Introduce el código que se ha enviado a tu correo</h5>
                     <div id="registro" class="flex flex-col mx-14 ">
                         
@@ -17,8 +17,8 @@
                         <CustomLabel class="bad" :text="error" v-if="error!==''" data-test='field-validator'/>
                             
                             <div class="grid grid-cols-1">
-                                <ActionButton text="Confirmar" @click="confirmar" type="primary" data-test='confirm-button'/>
-                                <router-link to="/" class="text-center mb-6" data-test='back-to-login'>¿Ya tienes cuenta? Inicia Sesión</router-link>
+                                <ActionButton text="Confirmar" @click="confirmar" type="primary" data-test='confirm-button' data-test='confirm-button'/>
+                                <router-link to="/" class="text-center mb-6" data-test='back-to-login' data-test='back-to-login'>¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
 
                     </div>
@@ -35,9 +35,11 @@ import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
-//import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 //import { router } from "@/router/index.js";
 import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js";
+
+import { useUserStore } from '@/stores/user.js'
 
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
@@ -57,9 +59,17 @@ export default{
             error: "",
         }
     },
-    setup() {
-        //router = useRouter();
+    setup(){
+        router = useRouter();
+        //get access to Vuex router
+        router = useRouter();
+        const store = useUserStore()
+        return {
+            // you can return the whole store instance to use it in the template
+            store
+        }
     },
+
     methods: {
         async confirmar(){
 
@@ -71,22 +81,29 @@ export default{
             /*
             creates a Cognito User object and accepts the userData object
             */
-            const cognitUser = new CognitoUser(userData);
-            console.log(cognitUser);
-
+            const cognitoUser = new CognitoUser(userData);
             /*
             calls the Cognito confirm registration method
             the method accepts the confirmation code sent to the
             users email address used to when signing up
             */
-            await cognitUser.confirmRegistration(this.codigo, true, (err, result) => {
-                if (err) {
+           //userData.Username
+                 this.store.confirmUser({
+                    "correo" :userData.Username, 
+                    "confirmed": true
+            })
+            
+
+            await cognitoUser.confirmRegistration(this.codigo, true, (err, /*result*/) => {
+                if (err) {  
                     //setMessage(err.message, "alert-danger");
                     this.error = "Código incorrecto"
                     return;
                 }
+                
 
-                console.log(result);
+                //Llamo a la API y activo el usuario
+                //call api confirm 
                 console.log("Error en confPage.vue: " + this.error);
 
                 router.replace({

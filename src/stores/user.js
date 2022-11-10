@@ -4,6 +4,14 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
+
+
+
+import {createAlum, checkAlum, confirmUser} from "../../services/alumnos.js"
+
+
+
+
 export const useUserStore = defineStore('user', {
   state: () => (
       { 
@@ -28,9 +36,6 @@ export const useUserStore = defineStore('user', {
     
   },
   actions: {
-    incrementTest(state) {
-      state.test++
-    },
 
     logout(){
       // gets reference to the Cognito user pool
@@ -57,6 +62,50 @@ export const useUserStore = defineStore('user', {
       this.isAuthenticated = true
       this.email = Session.idToken.payload.email
       
+    },
+
+    //Agrega usuario al directorio
+    async crearAlumno(user){
+      //console.log(user)
+      try{
+        const res = await createAlum(user)
+        if ('errors' in res){
+          throw new Error("Ya hay una cuenta con ese correo")
+        }
+      }catch(err){
+        console.log(err)
+        //throw new Error(err)
+      }
+    },
+    //Cambia el campo de comfirmed a true
+    async confirmUser(user){
+      console.log(user)
+      try{
+        await confirmUser(user.correo)
+        
+      }catch (err){
+        throw new Error(err)
+      }
+    },
+
+    //checa si ya existe el usuario
+    async checkUser(user){
+      //console.log(user)
+        try{
+          const res = await checkAlum(user.correo)
+          console.log(res)
+          console.log(res.alumno)
+          if (res.alumno!==null){
+              //throw new Error("Ya hay un alumno con ese correo")
+              console.log("Ya existe")
+              return true
+          }
+          return false
+        }catch(err) {
+          //throw new Error()console.log(err)
+          console.log(err)
+          return true
+        } 
     }
   },
 })

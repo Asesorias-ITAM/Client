@@ -1,5 +1,5 @@
 import RegisterPage from "@/views/RegisterPage.vue";
-import {mount, RouterLinkStub} from "@vue/test-utils";
+import {mount, /*RouterLinkStub*/} from "@vue/test-utils";
 
 describe("RegisterPage", () =>{
     
