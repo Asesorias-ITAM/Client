@@ -108,6 +108,8 @@ export const useUserStore = defineStore('user', {
         } 
     }
   },
+  
+  persist: true, // Rehidrata la piña
 })
 
 

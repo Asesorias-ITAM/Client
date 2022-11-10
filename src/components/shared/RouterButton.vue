@@ -1,14 +1,16 @@
 <template>
-  <div class="flex-initial hover:bg-menu-button-hover">
-    <button :class="buttonClass" class="flex-initial">
-      {{ text }}
-    </button>
-  </div>
-</template>
+    <div>
+        
+        <router-link :to="destination" :class="buttonClass" class="btn hover:bg-menu-button-hover">
+        {{ text }}
+        </router-link >
 
+    </div>
+</template>
+  
 <script>
   export default {
-    name: "MenuButton",
+    name: "RouterButton",
     props: {
       text: {
         type: String,
@@ -22,6 +24,10 @@
           return ["unPressed", "pressed"].includes(value);
         },
       },
+      destination:{
+        type: String,
+        required: true
+      }
     },
     computed: {
       buttonClass() {
@@ -33,17 +39,12 @@
   };
 </script>
   
-<style scoped>
-  button {
+  <style scoped>
+  .btn {
     @apply text-white rounded-full font-bold;
-  }
-  
-  .unPressed {
-    /*@apply bg-verde-itam-2*/
   }
   
   .pressed {
     @apply bg-menu-button-hover;
   }
   </style>
-  

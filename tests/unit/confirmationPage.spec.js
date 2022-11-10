@@ -1,6 +1,7 @@
 import ConfirmationPage from "@/views/ConfirmationPage.vue";
 import '@testing-library/jest-dom'
 import {mount, shallowMount, /*RouterLinkStub*/} from "@vue/test-utils";
+import { createTestingPinia } from '@pinia/testing'
 
 describe("ConfirmationPage", () =>{
     
@@ -8,6 +9,7 @@ describe("ConfirmationPage", () =>{
         const wrapper = mount(ConfirmationPage, {
             global: {
               stubs: ["router-link"],
+              plugins: [createTestingPinia()],
             },
             data() {
                 return {
@@ -47,6 +49,7 @@ describe("ConfirmationPage", () =>{
             global: {
               //stubs: { "router-link": RouterLinkStub }, // Este no funciona, no sé por qué
               stubs: ["router-link"],
+              plugins: [createTestingPinia()],
             },
             
         });

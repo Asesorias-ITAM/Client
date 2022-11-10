@@ -55,7 +55,7 @@ describe("LoginPage", () =>{
         //console.log(goToRegister.attributes().to)
         expect(goToRegister.attributes().to).toBe('/register')
 
-    })524548
+    })
 
     
 })
