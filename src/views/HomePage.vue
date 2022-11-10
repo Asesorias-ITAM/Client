@@ -6,12 +6,12 @@
         <div class="sidebar col-span-1 min-h-[90.2vh] bg-verde-itam-2">
             <section class="flex flex-col justify-items-center px-14  text-center text-2xl">
                 
-                <MenuButton text="Buscar" type="unPressed" class="mt-20"/>
+                <RouterButton text="Buscar" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed' " class="py-5"/>
+                <RouterButton text="Crear grupo" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed' "/>
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
                 <MenuButton text="Mis Asesorías" type="unPressed" class="mt-10"/> <!--v-if="store.session.asesor"-->
-                <RouterButton text="Buscar" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed' "/>
-                <RouterButton text="Crear grupo" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed' "/>
+                
                 <MenuButton text="Mi Perfil" type="unPressed" @click="view_perfil" class="mt-10"/>
                 <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
             </section>
