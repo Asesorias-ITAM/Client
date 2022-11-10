@@ -25,6 +25,7 @@ const toggleDark = useToggle(isDark)
 
 :root {
   --pos-y: 0.03;
+  --element-size: 4rem;
 }
 
 .moon {

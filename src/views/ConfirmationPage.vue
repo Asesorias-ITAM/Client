@@ -17,8 +17,8 @@
                         <CustomLabel class="bad" :text="error" v-if="error!==''" data-test='field-validator'/>
                             
                             <div class="grid grid-cols-1">
-                                <ActionButton text="Confirmar" @click="confirmar" type="primary" data-test='confirm-button'/>
-                                <router-link to="/" class="text-center mb-6" data-test='back-to-login'>¿Ya tienes cuenta? Inicia Sesión</router-link>
+                                <ActionButton text="Confirmar" @click="confirmar" type="primary" data-test='confirm-button' data-test='confirm-button'/>
+                                <router-link to="/" class="text-center mb-6" data-test='back-to-login' data-test='back-to-login'>¿Ya tienes cuenta? Inicia Sesión</router-link>
                             </div>
 
                     </div>
@@ -46,7 +46,7 @@ import { POOL_DATA } from "@/config/cognito.js";
 
 const userPool = new CognitoUserPool(POOL_DATA);
 
-let router;
+//let router;
 //let route;
 
 export default{

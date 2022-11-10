@@ -1,9 +1,11 @@
 <template>
-    <button :class="buttonClass">
+  <div class="flex-initial hover:bg-menu-button-hover">
+    <button :class="buttonClass" class="flex-initial">
       {{ text }}
     </button>
-  </template>
-  
+  </div>
+</template>
+
 <script>
   export default {
     name: "MenuButton",
@@ -29,20 +31,19 @@
       },
     },
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   button {
     @apply text-white rounded-full font-bold;
   }
   
   .unPressed {
-    @apply bg-verde-itam-2
-      hover:bg-rojo-complemento;
+    /*@apply bg-verde-itam-2*/
   }
   
   .pressed {
-    @apply bg-rojo-complemento;
+    @apply bg-menu-button-hover;
   }
   </style>
   
