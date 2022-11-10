@@ -12,7 +12,7 @@ export const createAlum = async (alum) => {
   const query = gql`
     mutation CreateAlum ($nombre: String!, $apellido: String!, $correo: String!, $asesor: Boolean!){
         createAlumno (
-          data: {nombre: $nombre, apellido: $apellido, correo: $correo, asesor: $asesor, confirmed: false}
+          data: {nombre: $nombre, apellido: $apellido, correo: $correo, asesor: $asesor}
         ) {
           id
         }
@@ -51,10 +51,10 @@ export const checkAlum = async(email) => {
 export const confirmUser = async(email)=>{
   const query = gql`
     mutation confirmAlumno($correo: String!) {
-        updateAlumno(data: {confirmed: true}, where: {correo: $correo}) {
-          id
-        }
+      publishAlumno(where: {correo: $correo}, to: PUBLISHED) {
+        id
       }
+    }
     `;
     const variables = {
       "correo": email,
