@@ -20,6 +20,7 @@ module.exports = {
         "fondo-dark-tarjeta-2": "#58585e",
 
         /*Highlighting*/
+        "rojo-complemento": "#80021b",
         "texto-hover-light-1": "#95959d", /*Al poner el mouse sobre el texto*/
         "menu-button-hover": "#0ead8e",
         "texto-hover-dark-1": "#afafb6", /*Al poner el mouse sobre el texto*/

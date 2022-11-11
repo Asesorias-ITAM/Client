@@ -41,8 +41,7 @@
   }
   
   .unPressed {
-    @apply bg-verde-itam-2
-      hover:bg-rojo-complemento;
+    @apply bg-verde-itam-2 hover:bg-rojo-complemento;
   }
   
   .pressed {

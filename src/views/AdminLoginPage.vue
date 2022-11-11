@@ -120,9 +120,7 @@ export default{
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     console.log(Session)
-                    this.router.replace({
-                        name: "Admin",
-                    });
+                    this.router.replace('/dashboard/directorio');
                     this.incorrecto=false;
                 },
                 onFailure: (error) => {
@@ -159,9 +157,7 @@ export default{
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     //console.log(Session)
-                    this.router.replace({
-                        name: "Admin",
-                    });
+                    this.router.replace('/dashboard/directorio');
                     this.incorrecto=false;
                 },
                 onFailure: (error) => {

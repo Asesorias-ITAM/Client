@@ -60,8 +60,8 @@ CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
-//get access to Vuex router
-let router;
+
+
     /*  
     Create a user pool object
     The object parameter references the Cognito user pool data held in a constant that we 
@@ -85,12 +85,13 @@ export default{
     },
     setup() {
         //get access to Vuex router
-        router = useRouter();
+        const router = useRouter();
         const store = useUserStore()
 
         return {
             // you can return the whole store instance to use it in the template
-            store
+            store,
+            router
         }
     },
     computed: {
@@ -174,7 +175,7 @@ methods:{
             //Llamo a la api y creo el nuevo usuario sin ser confirmado
             //Call API add
             
-            router.replace({
+            this.router.replace({
                 name: "Confirm",
             });
         });
