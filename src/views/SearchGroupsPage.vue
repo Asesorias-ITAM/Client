@@ -9,7 +9,6 @@
 <script>
 import PublicationCard from "@/components/PublicationCard.vue"
 
-
 let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. Nullam sed augue eget elit viverra dignissim. Ut nec urna in."
 
 export default {

@@ -6,6 +6,9 @@ import './index.css';
 import "./assets/tailwind.css";
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { markRaw } from 'vue'
+// adapt this based on where your router is
+
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -34,6 +37,10 @@ const pinia = createPinia();
 })*/
 
 pinia.use(piniaPluginPersistedstate) // Nota: agregar persist:true en los métodos de la store si se usa este método
+
+pinia.use(({ store }) => {
+    store.router = markRaw(router)
+  })
 
 app.use(pinia);
 app.use(router);

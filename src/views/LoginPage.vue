@@ -29,7 +29,7 @@ import TextInput from "@/components/shared/TextInput"
 import CustomLabel from "@/components/shared/CustomLabel"
 
 import { useUserStore } from '@/stores/user'
-//import { storeToRefs } from 'pinia'
+
 
 import { useRouter } from "vue-router";
 //import { router } from "@/router/index.js";
@@ -48,7 +48,6 @@ setup in the Configure application to use Cognito User Pool section
 */
 // sets up Cognito User pool data
 const userPool = new CognitoUserPool(POOL_DATA);
-let router;
 //let store;
 
 export default{
@@ -56,12 +55,13 @@ export default{
     components: {ActionButton, TextInput, CustomLabel},
     setup() {
         //get access to Vuex router
-        router = useRouter();
+        const router = useRouter();
         const store = useUserStore()
         
         return {
             // you can return the whole store instance to use it in the template
-            store
+            store,
+            router
         }
         
     },
@@ -105,7 +105,7 @@ export default{
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
-                    router.replace({
+                    this.router.replace({
                         name: "Home",
                     });
                     //console.log("Post Autenticación")
@@ -114,12 +114,11 @@ export default{
                     //console.log(Session.idToken.payload.aud)
                     this.incorrecto=false;
                 },
-                onFailure: () => {
-                    //console.log(error);
+                onFailure: (error) => {
+                    console.log(error);
                     this.incorrecto=true;
                     
-                }
-
+                },
             });   
         },
 
@@ -129,7 +128,7 @@ export default{
             setTimeout(() =>  {
                 this.store.autoLogout();
                 //console.log("auto logging out");
-                router.replace({
+                this.router.replace({
                     name: "Login",
                 });
                 alert("You have been automatically logged out");

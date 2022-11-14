@@ -60,8 +60,8 @@ CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
-//get access to Vuex router
-let router;
+
+
     /*  
     Create a user pool object
     The object parameter references the Cognito user pool data held in a constant that we 
@@ -70,34 +70,35 @@ let router;
 const userPool = new CognitoUserPool(POOL_DATA);
 
 export default{
-name: "RegisterPage",
-components: {ActionButton, TextInput, CustomLabel},
-data(){
-    return {
-        nombre: "",
-        apellido: "",
-        psswd: "",
-        psswd2: "",
-        correo: "",
-        asesor: false,
-        error: "",
-    }
-},
-setup() {
-    //get access to Vuex router
-    router = useRouter();
-    const store = useUserStore()
+    name: "RegisterPage",
+    components: {ActionButton, TextInput, CustomLabel},
+    data(){
+        return {
+            nombre: "",
+            apellido: "",
+            psswd: "",
+            psswd2: "",
+            correo: "",
+            asesor: false,
+            error: "",
+        }
+    },
+    setup() {
+        //get access to Vuex router
+        const router = useRouter();
+        const store = useUserStore()
 
-    return {
-        // you can return the whole store instance to use it in the template
-        store
-    }
-},
-computed: {
-    compara(){
-        return this.psswd===this.psswd2
-    }
-},
+        return {
+            // you can return the whole store instance to use it in the template
+            store,
+            router
+        }
+    },
+    computed: {
+        compara(){
+            return this.psswd===this.psswd2
+        }
+    },
 
 methods:{
     onEnter() {
@@ -120,12 +121,12 @@ methods:{
             passwd: this.psswd,
         }
 
-        let validation = validateRegisterForm(datos)
-        
-        if (!validation[0]){
-            this.error=validation[1]
-            return
-        }
+            let validation = validateRegisterForm(datos)
+            
+            if (!validation[0]){
+                this.error=validation[1]
+                return
+            }
 
         const attrList = [];
         const emailAttribute = {
@@ -174,7 +175,7 @@ methods:{
             //Llamo a la api y creo el nuevo usuario sin ser confirmado
             //Call API add
             
-            router.replace({
+            this.router.replace({
                 name: "Confirm",
             });
         });
@@ -188,6 +189,17 @@ methods:{
 
 <style>
 .textBox {
+border-radius: 7px;
+}
+</style>
+<style>
+.textBox {
+border-radius: 7px;
+}
+</style>
+<style>
+.textBox {
+    border-radius: 7px;
 border-radius: 7px;
 }
 </style>
