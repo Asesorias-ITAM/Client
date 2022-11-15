@@ -8,8 +8,8 @@
 <script>
 
 export default {
-    name: "TarjetaAlumno",
-    components: {},
+    name: "FilaAlumno",
+    
     props: {
         datosAlumno: {
             type: Object,

@@ -10,7 +10,7 @@ const graphQLClient = new GraphQLClient((graphqlAPI), {
 export const getListaAlumnos = async () =>{
     const query = gql`
     query ListaAlumnos {
-        alumnos {
+        alumnos(first: 100) {
             id
             nombre
             correo

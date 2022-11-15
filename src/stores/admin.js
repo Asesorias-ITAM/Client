@@ -22,6 +22,7 @@ export const useAdminStore = defineStore("admin", {
           session: null,
           // gets reference to the Cognito user pool
           userPool: new CognitoUserPool(POOL_DATA),
+          selectedAlumno: "null"
   
         }
       ),
