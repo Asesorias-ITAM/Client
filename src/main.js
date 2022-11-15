@@ -38,9 +38,9 @@ const pinia = createPinia();
 
 pinia.use(piniaPluginPersistedstate) // Nota: agregar persist:true en los métodos de la store si se usa este método
 
-pinia.use(({ store }) => {
+/*pinia.use(({ store }) => {
     store.router = markRaw(router)
-  })
+  })*/
 
 app.use(pinia);
 app.use(router);

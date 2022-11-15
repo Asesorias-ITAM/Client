@@ -1,6 +1,5 @@
 <template>
     <div>
-        Esta es la página de creación de grupos
         <PublishGroupForm/>
     </div>
 </template>

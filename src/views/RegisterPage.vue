@@ -191,15 +191,5 @@ methods:{
 .textBox {
 border-radius: 7px;
 }
-</style>
-<style>
-.textBox {
-border-radius: 7px;
-}
-</style>
-<style>
-.textBox {
-    border-radius: 7px;
-border-radius: 7px;
-}
+
 </style>
