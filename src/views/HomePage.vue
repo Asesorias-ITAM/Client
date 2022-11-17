@@ -58,16 +58,16 @@ export default {
     data() {
         return {
             session: this.store.session,
-            asesor: this.store.session.asesor,
+            asesor: this.store.asesor,
         }
     },
-    /* beforeCreate(){
+    beforeCreate(){
         if (this.store.session === null){
-            router.replace({
+            this.router.replace({
                 name: "Login",
             });
         }
-    }, */
+    },
     computed: {
         path() {
             return this.route.path
@@ -78,7 +78,7 @@ export default {
             this.store.logout(); 
             this.store.$reset()
             console.log(this.store.session)
-            router.replace({
+            this.router.replace({
                 name: "Login",
             });
         },

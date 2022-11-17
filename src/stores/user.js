@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', {
         cognitoUserName: null,
         cognitoSub: null,
         email: null,
+        asesor: null, 
         idToken: null,
         accessToken: null,
         refreshToken: null,
@@ -59,6 +60,7 @@ export const useUserStore = defineStore('user', {
       this.session = Session
       this.idToken = Session.getIdToken().getJwtToken()
       this.username = Session.idToken.payload["cognito:username"]
+      this.asesor = Session.idToken.payload["custom:Asesor"]
       this.isAuthenticated = true
       this.email = Session.idToken.payload.email
       console.log(this.session)
