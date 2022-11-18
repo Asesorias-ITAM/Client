@@ -22,7 +22,7 @@ export const useAdminStore = defineStore("admin", {
           session: null,
           // gets reference to the Cognito user pool
           userPool: new CognitoUserPool(POOL_DATA),
-          selectedAlumno: "null"
+          selectedAlumno: null
   
         }
       ),
@@ -67,7 +67,8 @@ export const useAdminStore = defineStore("admin", {
           return l.alumnos
         }
         
-      }
+      },
+      persist: true,
 })
 
 //https://stackoverflow.com/questions/51103676/aws-cognito-react-js-newpasswordrequired-challenge

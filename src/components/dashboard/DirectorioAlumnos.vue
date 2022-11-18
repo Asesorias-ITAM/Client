@@ -14,7 +14,7 @@
                     </div>
                     <div>
                         alumno
-                        {{this.store.state.selectedAlumno}}
+                        {{selectedAlumno}}
                     </div>
                 </section>
             </div>
@@ -32,6 +32,7 @@
                         v-for="alumno in listaVisible"
                         :key="alumno.correo"
                         :datosAlumno="alumno"
+                        @click="selectAlumno(alumno)"
                     />
                     
 
@@ -68,7 +69,8 @@ export default {
         return {
             listaAlumnos: [],
             filtroNombre:"",
-            filtroAsesor:false
+            filtroAsesor:false,
+            selectedAlumno: null
         }
     },
     computed: {
@@ -106,6 +108,10 @@ export default {
     
                 })
             }
+        },
+
+        selectAlumno(alum){
+            this.selectedAlumno = alum
         }
 
     }
