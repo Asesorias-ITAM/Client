@@ -8,19 +8,19 @@
                         <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                         <label class="mt-2">Correo Electrónico</label>
-                        <TextInput v-model="correo" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
+                        <TextInput v-model="correo" @keyup.enter="onEnter"/>
                         
                         <label>Nombre(s)</label>
-                        <TextInput v-model="nombre" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
+                        <TextInput v-model="nombre" @keyup.enter="onEnter"/>
                         
                         <label>Apellidos</label>
-                        <TextInput v-model="apellido" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
+                        <TextInput v-model="apellido" @keyup.enter="onEnter"/>
 
                         <label>Contraseña</label>
-                        <TextInput type="password" v-model="psswd" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
+                        <TextInput type="password" v-model="psswd" @keyup.enter="onEnter"/>
 
                         <label>Confirma Contraseña</label>
-                        <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
+                        <TextInput type="password" v-model="psswd2" @keyup.enter="onEnter"/>
 
                         <CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
                         

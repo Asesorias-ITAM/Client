@@ -9,10 +9,10 @@
                     <div id="registro" class="flex flex-col mx-14 ">
                         
                         <label class="mt-6">Correo Electrónico</label>
-                        <TextInput v-model="correo" placeholder=""/>
+                        <TextInput v-model="correo"/>
 
                         <label class="mt-6">Código</label>
-                        <TextInput v-model="codigo" placeholder=""/>
+                        <TextInput v-model="codigo"/>
                         
                         <CustomLabel class="bad" :text="error" v-if="error!==''" data-test='field-validator'/>
                             

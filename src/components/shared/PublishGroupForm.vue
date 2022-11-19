@@ -1,20 +1,20 @@
 <template>
     <div class="container min-h-full max-w-2xl mx-auto">
             <div class="text-2xl subpixel-antialiased font-sans ">
-                <div class="mt-10 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
+                <div class="mt-6 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
                     <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                     <div id="registro" class="flex flex-col mx-14 mb-2">
                         
                         <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                         <label class="mt-2">Materia</label>
-                        <TextInput v-model="materia" @keyup.enter="onEnter" placeholder="" class="textBox px-3"/>
+                        <TextInput v-model="materia" @keyup.enter="onEnter"/>
                         
                         <label>Descripción</label>
-                        <TextInput v-model="desc" @keyup.enter="onEnter" :placeholder="desc_placeholder" class="textBox align-text-top placeholder:align-text-top break-normal placeholder:break-words px-3 py-20"/>
-                        
+                        <TextArea v-model="desc" @keyup.enter="onEnter" :placeholder="desc_placeholder" class=""></TextArea>
+
                         <label>Precio (opcional)</label>
-                        <TextInput type="precio" v-model="precio" @keyup.enter="onEnter" placeholder="Si no vas a cobrar, escribe '0'" class="textBox px-3"/>
+                        <TextInput type="precio" v-model="precio" @keyup.enter="onEnter" placeholder="Si no vas a cobrar, escribe '0'"/>
 
                         <!--CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/-->
                         
@@ -31,11 +31,11 @@
 <script>
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
-
+import TextArea from "@/components/shared/TextArea"
 
 export default {
     name: "PublishGroupForm",
-    components: { ActionButton, TextInput },
+    components: { ActionButton, TextInput, TextArea },
     data(){
         return {
             materia: "",

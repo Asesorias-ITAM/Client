@@ -1,12 +1,13 @@
 <template>
-    <input
+    <textarea
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"
-      maxlength="100"
-      class="textBox text-lg font-normal border-2 mb-6 px-3 focus:outline-blue-500 dark:focus:border-blue-500"
+      rows="3"
+      maxlength="240"
+      class="max-h-64 text-lg font-normal rounded-lg border-2 mb-6 px-3 py-2 focus:outline-blue-500 dark:focus:outline-blue-500"
       @input="$emit('update:modelValue', $event.target.value)"
-    />
+    ></textarea>
 </template>
 
 <script>
