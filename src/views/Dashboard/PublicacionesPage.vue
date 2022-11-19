@@ -23,13 +23,14 @@
                     </div>
                 </div>
                 <section class="h-[70vh] overflow-auto">
+                    
                     <FilaTabla 
                         v-for="publicacion in listaVisible"
                         :key="publicacion.id"
                         :col1="publicacion.materia"
                         :col2="publicacion.alumno.nombre +' ' +publicacion.alumno.apellido"
                         :selected="false"
-                    />
+                    /> 
                 </section>
             </div>
             

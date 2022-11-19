@@ -63,3 +63,46 @@ export const confirmUser = async(email)=>{
     return result
 }
 
+export const crearGrupo = async (publicacion) => {
+  const query = gql`
+    mutation crearGrupo($materia: String!, $descripcion: String!, $correo: String!, $precio: Int!){
+    createPublicacion(
+      data: {
+        precio: $precio, 
+        materia: $materia, 
+        descripcion: $descripcion, 
+        alumno: {
+          connect: {correo: $correo}
+        }
+      }
+    ) {
+      id
+    }
+  }
+  `;
+  const variables = {
+    "precio": publicacion.precio,
+    "materia": publicacion.materia,
+    "descripcion":publicacion.descripcion,
+    "correo":publicacion.correo
+  }
+  const result = await graphQLClient.request(query, variables)
+  //console.log(result.createPublicacion.id)
+  return result.createPublicacion.id
+}
+
+export const publishGrupo = async(ID)=>{
+  const query = gql`
+    mutation publicarGrupo($id: ID) {
+      publishPublicacion(where: {id: $id}, to: PUBLISHED) {
+        id
+      }
+    }
+    `;
+    const variables = {
+      "id": ID,
+    }
+    const result = await graphQLClient.request(query, variables)
+    return result
+}
+

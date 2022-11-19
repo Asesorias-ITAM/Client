@@ -28,21 +28,18 @@ export const getListaAlumnos = async () =>{
 export const getListaPublicaciones = async () =>{
     const query = gql`
     query listaPublicaciones {
-        publicacions(first: 100) {
+    publicacions(first: 100) {
             id
             materia
-            alumno {
-            id
-            nombre
-            apellido
-            correo
-            carrera
-            telefono
-            }
-            descripcion {
-            mensaje
+            descripcion
             precio
-            link
+            alumno {
+                id
+                nombre
+                apellido
+                correo
+                carrera
+                telefono
             }
         }
     }`

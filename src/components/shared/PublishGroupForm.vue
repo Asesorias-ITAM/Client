@@ -11,15 +11,15 @@
                         <TextInput v-model="materia" @keyup.enter="onEnter"/>
                         
                         <label>Descripción</label>
-                        <TextArea v-model="desc" @keyup.enter="onEnter" :placeholder="desc_placeholder" class=""></TextArea>
+                        <TextArea v-model="descripcion" @keyup.enter="onEnter" :placeholder="desc_placeholder" class=""></TextArea>
 
                         <label>Precio (opcional)</label>
-                        <TextInput type="precio" v-model="precio" @keyup.enter="onEnter" placeholder="Si no vas a cobrar, escribe '0'"/>
+                        <TextInput type="number" v-model="precio" @keyup.enter="onEnter" placeholder="Si no vas a cobrar, déjalo vacío"/>
 
                         <!--CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/-->
                         
                         <div class="grid grid-cols-1 py-2">
-                            <ActionButton text="Crear grupo" @click="registrar" type="primary" data-test='register-button'/>
+                            <ActionButton text="Crear grupo" @click="crearGrupo" type="primary" data-test='register-button'/>
                         </div>
 
                     </div>
@@ -32,20 +32,47 @@
 import ActionButton from "@/components/shared/ActionButton"
 import TextInput from "@/components/shared/TextInput"
 import TextArea from "@/components/shared/TextArea"
+import CustomLabel from "@/components/shared/CustomLabel"
+
+import { useUserStore } from '@/stores/user'
+import { useRouter } from "vue-router";
 
 export default {
     name: "PublishGroupForm",
-    components: { ActionButton, TextInput, TextArea },
+    components: { ActionButton, TextInput, TextArea, CustomLabel },
+    setup(){
+        const router = useRouter();
+        const store = useUserStore()
+        return {
+            store,
+            router
+        }
+    },
     data(){
         return {
             materia: "",
-            desc: "",
-            precio: null,
+            descripcion: "",
+            precio: "",
             error: "",
             desc_placeholder: "Agrega una breve descripción para tus alumnos.\n" +
                               "Por ejemplo, tu horario disponible, temas que dominas, si resuelves laboratorios, forma de pago, etc.",
         }
     },
+    methods:{
+        crearGrupo(){
+            //"0" ? parseInt("0") : 0
+            const publicacion = {
+                "materia": this.materia,
+                "descripcion": this.descripcion,
+                "precio": this.precio ? parseInt(this.precio) : 0
+            }
+            this.store.crearGrupo(publicacion)
+        },
+        
+        onEnter(){
+            this.crearGrupo()
+        }
+    }
 }
 
 </script>

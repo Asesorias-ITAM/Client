@@ -28,3 +28,7 @@ export function validateAdminForm(datos){
     
     return [true,""]
 }
+
+export function validatePublishGroupForm(){
+    
+}

@@ -11,10 +11,6 @@ export default {
     name: "FilaAlumno",
     
     props: {
-        datosAlumno: {
-            type: Object,
-            require: true
-        },
         col1: {
             type: String,
             required: true
@@ -41,3 +37,4 @@ export default {
 }
 
 </style>
+    

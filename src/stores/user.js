@@ -7,7 +7,7 @@ import { POOL_DATA } from "@/config/cognito.js";
 
 
 
-import {createAlum, checkAlum, confirmUser} from "@/services/alumnos.js"
+import {createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo} from "@/services/alumnos.js"
 
 
 
@@ -109,6 +109,18 @@ export const useUserStore = defineStore('user', {
           console.log(err)
           return true
         } 
+    },
+    async crearGrupo(publicacion){
+      publicacion.correo = this.email
+      console.log(this.email)
+      try{
+        const id = await crearGrupo(publicacion)
+        console.log(id)
+        await publishGrupo(id)
+        
+      }catch (err){
+        throw new Error(err)
+      }
     }
   },
   
