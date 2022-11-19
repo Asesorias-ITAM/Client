@@ -13,8 +13,8 @@
                         <input type="checkbox" v-model="filtroAsesor" class="mb-6">
                     </div>
                     <div>
-                        alumno
-                        {{selectedAlumno}}
+                        <tarjeta-alumno :alumno="selectedAlumno" v-if="activatedAlumno"/>
+                        
                     </div>
                 </section>
             </div>
@@ -33,6 +33,7 @@
                         :key="alumno.correo"
                         :datosAlumno="alumno"
                         @click="selectAlumno(alumno)"
+                        :selected="selectedAlumno!==null && alumno.correo===selectedAlumno.correo"
                     />
                     
 
@@ -49,13 +50,14 @@ import { useAdminStore } from '@/stores/admin'
 import { useRouter } from "vue-router";
 
 import FilaAlumno from "@/components/dashboard/FilaAlumno.vue"
+import TarjetaAlumno from "@/components/dashboard/TarjetaAlumno.vue"
 import TextInput from "@/components/shared/TextInput.vue"
 //import ActionButton from "@/components/shared/ActionButton.vue"
 
 
 export default {
     name: "DirectorioAlumnos",
-    components: {FilaAlumno, TextInput},
+    components: {FilaAlumno, TextInput, TarjetaAlumno},
 
     setup(){
         const router = useRouter();
@@ -70,7 +72,8 @@ export default {
             listaAlumnos: [],
             filtroNombre:"",
             filtroAsesor:false,
-            selectedAlumno: null
+            selectedAlumno: null,
+            activatedAlumno: false
         }
     },
     computed: {
@@ -80,10 +83,8 @@ export default {
             return this.filtrarNombres(this.filtroNombre, lst)
             
             // /^(.*?)abc/
-            // ([^x]+)
-            
-            
-        }
+            // ([^x]+)     
+        },
     },
     async beforeCreate(){
         this.listaAlumnos = await this.store.listaAlumnos()
@@ -111,7 +112,17 @@ export default {
         },
 
         selectAlumno(alum){
-            this.selectedAlumno = alum
+            console.log(this.selectedAlumno === alum)
+
+            if(this.activatedAlumno && this.selectedAlumno===alum){
+                this.selectedAlumno = null
+                this.activatedAlumno=false
+            }else{
+                this.selectedAlumno = alum
+                this.activatedAlumno=true
+            }
+            
+            
         }
 
     }
