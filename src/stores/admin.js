@@ -4,7 +4,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito2.js";
 
-import {getListaAlumnos} from "@/services/admin.js"
+import {getListaAlumnos, getListaPublicaciones} from "@/services/admin.js"
 
 //const router = useRouter();
 export const useAdminStore = defineStore("admin", {
@@ -63,8 +63,13 @@ export const useAdminStore = defineStore("admin", {
 
         async listaAlumnos(){
           const l = await getListaAlumnos()
-          console.log(l.alumnos)
+          //console.log(l.alumnos)
           return l.alumnos
+        },
+        async listaPublicaciones(){
+          const l = await getListaPublicaciones()
+          console.log(l.publicacions)
+          return l.publicacions
         }
         
       },
