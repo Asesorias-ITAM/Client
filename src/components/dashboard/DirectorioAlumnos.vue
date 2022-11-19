@@ -28,12 +28,14 @@
                     </div>
                 </div>
                 <section class="h-[70vh] overflow-auto">
-                    <FilaAlumno 
+                    <FilaTabla 
                         v-for="alumno in listaVisible"
                         :key="alumno.correo"
                         :datosAlumno="alumno"
                         @click="selectAlumno(alumno)"
                         :selected="selectedAlumno!==null && alumno.correo===selectedAlumno.correo"
+                        :col1="alumno.correo"
+                        :col2="alumno.nombre +' ' +alumno.apellido"
                     />
                     
 
@@ -49,7 +51,7 @@
 import { useAdminStore } from '@/stores/admin'
 import { useRouter } from "vue-router";
 
-import FilaAlumno from "@/components/dashboard/FilaAlumno.vue"
+import FilaTabla  from "@/components/dashboard/FilaTabla.vue"
 import TarjetaAlumno from "@/components/dashboard/TarjetaAlumno.vue"
 import TextInput from "@/components/shared/TextInput.vue"
 //import ActionButton from "@/components/shared/ActionButton.vue"
@@ -57,7 +59,7 @@ import TextInput from "@/components/shared/TextInput.vue"
 
 export default {
     name: "DirectorioAlumnos",
-    components: {FilaAlumno, TextInput, TarjetaAlumno},
+    components: {FilaTabla , TextInput, TarjetaAlumno},
 
     setup(){
         const router = useRouter();
