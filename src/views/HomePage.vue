@@ -28,9 +28,9 @@
                 <PublicationCard materia="Economía I" asesor="Juan Acosta" desc="placeholder_desc"/>
             </div>
         </section-->
-
-        {{session}}
         {{asesor}}
+        
+        
     </div>
 </template>
 
@@ -58,7 +58,7 @@ export default {
     data() {
         return {
             session: this.store.session,
-            asesor: this.store.session.asesor,
+            asesor: this.store.asesor,
         }
     },
     /* beforeCreate(){
@@ -78,7 +78,7 @@ export default {
             this.store.logout(); 
             this.store.$reset()
             console.log(this.store.session)
-            router.replace({
+            this.router.replace({
                 name: "Login",
             });
         },
