@@ -4,7 +4,7 @@
             <h1 class="px-3 py-4 text-3xl font-bold">{{materia}}</h1>
         </div>
         <h2 class="mx-3 my-5 text-xl">{{asesor}}</h2>
-        <p  class="mx-3 my-5 text-base">{{desc}}</p>
+        <p  class="mx-3 my-5 text-base">{{descripcion}}</p>
         <footer class="card-footer">
             <button class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Ver curso</button>
             <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Inscribirme</button>
@@ -24,7 +24,7 @@ export default {
             type: String,
             require: true,
         },
-        desc: {
+        descripcion: {
             type: String,
             require: true,
         },

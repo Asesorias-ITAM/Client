@@ -69,7 +69,7 @@ export default {
             router
         }
     }, 
-    data(){
+    data() {
         return {
             listaAlumnos: [],
             filtroNombre:"",
@@ -79,7 +79,7 @@ export default {
         }
     },
     computed: {
-        listaVisible(){
+        listaVisible() {
             //console.log(this.filtroNombre)
             let lst = this.filtrarAsesores(this.filtroAsesor,this.listaAlumnos)
             return this.filtrarNombres(this.filtroNombre, lst)
@@ -88,19 +88,19 @@ export default {
             // ([^x]+)     
         },
     },
-    async beforeCreate(){
+    async beforeCreate() {
         this.listaAlumnos = await this.store.listaAlumnos()
         //console.log(this.listaAlumnos)
     },
     methods: {
-        filtrarAsesores(val, lista){
+        filtrarAsesores(val, lista) {
             if (val===false){
                 return lista
             }else{
                 return lista.filter(alumno => alumno.asesor===true);
             }
         },
-        filtrarNombres(val, lista){
+        filtrarNombres(val, lista) {
             if (!val){
                 return lista
             }else{

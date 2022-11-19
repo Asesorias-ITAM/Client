@@ -8,6 +8,8 @@
                 
                 <RouterButton text="Buscar" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed' " class="py-5"/>
                 <RouterButton text="Crear grupo" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed' "/>
+                
+
                 <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
                 <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
                 <MenuButton text="Mis Asesorías" type="unPressed" class="mt-10"/> <!--v-if="store.session.asesor"-->

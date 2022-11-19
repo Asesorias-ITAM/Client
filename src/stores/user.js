@@ -5,11 +5,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 
-
-
-import {createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo} from "@/services/alumnos.js"
-
-
+import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, getListaPublicaciones } from "@/services/alumnos.js"
 
 
 export const useUserStore = defineStore('user', {
@@ -110,6 +106,7 @@ export const useUserStore = defineStore('user', {
           return true
         } 
     },
+
     async crearGrupo(publicacion){
       publicacion.correo = this.email
       console.log(this.email)
@@ -121,8 +118,15 @@ export const useUserStore = defineStore('user', {
       }catch (err){
         throw new Error(err)
       }
-    }
+    },
+
+    async listaPublicaciones(){
+      const l = await getListaPublicaciones()
+      //console.log(l.publicacions)
+      return l.publicacions
+    },
   },
+  
   
   persist: true, // Rehidrata la piña
 })
