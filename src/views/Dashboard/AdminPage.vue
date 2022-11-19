@@ -6,6 +6,8 @@
                     
                     <RouterButton text="Directorio" class = "mt-24" destination="/dashboard/directorio" :type="path==='/dashboard/directorio' ? 'pressed' : 'unPressed' " />
                     <RouterButton text="Publicaciones" class = "mt-24" destination="/dashboard/publicaciones" :type="path==='/dashboard/publicaciones' ? 'pressed' : 'unPressed' " />
+                
+                    <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
                 </div>
                 
             </div>
@@ -44,13 +46,13 @@ export default {
             
         }
     },
-    /* beforeCreate(){
+    beforeCreate(){
         if (this.store.session === null){
             router.replace({
-                name: "Login",
+                name: "AdminLogin",
             });
         }
-    }, */
+    }, 
     data(){
         return {
             btnPresionado: "",

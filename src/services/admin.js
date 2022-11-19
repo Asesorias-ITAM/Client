@@ -10,12 +10,14 @@ const graphQLClient = new GraphQLClient((graphqlAPI), {
 export const getListaAlumnos = async () =>{
     const query = gql`
     query ListaAlumnos {
-        alumnos {
+        alumnos(first: 100) {
             id
             nombre
-            correo
             apellido
             asesor
+            carrera
+            correo
+            telefono
         }
     }`
     const result = await graphQLClient.request(query)

@@ -61,13 +61,13 @@ export default {
             asesor: this.store.asesor,
         }
     },
-    /* beforeCreate(){
+    beforeCreate(){
         if (this.store.session === null){
-            router.replace({
+            this.router.replace({
                 name: "Login",
             });
         }
-    }, */
+    },
     computed: {
         path() {
             return this.route.path
