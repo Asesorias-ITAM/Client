@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="destination" :class="buttonClass" class="btn">
+    <router-link :to="destination" :class="buttonClass" class="btn hover:bg-menu-button-hover">
       {{ text }}
     </router-link >
   </template>
@@ -40,12 +40,8 @@
     @apply text-white rounded-full font-bold;
   }
   
-  .unPressed {
-    @apply bg-verde-itam-2 hover:bg-rojo-complemento;
-  }
-  
   .pressed {
-    @apply bg-rojo-complemento;
+    @apply bg-menu-button-hover;
   }
   </style>
   

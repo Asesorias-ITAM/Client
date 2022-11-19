@@ -28,9 +28,9 @@
                 <PublicationCard materia="Economía I" asesor="Juan Acosta" desc="placeholder_desc"/>
             </div>
         </section-->
-
-        {{session}}
         {{asesor}}
+        
+        
     </div>
 </template>
 

@@ -3,7 +3,7 @@
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"
-      class="w-full text-lg font-normal border-2 mb-6 focus:outline-blue-500"
+      class="placeholder:flex placeholder:flex-wrap text-lg font-normal border-2 mb-6 focus:outline-blue-500"
       @input="$emit('update:modelValue', $event.target.value)"
     />
 </template>

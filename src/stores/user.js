@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', {
         cognitoUserName: null,
         cognitoSub: null,
         email: null,
-        asesor: null, 
+        asesor: null,
         idToken: null,
         accessToken: null,
         refreshToken: null,
