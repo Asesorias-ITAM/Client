@@ -48,16 +48,13 @@ export default {
         CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
     },
     setup() {
-        //get access to Vuex router
         const router = useRouter()
         const store = useUserStore()
         
         return {
-            // you can return the whole store instance to use it in the template
             store,
             router
         }
-        
     },
     data() {
         return {
@@ -101,12 +98,12 @@ export default {
                     this.setUserSessionInfo(Session)
                     this.router.replace({
                         name: "Home",
-                    });
+                    })
                     //console.log("Post Autenticación")
                     //console.log(cognitoUser)
                     //console.log(Session.idToken.payload)
                     //console.log(Session.idToken.payload.aud)
-                    this.incorrecto=false;
+                    this.incorrecto=false
                 },
                 onFailure: (error) => {
                     console.log(error)

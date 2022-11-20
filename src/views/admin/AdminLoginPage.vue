@@ -10,9 +10,9 @@
                     
                     <div id="login" v-if="!firstLogin" class="flex flex-col mx-14 text-texto-light-1 dark:text-texto-dark-1">
                         <label class="mt-6 ">Correo Electrónico</label>
-                        <TextInput v-model="correo" placeholder="" class="textBox"/>
+                        <TextInput v-model="correo" placeholder="" class="textBox" @keyup.enter="onEnter"/>
                         <label>Contraseña</label>
-                        <TextInput type="password" v-model="passwd" placeholder="" class="textBox"/>
+                        <TextInput type="password" v-model="passwd" placeholder="" class="textBox" @keyup.enter="onEnter"/>
                         <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto" data-test='field-validator'/>
 
                         <div class="grid grid-cols-1">
@@ -64,8 +64,8 @@ export default {
         CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
     },
     setup() {
-        const store = useAdminStore()
         const router = useRouter()
+        const store = useAdminStore()
         
         return {
             store,
@@ -91,6 +91,10 @@ export default {
         }
     },
     methods:{
+        onEnter() {
+            // Presionar enter para hacer log in
+            this.login()
+        },
         createCognitoUser() {
             const authData = {
                 Username: this.correo,
@@ -117,7 +121,7 @@ export default {
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     console.log(Session)
-                    this.router.replace('/dashboard/directorio')
+                    this.router.replace('/admin_home/directorio')
                     this.incorrecto = false
                 },
                 onFailure: (error) => {
@@ -154,7 +158,7 @@ export default {
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     //console.log(Session)
-                    this.router.replace('/dashboard/directorio')
+                    this.router.replace('/admin_home/directorio')
                     this.incorrecto = false
                 },
                 onFailure: (error) => {

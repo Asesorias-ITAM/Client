@@ -4,8 +4,8 @@
             <div class="col-span-2 bg-verde-itam-2 ">
                 <div class="flex flex-col justify-items-center px-14 text-center text-2xl">
                     
-                    <RouterButton text="Directorio" class = "mt-24" destination="/dashboard/directorio" :type="path==='/dashboard/directorio' ? 'pressed' : 'unPressed' " />
-                    <RouterButton text="Publicaciones" class = "mt-24" destination="/dashboard/publicaciones" :type="path==='/dashboard/publicaciones' ? 'pressed' : 'unPressed' " />
+                    <RouterButton text="Directorio" class = "mt-24" destination="/admin_home/directorio" :type="path==='/admin_home/directorio' ? 'pressed' : 'unPressed' " />
+                    <RouterButton text="Publicaciones" class = "mt-24" destination="/admin_home/publicaciones" :type="path==='/admin_home/publicaciones' ? 'pressed' : 'unPressed' " />
                 
                     <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
                 </div>

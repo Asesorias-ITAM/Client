@@ -68,8 +68,8 @@ export const useAdminStore = defineStore("admin", {
 
     async listaPublicaciones(){
       const l = await getListaPublicaciones()
-      console.log(l.publicaciones)
-      return l.publicaciones
+      //console.log(l.publicacions)
+      return l.publicacions
     }
     
   },

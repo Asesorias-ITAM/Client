@@ -62,7 +62,7 @@ export default {
     // Home
     "AdminPage":            views + admin + "AdminPage.vue",
     "DirectorioPage":       views + admin + "DirectorioPage.vue",
-    "PublicacionesPage":    views + admin + "DirectorioPage.vue",
+    "PublicacionesPage":    views + admin + "PublicacionesPage.vue",
     // ------------------
 
     // -------Components------

@@ -56,18 +56,18 @@ const routes = [
       import("@/" + paths["AdminLoginPage"]),
   },
   {
-    path: "/dashboard",
-    name: "Admin",
+    path: "/admin_home",
+    name: "Admin Home",
     component: () =>
-      import("@/" + paths["Admin"]),
+      import("@/" + paths["AdminPage"]),
     children: [
       {
-        path:"directorio", 
+        path:"Directorio", 
         component: () =>
           import("@/" + paths["DirectorioPage"])
       },
       {
-        path:"publicaciones", 
+        path:"Publicaciones", 
         component: () =>
           import("@/" + paths["PublicacionesPage"])
       }
