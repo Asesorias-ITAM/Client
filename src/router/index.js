@@ -15,25 +15,25 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () =>
-      import("@/" + paths["RegisterPage"]),
+      import(/* webpackChunkName: "about" */ "@/" + paths["RegisterPage"]),
   },
   {
     path: "/confirmation",
     name: "Confirm",
     component: () =>
-      import("@/" + paths["ConfirmationPage"]),
+      import(/* webpackChunkName: "about" */ "@/" + paths["ConfirmationPage"]),
   },
   {
     path: "/home",
     name: "Home",
     component: () =>
-      import("@/" + paths["HomePage"]),
+      import(/* webpackChunkName: "about" */ "@/" + paths["HomePage"]),
       children: [
         {
           path: "search",
           name: "Search Groups",
           component: () =>
-            import("@/" + paths["SearchGroupsPage"]),
+            import(/* webpackChunkName: "about" */ "@/" + paths["SearchGroupsPage"]),
         },
         /*{
           path: "student_groups",
@@ -45,7 +45,7 @@ const routes = [
           path: "publish_group",
           name: "Publish group",
           component: () =>
-            import("@/" + paths["PublishGroupPage"]),
+            import(/* webpackChunkName: "about" */ "@/" + paths["PublishGroupPage"]),
         },
       ],
   },
@@ -53,23 +53,23 @@ const routes = [
     path: "/admin",
     name: "AdminLogin",
     component: () =>
-      import("@/" + paths["AdminLoginPage"]),
+      import(/* webpackChunkName: "about" */ "@/" + paths["AdminLoginPage"]),
   },
   {
     path: "/admin_home",
     name: "Admin Home",
     component: () =>
-      import("@/" + paths["AdminPage"]),
+      import(/* webpackChunkName: "about" */ "@/" + paths["AdminPage"]),
     children: [
       {
         path:"Directorio", 
         component: () =>
-          import("@/" + paths["DirectorioPage"])
+          import(/* webpackChunkName: "about" */ "@/" + paths["DirectorioPage"])
       },
       {
         path:"Publicaciones", 
         component: () =>
-          import("@/" + paths["PublicacionesPage"])
+          import(/* webpackChunkName: "about" */ "@/" + paths["PublicacionesPage"])
       }
     ],
   },    
@@ -78,7 +78,7 @@ const routes = [
     path: "/:catchAll(.*)",
     name: "NotFound",
     component: () =>
-      import("@/" + paths["NotFoundPage"])
+      import(/* webpackChunkName: "about" */ "@/" + paths["NotFoundPage"])
   },
 ];
 
