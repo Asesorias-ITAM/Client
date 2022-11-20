@@ -6,8 +6,10 @@
         <h2 class="mx-3 my-5 text-xl">{{asesor}}</h2>
         <p  class="mx-3 my-5 text-base">{{descripcion}}</p>
         <footer class="card-footer">
+            
             <button class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Ver curso</button>
             <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Inscribirme</button>
+        
         </footer>
     </article>
 </template>
@@ -46,7 +48,7 @@ export default {
 .card-footer {
 	padding: 1rem 1rem;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: flex-center;
 	border-top: 1px solid var(#efefef);
 }
 </style>

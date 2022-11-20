@@ -69,6 +69,7 @@ export default {
     "DirectorioAlumnos":    components + admin + "DirectorioAlumnos.vue",
     "FilaTabla":            components + admin + "FilaTabla.vue",
     "TarjetaAlumno":        components + admin + "TarjetaAlumno.vue",
+    "TarjetaPublicacion":   components + admin + "TarjetaPublicacion.vue",
 
     // -----------------------
     // ######################################################   
