@@ -14,7 +14,7 @@
                         <TextArea v-model="descripcion" @keyup.enter="onEnter" :placeholder="desc_placeholder" class=""></TextArea>
 
                         <label>Precio (opcional)</label>
-                        <TextInput type="number" v-model="precio" @keyup.enter="onEnter" placeholder="Si no vas a cobrar, déjalo vacío"/>
+                        <TextInput type="number" v-model="precio" @keyup.enter="onEnter" placeholder="Si no vas a cobrar, deja este campo vacío"/>
 
                         <!--CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/-->
                         
@@ -29,26 +29,30 @@
 </template>
 
 <script>
-import ActionButton from "@/components/shared/ActionButton"
-import TextInput from "@/components/shared/TextInput"
-import TextArea from "@/components/shared/TextArea"
-import CustomLabel from "@/components/shared/CustomLabel"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 import { useUserStore } from '@/stores/user'
-import { useRouter } from "vue-router";
+import { useRouter } from "vue-router"
 
 export default {
     name: "PublishGroupForm",
-    components: { ActionButton, TextInput, TextArea, CustomLabel },
-    setup(){
-        const router = useRouter();
+    components: { 
+        ActionButton: defineAsyncComponent(() => import("@/" + paths["ActionButton"])), 
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        TextArea: defineAsyncComponent(() => import("@/" + paths["TextArea"])),
+        CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
+    },
+    setup() {
+        const router = useRouter()
         const store = useUserStore()
+        
         return {
             store,
             router
         }
     },
-    data(){
+    data() {
         return {
             materia: "",
             descripcion: "",
@@ -58,8 +62,8 @@ export default {
                               "Por ejemplo, tu horario disponible, temas que dominas, si resuelves laboratorios, forma de pago, etc.",
         }
     },
-    methods:{
-        crearGrupo(){
+    methods: {
+        crearGrupo() {
             //"0" ? parseInt("0") : 0
             const publicacion = {
                 "materia": this.materia,
@@ -69,7 +73,7 @@ export default {
             this.store.crearGrupo(publicacion)
         },
         
-        onEnter(){
+        onEnter() {
             this.crearGrupo()
         }
     }

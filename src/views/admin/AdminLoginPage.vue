@@ -44,36 +44,35 @@
 </template>
 
 <script>
-import ActionButton from "@/components/shared/ActionButton"
-import TextInput from "@/components/shared/TextInput"
-import CustomLabel from "@/components/shared/CustomLabel"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 import {validateAdminForm } from "@/utils/validator.js"
 
 import { useAdminStore } from '@/stores/admin'
 import { useRouter } from "vue-router";
 import { POOL_DATA } from "@/config/cognito2.js";
-import {
-  CognitoUserPool,
-  CognitoUser,
-  AuthenticationDetails,
-} from "amazon-cognito-identity-js";    
+import { CognitoUserPool, CognitoUser, AuthenticationDetails, } from "amazon-cognito-identity-js";    
 
 const userPool = new CognitoUserPool(POOL_DATA);
 
-
-export default{
+export default {
     name: "AdminLoginPage",
-    components: {ActionButton, TextInput, CustomLabel},
-    setup(){
+    components: {
+        ActionButton: defineAsyncComponent(() => import("@/" + paths["ActionButton"])), 
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
+    },
+    setup() {
         const store = useAdminStore()
         const router = useRouter()
+        
         return {
             store,
             router
         }
     },  
-    data(){
+    data() {
         return {
             correo: "",
             passwd: "",
@@ -86,59 +85,57 @@ export default{
             cognitoUser: null
         }
     },
-    computed:{
+    computed: {
         compara() {
             return this.newPasswd1===this.newPasswd2
         }
     },
     methods:{
-        createCognitoUser(){
+        createCognitoUser() {
             const authData = {
                 Username: this.correo,
                 Password: this.passwd,
-            };
-
+            }
             const userData = {
                 Username: authData.Username,
                 Pool: userPool,
-            };
-            const cognitoUser = new CognitoUser(userData);
+            }
+            const cognitoUser = new CognitoUser(userData)
             return cognitoUser
 
         },
         login() {
-            this.cognitoUser = this.createCognitoUser();
+            this.cognitoUser = this.createCognitoUser()
             const authData = {
                 Username: this.correo,
                 Password: this.passwd,
-            };
-            const authDetails = new AuthenticationDetails(authData);
+            }
+            const authDetails = new AuthenticationDetails(authData)
             
-
             this.cognitoUser.authenticateUser(authDetails, {
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     console.log(Session)
-                    this.router.replace('/dashboard/directorio');
-                    this.incorrecto=false;
+                    this.router.replace('/dashboard/directorio')
+                    this.incorrecto = false
                 },
                 onFailure: (error) => {
-                    console.log(error);
-                    this.incorrecto=true;
+                    console.log(error)
+                    this.incorrecto = true
                     
                 },
                 newPasswordRequired: (userAttributes, requiredAttributes) =>{
                     // the api doesn't accept this field back
-                    delete userAttributes.email_verified;
-                    delete userAttributes.email; // <--- add this line
+                    delete userAttributes.email_verified
+                    delete userAttributes.email
 
-                    this.firstLogin=true
+                    this.firstLogin = true
                     console.log(userAttributes)
-                    this.sessionUserAttributes=userAttributes
+                    this.sessionUserAttributes = userAttributes
                 }
 
-            });
+            })
         },
         passwordChange() {
             const datos = {
@@ -148,61 +145,55 @@ export default{
 
             let validation = validateAdminForm(datos)
 
-            if (!validation[0]){
-                this.error=validation[1]
+            if (!validation[0]) {
+                this.error = validation[1]
                 return
             }
 
-            this.cognitoUser.completeNewPasswordChallenge(datos.passwd,this.sessionUserAttributes,{
+            this.cognitoUser.completeNewPasswordChallenge(datos.passwd, this.sessionUserAttributes, {
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     //console.log(Session)
-                    this.router.replace('/dashboard/directorio');
-                    this.incorrecto=false;
+                    this.router.replace('/dashboard/directorio')
+                    this.incorrecto = false
                 },
                 onFailure: (error) => {
-                    console.log(error);
-                    this.incorrecto=true;
+                    console.log(error)
+                    this.incorrecto = true
                     
                 },
 
-            });
+            })
         },
-        setUserSessionInfo(session){
+        setUserSessionInfo(session) {
             // starts timer to auto logout after 1 hour
             setTimeout(() =>  {
-                this.store.autoLogout();
+                this.store.autoLogout()
                 //console.log("auto logging out");
                 router.replace({
                     name: "AdminLogin",
-                });
-                alert("You have been automatically logged out");
-            }, this.autoTimeout(session));
+                })
+                alert("You have been automatically logged out")
+            }, this.autoTimeout(session))
 
             this.store.login(session)
         },
         // calculates when user will be auto logged out
         autoTimeout(result) {
-            const seconds_timeout = 1800; // sets user login to expire after 1 hour
+            const seconds_timeout = 1800 // sets user login to expire after 1 hour
             const expirationDate =
-                +result.idToken.payload["auth_time"] + seconds_timeout;
+                +result.idToken.payload["auth_time"] + seconds_timeout
                 console.log(
                     "Auth Time " + +result.idToken.payload["auth_time"],
                     " Expire Date " + expirationDate
-                );
+                )
             let expires_millseconds =
-                (expirationDate - +result.idToken.payload["auth_time"]) * 1000;
-            console.log("Expires in milliseconds ", expires_millseconds);
-            return expires_millseconds;
+                (expirationDate - +result.idToken.payload["auth_time"]) * 1000
+            console.log("Expires in milliseconds ", expires_millseconds)
+            return expires_millseconds
         }
   
     }
 }
 
 </script>
-
-<style> 
-.textBox {
-    border-radius: 7px;
-}
-</style>

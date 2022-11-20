@@ -5,19 +5,28 @@
   </div>
     
 </template>
+
 <script>
-import UpperBar from "@/components/UpperBar.vue";
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
+
 export default {
   name: "App",
   components: {
-    UpperBar,
+    UpperBar: defineAsyncComponent(() => import("@/" + paths["UpperBar"])), //importa el componente dinámicamente
   },
 };
 </script>
+
 <style>
 html.dark {
   color-scheme: dark;
 }
+
+.textBox {
+    border-radius: 7px;
+}
+
 /*#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

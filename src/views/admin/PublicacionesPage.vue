@@ -22,8 +22,8 @@
                         <label>Asesor</label>
                     </div>
                 </div>
+                
                 <section class="h-[70vh] overflow-auto">
-                    
                     <FilaTabla 
                         v-for="publicacion in listaVisible"
                         :key="publicacion.id"
@@ -40,42 +40,40 @@
     </div>
 </template>
 <script>
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
+
 import { useAdminStore } from '@/stores/admin'
 import { useRouter } from "vue-router";
 
-import FilaTabla  from "@/components/dashboard/FilaTabla.vue"
-import TextInput from "@/components/shared/TextInput.vue"
-
 export default {
     name: "PublicacionesPage",
-    components: {TextInput, FilaTabla},
-    setup(){
-        const router = useRouter();
+    components: {
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        FilaTabla: defineAsyncComponent(() => import("@/" + paths["FilaTabla"])),
+    },
+    setup() {
+        const router = useRouter()
         const store = useAdminStore()
+        
         return {
             store,
             router
         }
     }, 
-    data(){
+    data() {
         return {
             filtro: "",
             listaPublicaciones: []
         }
     },
-    async beforeCreate(){
+    async beforeCreate() {
         this.listaPublicaciones = await this.store.listaPublicaciones()
-        //console.log(this.listaAlumnos)
+        //console.log(this.listaPublicaciones)
     },
     computed: {
-        listaVisible(){
-            //console.log(this.filtroNombre)
-            //let lst = this.filtrarAsesores(this.filtroAsesor,this.listaAlumnos)
-            //return this.filtrarNombres(this.filtroNombre, lst)
-            
+        listaVisible() {
             return this.listaPublicaciones
-            // /^(.*?)abc/
-            // ([^x]+)     
         },
     },
 }

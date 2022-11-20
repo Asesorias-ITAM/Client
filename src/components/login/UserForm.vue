@@ -34,11 +34,14 @@
 </template>
 
 <script>
-import ActionButton from "@/components/shared/ActionButton"
-import TextInput from "@/components/shared/TextInput"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 export default {
     name: "UserForm",
-    components: {ActionButton, TextInput}
+    components: {
+        ActionButton: defineAsyncComponent(() => import("@/" + paths["ActionButton"])), 
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+    }
 }
 </script>

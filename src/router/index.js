@@ -1,80 +1,84 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import LoginPage from "@/views/LoginPage.vue"
-import NotFoundPage from "@/views/NotFoundPage.vue"
-//import StudentGroupView from "@/views/StudentGroupView.vue"
-//import PublishGroupView from "@/views/PublishGroupView.vue"
+import paths from "@/file_paths.js"
 
 const routes = [
   {
     path: "/",
     name: "Login",
-    component: LoginPage,
-  },
-  {
-    path: "/register",
-    name: "Register",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/RegisterPage.vue"),
+      import(/* webpackChunkName: "about" */ "@/" + paths["LoginPage"]),
   },
   {
-    path: "/home",
-    name: "Home",
+    path: "/register",
+    name: "Register",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/HomePage.vue"),
-      children: [
-        {
-          path: "search",
-          name: "Search Groups",
-          component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/SearchGroupsPage.vue"),
-        },
-        {
-          path: "student_groups",
-          name: "Student Groups",
-          component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/StudentGroupPage.vue"),
-        },
-        {
-          path: "publish_group",
-          name: "Publish group",
-          component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/PublishGroupPage.vue"),
-        },
-      ],
+      import("@/" + paths["RegisterPage"]),
   },
   {
     path: "/confirmation",
     name: "Confirm",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/ConfirmationPage.vue"),
+      import("@/" + paths["ConfirmationPage"]),
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: () =>
+      import("@/" + paths["HomePage"]),
+      children: [
+        {
+          path: "search",
+          name: "Search Groups",
+          component: () =>
+            import("@/" + paths["SearchGroupsPage"]),
+        },
+        /*{
+          path: "student_groups",
+          name: "Student Groups",
+          component: () =>
+            import("@/views/StudentGroupPage.vue"),
+        },*/
+        {
+          path: "publish_group",
+          name: "Publish group",
+          component: () =>
+            import("@/" + paths["PublishGroupPage"]),
+        },
+      ],
   },
   {
     path: "/admin",
     name: "AdminLogin",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/AdminLoginPage.vue"),
+      import("@/" + paths["AdminLoginPage"]),
   },
   {
     path: "/dashboard",
     name: "Admin",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/Dashboard/AdminPage.vue"),
+      import("@/" + paths["Admin"]),
     children: [
-      {path:"directorio", 
-      component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/Dashboard/DirectorioPage.vue")},
-      {path:"publicaciones", 
-      component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/Dashboard/PublicacionesPage.vue")}
+      {
+        path:"directorio", 
+        component: () =>
+          import("@/" + paths["DirectorioPage"])
+      },
+      {
+        path:"publicaciones", 
+        component: () =>
+          import("@/" + paths["PublicacionesPage"])
+      }
     ],
   },    
   {
     // Cualquier otra URL se redirecciona a esta página
     path: "/:catchAll(.*)",
-    component: NotFoundPage,
+    name: "NotFound",
+    component: () =>
+      import("@/" + paths["NotFoundPage"])
   },
 ];
 

@@ -43,36 +43,31 @@
 </template>
 
 <script>
-import ActionButton from "@/components/shared/ActionButton"
-import TextInput from "@/components/shared/TextInput"
-import CustomLabel from "@/components/shared/CustomLabel"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 import {validateRegisterForm } from "@/utils/validator.js"
-
 import { useUserStore } from '@/stores/user.js'
 //Código de Registro adaptado de https://github.com/aws-samples/amazon-cognito-vue-workshop/blob/main
+import { useRouter } from "vue-router"
+import { CognitoUserPool, CognitoUserAttribute } from "amazon-cognito-identity-js"
+import { POOL_DATA } from "@/config/cognito.js"
 
-import { useRouter } from "vue-router";
-//import router from "@/router/index.js";
-import {
-CognitoUserPool,
-CognitoUserAttribute,
-} from "amazon-cognito-identity-js";
-import { POOL_DATA } from "@/config/cognito.js";
+/*  
+Create a user pool object
+The object parameter references the Cognito user pool data held in a constant that we 
+setup in the Configure application to use Cognito User Pool section
+*/
+const userPool = new CognitoUserPool(POOL_DATA)
 
-
-
-    /*  
-    Create a user pool object
-    The object parameter references the Cognito user pool data held in a constant that we 
-    setup in the Configure application to use Cognito User Pool section
-    */
-const userPool = new CognitoUserPool(POOL_DATA);
-
-export default{
+export default {
     name: "RegisterPage",
-    components: {ActionButton, TextInput, CustomLabel},
-    data(){
+    components: {
+        ActionButton: defineAsyncComponent(() => import("@/" + paths["ActionButton"])), 
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
+    },
+    data() {
         return {
             nombre: "",
             apellido: "",
@@ -84,18 +79,16 @@ export default{
         }
     },
     setup() {
-        //get access to Vuex router
-        const router = useRouter();
+        const router = useRouter()
         const store = useUserStore()
 
         return {
-            // you can return the whole store instance to use it in the template
             store,
             router
         }
     },
     computed: {
-        compara(){
+        compara() {
             return this.psswd===this.psswd2
         }
     },
@@ -103,13 +96,12 @@ export default{
 methods:{
     onEnter() {
         // Presionar enter para registrarse
-        this.registrar();
+        this.registrar()
     },
     async registrar() {
         let emailString = this.correo.toLowerCase()
-
          
-        if(await this.store.checkUser({"correo" :emailString})){
+        if(await this.store.checkUser({"correo" :emailString})) {
             this.error="Ya existe un usuario con ese correo"
             return
         }
@@ -121,64 +113,58 @@ methods:{
             passwd: this.psswd,
         }
 
-            let validation = validateRegisterForm(datos)
-            
-            if (!validation[0]){
-                this.error=validation[1]
-                return
-            }
+        let validation = validateRegisterForm(datos)
+        
+        if (!validation[0]) {
+            this.error=validation[1]
+            return
+        }
 
-        const attrList = [];
+        const attrList = []
         const emailAttribute = {
             Name: "email",
             Value: emailString,
-        };
+        }
         const nameAttribute = {
             Name: "name",
             Value: datos.nombre,
-        };
+        }
         const familyAttribute = {
             Name: "family_name",
             Value: datos.apellido,
-        };
+        }
         const asesorAttribute = {
             Name: 'custom:Asesor',
             Value: (this.asesor === true ? 1 : 0).toString(),
-        };
-        attrList.push(new CognitoUserAttribute(emailAttribute));
-        attrList.push(new CognitoUserAttribute(nameAttribute));
-        attrList.push(new CognitoUserAttribute(familyAttribute));
-        attrList.push(new CognitoUserAttribute(asesorAttribute));
+        }
+        attrList.push(new CognitoUserAttribute(emailAttribute))
+        attrList.push(new CognitoUserAttribute(nameAttribute))
+        attrList.push(new CognitoUserAttribute(familyAttribute))
+        attrList.push(new CognitoUserAttribute(asesorAttribute))
         
-         // eslint-disable-next-line
-        /* if (1==1){
-            return
-        } */
-
         await userPool.signUp(emailString, datos.passwd, attrList, null, (err, /*result*/ ) => {
             if (err) {
                 console.log(err)
-
                 return
             }
+            
             this.error=""
             const newUser = {"nombre": nameAttribute.Value,
                 "apellido": familyAttribute.Value, 
                 "correo": emailAttribute.Value, 
                 "asesor": this.asesor, 
-                "confirmed": false}
-
+                "confirmed": false
+            }
                       
             this.store.crearAlumno(newUser)
             
-            //console.log(result)
-            //Llamo a la api y creo el nuevo usuario sin ser confirmado
+            //Llamar a la api y crear el nuevo usuario sin ser confirmado
             //Call API add
             
             this.router.replace({
                 name: "Confirm",
-            });
-        });
+            })
+        })
 
     },
 
@@ -186,10 +172,3 @@ methods:{
 }
 
 </script>
-
-<style>
-.textBox {
-border-radius: 7px;
-}
-
-</style>

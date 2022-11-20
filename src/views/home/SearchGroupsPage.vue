@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import PublicationCard from "@/components/PublicationCard.vue"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 import { useUserStore } from '@/stores/user'
 import { useRouter } from "vue-router";
@@ -16,7 +17,9 @@ let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 export default {
     name: "SearchGroupsPage",
-    components: { PublicationCard },
+    components: { 
+        PublicationCard: defineAsyncComponent(() => import("@/" + paths["PublicationCard"]))
+    },
     setup() {
         const router = useRouter();
         const store = useUserStore()
@@ -39,14 +42,6 @@ export default {
     },
     async beforeCreate(){
         this.pubList = await this.store.listaPublicaciones()
-        this.pubList = JSON.parse(JSON.stringify(this.pubList))
-        console.log(this.pubList)
-        console.log(JSON.parse(JSON.stringify(this.pubList)))
-
-        console.log("###################")
-        this.pubList.forEach(console.log)
-        
-
     },
 }
 </script>

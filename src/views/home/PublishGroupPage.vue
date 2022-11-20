@@ -5,11 +5,14 @@
 </template>
 
 <script>
-import PublishGroupForm from '@/components/shared/PublishGroupForm.vue';
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 export default {
     name: "PublishGroupPage",
-    components: { PublishGroupForm },
+    components: { 
+        PublishGroupForm: defineAsyncComponent(() => import("@/" + paths["PublishGroupForm"]))
+    },
     data() {
         return {
         }

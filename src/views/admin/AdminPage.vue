@@ -22,17 +22,18 @@
 </template>
 
 <script>
-import MenuButton from "@/components/shared/MenuButton"
-import RouterButton from "@/components/shared/RouterButton"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 import { useAdminStore } from '@/stores/admin.js'
-import { useRouter,useRoute } from "vue-router";
-
-
+import { useRouter,useRoute } from "vue-router"
 
 export default {
-    name: "HomePage",
-    components: {MenuButton, RouterButton},
+    name: "AdminHomePage",
+    components: { 
+        MenuButton: defineAsyncComponent(() => import("@/" + paths["MenuButton"])), 
+        RouterButton: defineAsyncComponent(() => import("@/" + paths["RouterButton"])), 
+    },
     setup(){
         const router = useRouter();
         const store = useAdminStore()
@@ -80,9 +81,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-*{
-    border: 0px solid red;
-}
-</style>

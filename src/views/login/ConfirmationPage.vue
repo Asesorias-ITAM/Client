@@ -31,27 +31,23 @@
 </template>
 
 <script>
-import ActionButton from "@/components/shared/ActionButton"
-import TextInput from "@/components/shared/TextInput"
-import CustomLabel from "@/components/shared/CustomLabel"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
-import { useRouter } from "vue-router";
-//import { router } from "@/router/index.js";
-import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js";
-
+import { useRouter } from "vue-router"
+import { CognitoUserPool, CognitoUser } from "amazon-cognito-identity-js"
 import { useUserStore } from '@/stores/user.js'
+import { POOL_DATA } from "@/config/cognito.js"
 
-//imports userpool data from config
-import { POOL_DATA } from "@/config/cognito.js";
+const userPool = new CognitoUserPool(POOL_DATA)
 
-const userPool = new CognitoUserPool(POOL_DATA);
-
-//let router;
-//let route;
-
-export default{
+export default {
     name: "ConfirmationPage",
-    components: {ActionButton, TextInput, CustomLabel},
+    components: {
+        ActionButton: defineAsyncComponent(() => import("@/" + paths["ActionButton"])), 
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
+    },
     data() {
         return {
             correo: "",
@@ -59,57 +55,51 @@ export default{
             error: "",
         }
     },
-    setup(){
+    setup() {
         //get access to Vuex router
-        const router = useRouter();
+        const router = useRouter()
         const store = useUserStore()
+
         return {
-            // you can return the whole store instance to use it in the template
             store,
             router
         }
     },
 
     methods: {
-        async confirmar(){
+        async confirmar() {
 
             // creates an object that contains the user pool info and username
             const userData = {
                 Username: this.correo,
                 Pool: userPool,
-            };
-            /*
-            creates a Cognito User object and accepts the userData object
-            */
-            const cognitoUser = new CognitoUser(userData);
+            }
+            //creates a Cognito User object and accepts the userData object
+            const cognitoUser = new CognitoUser(userData)
             /*
             calls the Cognito confirm registration method
             the method accepts the confirmation code sent to the
             users email address used to when signing up
             */
-           //userData.Username
-                 this.store.confirmUser({
-                    "correo" :userData.Username, 
-                    "confirmed": true
+            this.store.confirmUser({
+                "correo" :userData.Username, 
+                "confirmed": true
             })
             
-
             await cognitoUser.confirmRegistration(this.codigo, true, (err, /*result*/) => {
                 if (err) {  
                     //setMessage(err.message, "alert-danger");
                     this.error = "Código incorrecto"
-                    return;
+                    return
                 }
                 
-
-                //Llamo a la API y activo el usuario
-                //call api confirm 
-                console.log("Error en confPage.vue: " + this.error);
+                //Llamar a la API y activar el usuario
+                console.log("Error en confPage.vue: " + this.error)
 
                 this.router.replace({
                     name: "Login",
-                });
-            });
+                })
+            })
         }
     }
 }

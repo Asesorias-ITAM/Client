@@ -48,22 +48,23 @@
     </div>
 </template>
 <script>
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
+
 import { useAdminStore } from '@/stores/admin'
 import { useRouter } from "vue-router";
 
-import FilaTabla  from "@/components/dashboard/FilaTabla.vue"
-import TarjetaAlumno from "@/components/dashboard/TarjetaAlumno.vue"
-import TextInput from "@/components/shared/TextInput.vue"
-//import ActionButton from "@/components/shared/ActionButton.vue"
-
-
 export default {
     name: "DirectorioAlumnos",
-    components: {FilaTabla , TextInput, TarjetaAlumno},
-
-    setup(){
-        const router = useRouter();
+    components: {
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        FilaTabla: defineAsyncComponent(() => import("@/" + paths["FilaTabla"])),
+        TarjetaAlumno: defineAsyncComponent(() => import("@/" + paths["TarjetaAlumno"])),
+    },
+    setup() {
+        const router = useRouter()
         const store = useAdminStore()
+        
         return {
             store,
             router
@@ -83,9 +84,6 @@ export default {
             //console.log(this.filtroNombre)
             let lst = this.filtrarAsesores(this.filtroAsesor,this.listaAlumnos)
             return this.filtrarNombres(this.filtroNombre, lst)
-            
-            // /^(.*?)abc/
-            // ([^x]+)     
         },
     },
     async beforeCreate() {
@@ -94,17 +92,18 @@ export default {
     },
     methods: {
         filtrarAsesores(val, lista) {
-            if (val===false){
+            if (val===false) {
                 return lista
-            }else{
-                return lista.filter(alumno => alumno.asesor===true);
+            } else {
+                return lista.filter(alumno => alumno.asesor===true)
             }
         },
         filtrarNombres(val, lista) {
-            if (!val){
+            if (!val) {
                 return lista
-            }else{
+            } else {
                 const regexObj = new RegExp("\\s*"+this.filtroNombre,'i')
+                
                 return lista.filter(alumno => {
                     //console.log(alumno)
                     return (regexObj.test(alumno.nombre) || regexObj.test(alumno.apellido) || regexObj.test(alumno.correo))
@@ -112,19 +111,16 @@ export default {
                 })
             }
         },
-
-        selectAlumno(alum){
+        selectAlumno(alum) {
             console.log(this.selectedAlumno === alum)
 
-            if(this.activatedAlumno && this.selectedAlumno===alum){
+            if(this.activatedAlumno && this.selectedAlumno===alum) {
                 this.selectedAlumno = null
-                this.activatedAlumno=false
-            }else{
+                this.activatedAlumno = false
+            } else {
                 this.selectedAlumno = alum
-                this.activatedAlumno=true
+                this.activatedAlumno = true
             }
-            
-            
         }
 
     }

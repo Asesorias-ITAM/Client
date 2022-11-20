@@ -12,14 +12,13 @@
 </template>
 
 <script>
-
-import ThemeButton from '@/components/ThemeButton.vue'; 
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 export default{
     name: "UpperBar",
-    components: { ThemeButton },
+    components: { ThemeButton: defineAsyncComponent(() => import("@/" + paths["ThemeButton"])) },
 }
-
 </script>
 
 <style scoped>

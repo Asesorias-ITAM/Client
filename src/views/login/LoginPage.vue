@@ -24,22 +24,13 @@
 </template>
 
 <script>
-import ActionButton from "@/components/shared/ActionButton"
-import TextInput from "@/components/shared/TextInput"
-import CustomLabel from "@/components/shared/CustomLabel"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
 
 import { useUserStore } from '@/stores/user'
-
-
-import { useRouter } from "vue-router";
-//import { router } from "@/router/index.js";
-import { POOL_DATA } from "@/config/cognito.js";
-import {
-  CognitoUserPool,
-  CognitoUser,
-  AuthenticationDetails,
-} from "amazon-cognito-identity-js";
-
+import { useRouter } from "vue-router"
+import { POOL_DATA } from "@/config/cognito.js"
+import { CognitoUserPool, CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js"
 
 /*  
 Create a user pool object
@@ -47,15 +38,18 @@ The object parameter references the Cognito user pool data held in a constant th
 setup in the Configure application to use Cognito User Pool section
 */
 // sets up Cognito User pool data
-const userPool = new CognitoUserPool(POOL_DATA);
-//let store;
+const userPool = new CognitoUserPool(POOL_DATA)
 
-export default{
+export default {
     name: "LoginPage",
-    components: {ActionButton, TextInput, CustomLabel},
+    components: {
+        ActionButton: defineAsyncComponent(() => import("@/" + paths["ActionButton"])), 
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
+        CustomLabel: defineAsyncComponent(() => import("@/" + paths["CustomLabel"])),
+    },
     setup() {
         //get access to Vuex router
-        const router = useRouter();
+        const router = useRouter()
         const store = useUserStore()
         
         return {
@@ -65,17 +59,17 @@ export default{
         }
         
     },
-    data(){
+    data() {
         return {
             correo: "",
             passwd: "",
             incorrecto: false,
         }
     },
-    methods:{
+    methods: {
         onEnter() {
             // Presionar enter para hacer log in
-            this.login();
+            this.login()
         },
         login() {
             //console.log(this.store.test)
@@ -87,14 +81,14 @@ export default{
             };
 
             // sets up authentication details - includes username and user pool info
-            const authDetails = new AuthenticationDetails(authData);
+            const authDetails = new AuthenticationDetails(authData)
             //console.log(authDetails)
             const userData = {
                 Username: authData.Username,
                 Pool: userPool,
             };
             // creates a Cognito User object based on user auth details and user pool info
-            const cognitoUser = new CognitoUser(userData);
+            const cognitoUser = new CognitoUser(userData)
             //console.log("Pre Autenticación")
             //console.log(cognitoUser)
             //console.log(Object.keys(cognitoUser["signInUserSession"]))
@@ -115,50 +109,43 @@ export default{
                     this.incorrecto=false;
                 },
                 onFailure: (error) => {
-                    console.log(error);
-                    this.incorrecto=true;
-                    
+                    console.log(error)
+                    this.incorrecto=true
                 },
             });   
         },
 
-        setUserSessionInfo(session){
+        setUserSessionInfo(session) {
             //console.log(session)
             // starts timer to auto logout after 1 hour
             setTimeout(() =>  {
-                this.store.autoLogout();
+                this.store.autoLogout()
                 //console.log("auto logging out");
                 this.router.replace({
                     name: "Login",
-                });
-                alert("You have been automatically logged out");
-            }, this.autoTimeout(session));
+                })
+                alert("You have been automatically logged out")
+            }, this.autoTimeout(session))
 
             this.store.login(session)
         },
 
         // calculates when user will be auto logged out
         autoTimeout(result) {
-            const seconds_timeout = 3600; // sets user login to expire after 1 hour
+            const seconds_timeout = 3600 // sets user login to expire after 1 hour
             const expirationDate =
-                +result.idToken.payload["auth_time"] + seconds_timeout;
+                +result.idToken.payload["auth_time"] + seconds_timeout
                 console.log(
                     "Auth Time " + +result.idToken.payload["auth_time"],
                     " Expire Date " + expirationDate
-                );
+                )
             let expires_millseconds =
-                (expirationDate - +result.idToken.payload["auth_time"]) * 1000;
-            console.log("Expires in milliseconds ", expires_millseconds);
-            return expires_millseconds;
+                (expirationDate - +result.idToken.payload["auth_time"]) * 1000
+            console.log("Expires in milliseconds ", expires_millseconds)
+            return expires_millseconds
         }
 
     }
 }
 
 </script>
-
-<style>
-.textBox {
-    border-radius: 7px;
-}
-</style>

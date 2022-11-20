@@ -37,14 +37,18 @@
 </template>
 
 <script>
-import MenuButton from "@/components/shared/MenuButton.vue"
-import RouterButton from "@/components/shared/RouterButton.vue"
+import { defineAsyncComponent } from 'vue'
+import paths from "@/file_paths.js"
+
 import { useUserStore } from '@/stores/user.js'
 import { useRouter, useRoute } from "vue-router"
 
 export default {
     name: "HomePage",
-    components: { MenuButton, RouterButton },
+    components: { 
+        MenuButton: defineAsyncComponent(() => import("@/" + paths["MenuButton"])), 
+        RouterButton: defineAsyncComponent(() => import("@/" + paths["RouterButton"])), 
+    },
     setup() {
         const router = useRouter()
         const route = useRoute()
@@ -63,11 +67,11 @@ export default {
             asesor: this.store.asesor,
         }
     },
-    beforeCreate(){
-        if (this.store.session === null){
+    beforeCreate() {
+        if (this.store.session === null) {
             this.router.replace({
                 name: "Login",
-            });
+            })
         }
     },
     computed: {
@@ -77,12 +81,12 @@ export default {
     },
     methods: {
         logout() {
-            this.store.logout(); 
+            this.store.logout()
             this.store.$reset()
             console.log(this.store.session)
             this.router.replace({
                 name: "Login",
-            });
+            })
         },
         view_perfil() {
             console.log("Asesor: " + this.store.session.asesor)

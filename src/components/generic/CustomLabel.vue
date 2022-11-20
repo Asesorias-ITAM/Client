@@ -3,7 +3,7 @@
 </template>
 
 <script>
-export default{
+export default {
     name: "CustomLabel",
     props: {
         text: {
@@ -14,16 +14,17 @@ export default{
             type: String,
         required: false,
         default: "good",
-        validator(value) {
-          return ["good", "bad", "neutral"].includes(value);
-        }
+          validator(value) {
+            return ["good", "bad", "neutral"].includes(value)
+          }
         }
     },
     computed: {
         alertClass() {
-        return {
+        
+          return {
           [this.type]: true, //[this.type] permite que guarde el valor de la variable como llave
-        };
+        }
       },
     }
 

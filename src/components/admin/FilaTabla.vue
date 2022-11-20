@@ -5,8 +5,8 @@
         
     </section>
 </template>
-<script>
 
+<script>
 export default {
     name: "FilaAlumno",
     
@@ -26,8 +26,8 @@ export default {
     }
 }
 </script>
-<style scoped>
 
+<style scoped>
 .pressed{
     @apply text-white bg-verde-itam-2
 }
