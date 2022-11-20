@@ -10,8 +10,9 @@ module.exports = {
         "fondo-light-2": "#e1e1e1",
         "fondo-tarjeta-1": "#efefef",
         "fondo-tarjeta-2": "#dddddd",
-        "verde-itam-1": "#006853",
-        "verde-itam-2": "#028067",
+        "verde-itam-1": "#028067",
+        "verde-itam-2": "#006853",
+        "verde-itam-3": "#00b591",
         "gris-itam-1": "#f7f6f6",
         
         "fondo-dark-1": "#283243",
@@ -22,6 +23,7 @@ module.exports = {
         /*Highlighting*/
         "texto-hover-light-1": "#95959d", /*Al poner el mouse sobre el texto*/
         "menu-button-hover": "#0ead8e",
+        "menu-button-seleccionado": "#fafafa",
         "texto-hover-dark-1": "#afafb6", /*Al poner el mouse sobre el texto*/
         
 

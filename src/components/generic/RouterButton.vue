@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="destination" :class="buttonClass" class="btn hover:bg-menu-button-hover">
+    <router-link :to="destination" :class="buttonClass" class="text-white font-bold hover:bg-menu-button-hover">
       {{ text }}
     </router-link >
   </template>
@@ -36,10 +36,6 @@
   </script>
   
   <style scoped>
-  .btn {
-    @apply text-white rounded-full font-bold;
-  }
-  
   .pressed {
     @apply bg-menu-button-hover;
   }

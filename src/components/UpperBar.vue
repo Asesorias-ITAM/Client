@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="flex justify-center items-center w-full h-[10vh] bg-verde-itam-1">
+        <div class="flex flex-initial justify-center items-center w-full h-[10vh] bg-verde-itam-1">
             <div class="text-center" style="display: inline-block;">
                 <h1 class="text-texto-light-2 text-7xl font-bold">ASESORÍAS ITAM</h1>
             </div>
@@ -21,7 +21,7 @@ export default{
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .theme-button-container {
   /*padding: 0rem 2rem;*/
   position: absolute; /* usar fixed para mantener el botón en la página aunque nos movamos hacia abajo*/
