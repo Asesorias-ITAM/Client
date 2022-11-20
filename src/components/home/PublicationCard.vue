@@ -1,43 +1,55 @@
 <template>
     <article class="col-span-1 min-w-8 min-h-48 rounded-lg overflow-hidden shadow-md bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
         <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
-            <h1 class="px-3 py-4 text-3xl font-bold">{{materia}}</h1>
+            <h1 class="px-3 py-4 text-3xl font-bold">{{grupo.materia}}</h1>
         </div>
-        <h2 class="mx-3 my-5 text-xl">{{asesor}}</h2>
-        <p  class="mx-3 my-5 text-base">{{descripcion}}</p>
+        <h2 class="mx-3 my-5 text-xl">{{grupo.alumno.nombre + " " + grupo.alumno.apellido}}</h2>
+        <p  class="mx-3 my-5 text-base">{{grupo.descripcion}}</p>
         <footer class="card-footer">
             
-            <button class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Ver curso</button>
-            <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">Inscribirme</button>
+            <router-link :to="pubLink" class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2" @click="ver_curso">Ver curso</router-link>
+            <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2" @click="inscribir">Inscribirme</button>
         
         </footer>
     </article>
 </template>
 
 <script>
+import { useUserStore } from '@/stores/user'
+import { useRouter } from "vue-router"
+
+
 export default {
     name: "PublicationCard",
+    setup() {
+        const router = useRouter()
+        const store = useUserStore()
+        
+        return {
+            store,
+            router
+        }
+    },
     props: {
-        materia: {
-            type: String,
-            require: true,
+        grupo:{
+            type: Object,
+            require: true
         },
-        asesor: {
-            type: String,
-            require: true,
-        },
-        descripcion: {
-            type: String,
-            require: true,
-        },
+    },
+    computed:{
+        pubLink(){
+            return `/home/${this.grupo.id}`
+        }
     },
     components: {},
     methods: {
         ver_curso() {
+            //console.log(this.publicacion)
+            this.store.selectGrupo(this.grupo)
 
         },
         inscribir() {
-
+            console.log(this.grupo)
         },
     },
 }

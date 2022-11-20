@@ -34,6 +34,15 @@ const routes = [
           name: "Search Groups",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/" + paths["SearchGroupsPage"]),
+          children:[
+            
+          ]
+        },
+        {
+          path: ":id",
+          name: "GroupPage",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/" + paths["GroupPage"]),
         },
         /*{
           path: "student_groups",

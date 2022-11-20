@@ -21,6 +21,7 @@ export const useUserStore = defineStore('user', {
         session: null,
         // gets reference to the Cognito user pool
         userPool: new CognitoUserPool(POOL_DATA),
+        currentGrupo: null
 
       }
     ),
@@ -123,6 +124,10 @@ export const useUserStore = defineStore('user', {
       //console.log(l.publicacions)
       return l.publicacions
     },
+
+    selectGrupo(grupo){
+      this.currentGrupo=grupo
+    }
   },
   
   
