@@ -9,7 +9,8 @@
                         </div>
                     </div>
                     <div>
-                        <!-- <tarjeta-alumno :alumno="selectedAlumno" v-if="activatedAlumno"/> -->
+                       
+                        <tarjeta-publicacion :publicacion="selectedPublicacion" v-if="activatedPublicacion" @eliminarPublicacion="eliminarPublicacion"/>
                     </div>
                 </section>
             </div>
@@ -29,7 +30,8 @@
                         :key="publicacion.id"
                         :col1="publicacion.materia"
                         :col2="publicacion.alumno.nombre +' ' +publicacion.alumno.apellido"
-                        :selected="false"
+                        @click="selectPublicacion(publicacion)"
+                        :selected="selectedPublicacion!==null && publicacion.id===selectedPublicacion.id"
                     /> 
                 </section>
             </div>
@@ -51,6 +53,7 @@ export default {
     components: {
         TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
         FilaTabla: defineAsyncComponent(() => import("@/" + paths["FilaTabla"])),
+        TarjetaPublicacion: defineAsyncComponent(() => import("@/" + paths["TarjetaPublicacion"])),
     },
     setup() {
         const router = useRouter()
@@ -64,7 +67,9 @@ export default {
     data() {
         return {
             filtro: "",
-            listaPublicaciones: []
+            listaPublicaciones: [],
+            selectedPublicacion: null,
+            activatedPublicacion: false
         }
     },
     async beforeCreate() {
@@ -73,8 +78,39 @@ export default {
     },
     computed: {
         listaVisible() {
-            return this.listaPublicaciones
+            return this.filtrarMateria(this.filtro,this.listaPublicaciones)
         },
     },
+    methods:{
+        filtrarMateria(filtro, lista){
+            if(!filtro){
+                return lista
+            }else{
+                const regexObj = new RegExp("\\s*"+filtro,'i')
+                return lista.filter(publicacion => {
+                    //console.log(publicacion)
+                    return (regexObj.test(publicacion.materia) || regexObj.test(publicacion.alumno.nombre+" "+ publicacion.alumno.apellido))
+    
+                })
+            }
+        },
+        selectPublicacion(pub){
+            //console.log(this.selectedPublicacion)
+            if(this.activatedPublicacion && this.selectedPublicacion===pub) {
+                this.selectedPublicacion = null
+                this.activatedPublicacion = false
+            } else {
+                this.selectedPublicacion = pub
+                this.activatedPublicacion = true
+            }
+        },
+        async eliminarPublicacion(id){
+            console.log(id)
+            this.selectedPublicacion = null
+            this.activatedPublicacion = false
+            await this.store.eliminarPublicacion(id)
+            this.listaPublicaciones = await this.store.listaPublicaciones()
+        }
+    }
 }
 </script>
