@@ -39,12 +39,6 @@ export default {
     data() {
         return {
             pubList: [],
-            pubListPlaceholder: [{id: 0, materia: "Economía I", asesor: "Juan Acosta", descripcion: placeholder_desc},
-                       {id: 1, materia: "Ideas III", asesor: "Rosa Sarmiento", descripcion: placeholder_desc},
-                       {id: 2, materia: "SCE", asesor: "POJO", descripcion: placeholder_desc},
-                       {id: 3, materia: "OPC", asesor: "Don Ramón", descripcion: placeholder_desc},
-                       {id: 4, materia: "Redes I", asesor: "1ms", descripcion: placeholder_desc},
-                      ],
             filtro: ""
         }
     },
@@ -82,9 +76,4 @@ export default {
     overflow: hidden;
 }
 
-.customcontent{
-    width: 13.5rem; 
-    min-width: 13.5rem;
-    max-width: 13.5rem;
-}
 </style>
