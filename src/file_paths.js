@@ -24,7 +24,7 @@ export default {
     "SearchGroupsPage":     views + home + "SearchGroupsPage.vue",
     "PublishGroupPage":     views + home + "PublishGroupPage.vue",
     "MyGroupsPage":         views + home + "PublishGroupPage.vue",
-    "TutorsPage":     views + home + "TutorsPage.vue",
+    "TutorsPage":           views + home + "TutorsPage.vue",
 
     // Misc.
     "NotFoundPage":         views + misc + "NotFoundPage.vue",
@@ -60,7 +60,7 @@ export default {
     "AdminLoginPage":       views + admin + "AdminLoginPage.vue",
 
     // Home
-    "AdminPage":            views + admin + "AdminPage.vue",
+    "AdminHomePage":        views + admin + "AdminHomePage.vue",
     "DirectorioPage":       views + admin + "DirectorioPage.vue",
     "PublicacionesPage":    views + admin + "PublicacionesPage.vue",
     // ------------------

@@ -10,9 +10,9 @@
                     
                     <div id="login" v-if="!firstLogin" class="flex flex-col mx-14 text-texto-light-1 dark:text-texto-dark-1">
                         <label class="mt-6 ">Correo Electrónico</label>
-                        <TextInput v-model="correo" placeholder="" class="textBox" @keyup.enter="onEnter"/>
+                        <TextInput v-model="correo" placeholder="" @keyup.enter="onEnter"/>
                         <label>Contraseña</label>
-                        <TextInput type="password" v-model="passwd" placeholder="" class="textBox" @keyup.enter="onEnter"/>
+                        <TextInput type="password" v-model="passwd" placeholder="" @keyup.enter="onEnter"/>
                         <CustomLabel class="bad" text="Credenciales Incorrectas" v-if="incorrecto" data-test='field-validator'/>
 
                         <div class="grid grid-cols-1">
@@ -24,9 +24,9 @@
                         <CustomLabel class="mt-6" text="Es necesario cambiar contraseña"/>
                         <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
                         <label class="mt-6 ">Nueva contraseña</label>
-                        <TextInput type="password" v-model="newPasswd1"  placeholder="" class="textBox"/>
+                        <TextInput type="password" v-model="newPasswd1"  placeholder=""/>
                         <label>Confirma nueva contraseña</label>
-                        <TextInput type="password" v-model="newPasswd2"  placeholder="" class="textBox"/>
+                        <TextInput type="password" v-model="newPasswd2"  placeholder=""/>
                     
                         <CustomLabel data-test="password_validator" class="bad" text="Las contraseñas no coinciden" v-if="!compara"/>
 

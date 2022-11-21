@@ -2,25 +2,18 @@
     <div class="home">
         <aside class="flex flex-auto flex-col h-full overflow-hidden p-4 bg-verde-itam-2">
             <section class="menu pt-2">
-                <MenuButton text="Mis asesores" img="home.svg" destination="/home/my_tutors" :type="path==='/home/my_tutors' ? 'pressed' : 'unPressed'"/>
-                <MenuButton text="Buscar" img="search.svg" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed'"/>
-                
-                <div v-if="asesor">
-                    <MenuButton text="Crear grupo" img="group_add.svg" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed'"/>
-                    <MenuButton text="Mis grupos" img="group.svg" destination="/home/my_groups" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
-                </div>
-                
+                <MenuButton text="Directorio" img="contacts.svg" destination="/admin_home/directorio" :type="path==='/admin_home/directorio' ? 'pressed' : 'unPressed'"/>
+                <MenuButton text="Publicaciones" img="description.svg" destination="/admin_home/publicaciones" :type="path==='/admin_home/publicaciones' ? 'pressed' : 'unPressed'"/>
             </section>
-            
+
             <!-- Agrega espacio entre Cerrar Sesión y los demás botones -->
             <div class="flex"></div>
 
             <section class="menu">
-                <MenuButton text="Ajustes" img="settings.svg" destination="/home/settings" :type="path==='/home/settings' ? 'pressed' : 'unPressed'"/>
                 <MenuButton text="Cerrar sesión" img="logout.svg" type="unPressed" @click="logout"/>
             </section>
         </aside>
-        
+
         <div class="content">
             <router-view/>
         </div>
@@ -31,63 +24,61 @@
 import { defineAsyncComponent } from 'vue'
 import paths from "@/file_paths.js"
 
-import { useUserStore } from '@/stores/user.js'
-import { useRouter, useRoute } from "vue-router"
+import { useAdminStore } from '@/stores/admin.js'
+import { useRouter,useRoute } from "vue-router"
 
 export default {
-    name: "HomePage",
+    name: "AdminHomePage",
     components: { 
         MenuButton: defineAsyncComponent(() => import("@/" + paths["MenuButton"])), 
         RouterButton: defineAsyncComponent(() => import("@/" + paths["RouterButton"])), 
     },
-    setup() {
-        const router = useRouter()
-        const route = useRoute()
-        const store = useUserStore()
+    setup(){
+        const router = useRouter();
+        const store = useAdminStore()
+        const route = useRoute();
         
         return {
             // you can return the whole store instance to use it in the template
+            store,
             router,
             route,
-            store
+            
         }
     },
-    data() {
+    beforeCreate(){
+        if (this.store.session === null){
+            router.replace({
+                name: "AdminLogin",
+            });
+        }
+    }, 
+    data(){
         return {
-            session: this.store.session,
-            asesor: null
+            btnPresionado: "",
+            
         }
     },
-    async beforeCreate() {
-        if (this.store.session === null) {
-            this.router.replace({
-                name: "Login",
-            })
-        }
-        //console.log(this.store.currUser)
-        this.asesor= await this.store.currUser.asesor
-    },
-    
-    
     computed: {
-        path() {
+        path(){
             return this.route.path
         }
     },
     methods: {
-        logout() {
-            this.store.logout()
+        test(){
+            console.log(this.path)
+        },  
+        logout(){
+            this.store.logout(); 
             this.store.$reset()
             console.log(this.store.session)
             this.router.replace({
-                name: "Login",
-            })
-        },
-        view_perfil() {
-            console.log("Asesor: " + this.store.session.asesor)
-        },
+                name: "AdminLogin",
+            });
+        }
     }
 }
+
 </script>
 
 <style lang="scss" scoped>

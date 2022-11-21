@@ -6,15 +6,11 @@
             </h1>
             <h2 class="mx-3 mb-3 text-xl">{{alumno.correo}}</h2>
             <h3 class="mx-3 text-xl" v-if="alumno.telefono!==null">{{alumno.telefono}}</h3>
+            <div class="pb-2"></div> <!-- Agrega espacio debajo de los datos -->
         </div>
-        <h3 class="mx-3 my-5 text-xl">{{"Asesor: "+ (alumno.asesor ? "Si" : "No")}}</h3>
+        <h3 class="mx-3 my-5 text-xl">{{"Asesor: "+ (alumno.asesor ? "Sí" : "No")}}</h3>
         <h3 class="mx-3 mt-5 text-xl" v-if="alumno.carrera.length>0">{{"Estudia: "}}</h3>
-        <h4 v-for="carrera in alumno.carrera" :key="carrera"> {{carrera}}</h4>
-        
-        
-        <footer class="card-footer">
-            
-        </footer>   
+        <footer class="pb-4" v-for="carrera in alumno.carrera" :key="carrera"> {{carrera}}</footer>
     </article>
 </template>
 

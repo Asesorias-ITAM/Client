@@ -4,7 +4,7 @@
       :value="modelValue"
       :placeholder="placeholder"
       maxlength="100"
-      class="textBox text-lg font-normal border-2 mb-6 px-3 focus:outline-blue-500 dark:focus:border-blue-500"
+      class="text-lg font-normal border-2 rounded-lg mb-6 px-3 focus:outline-blue-500 dark:focus:border-blue-500"
       @input="$emit('update:modelValue', $event.target.value)"
     />
 </template>

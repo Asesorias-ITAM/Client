@@ -15,6 +15,7 @@ module.exports = {
         "verde-itam-3": "#00b591",
         "gris-itam-1": "#f7f6f6",
         
+        "fondo-general-dark": "#343434",
         "fondo-dark-1": "#283243",
         "fondo-dark-2": "#4b5158",
         "fondo-dark-tarjeta-1": "#49494d",

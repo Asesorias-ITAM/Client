@@ -21,10 +21,7 @@ export default {
 <style lang="scss">
 html.dark {
   color-scheme: dark;
-}
-
-.textBox {
-    border-radius: 7px;
+  @apply bg-fondo-general-dark
 }
 
 /*#app {

@@ -77,7 +77,7 @@ const routes = [
     path: "/admin_home",
     name: "Admin Home",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/" + paths["AdminPage"]),
+      import(/* webpackChunkName: "about" */ "@/" + paths["AdminHomePage"]),
     children: [
       {
         path:"Directorio", 
