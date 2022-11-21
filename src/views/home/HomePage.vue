@@ -62,8 +62,8 @@ export default {
                 name: "Login",
             })
         }
-        console.log(this.store.currUser)
-        this.asesor=await this.store.currUser.asesor
+        //console.log(this.store.currUser)
+        this.asesor= await this.store.currUser.asesor
     },
     
     

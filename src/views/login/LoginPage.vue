@@ -94,8 +94,8 @@ export default {
             
             cognitoUser.authenticateUser(authDetails, {
                 /*Nota: importante, para poder modificar las variables del componente desde un callback, tengo que hacerlo desde una arrow function*/ 
-                onSuccess: Session => {
-                    this.setUserSessionInfo(Session)
+                onSuccess: async Session => {
+                    await this.setUserSessionInfo(Session)
                     this.router.replace({
                         name: "tutors",
                     })
@@ -112,7 +112,7 @@ export default {
             });   
         },
 
-        setUserSessionInfo(session) {
+        async setUserSessionInfo(session) {
             //console.log(session)
             // starts timer to auto logout after 1 hour
             setTimeout(() =>  {
@@ -124,7 +124,7 @@ export default {
                 alert("You have been automatically logged out")
             }, this.autoTimeout(session))
 
-            this.store.login(session)
+            await this.store.login(session)
         },
 
         // calculates when user will be auto logged out
