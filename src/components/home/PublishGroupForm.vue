@@ -1,7 +1,7 @@
 <template>
     <div class="container min-h-full max-w-2xl mx-auto">
             <div class="text-2xl subpixel-antialiased font-sans ">
-                <div class="mt-6 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
+                <div class="mt-6 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl w-3/5 mx-auto">
                     <h2 class="text-center py-5 bg-verde-itam-1 text-fondo-light-1 text-4xl font-bold"></h2>
                     <div id="registro" class="flex flex-col mx-14 mb-2">
                         
@@ -63,14 +63,15 @@ export default {
         }
     },
     methods: {
-        crearGrupo() {
+        async crearGrupo() {
             //"0" ? parseInt("0") : 0
             const publicacion = {
                 "materia": this.materia,
                 "descripcion": this.descripcion,
                 "precio": this.precio ? parseInt(this.precio) : 0
             }
-            this.store.crearGrupo(publicacion)
+            await this.store.crearGrupo(publicacion)
+            this.$toast.success(`Grupo creado con éxito`);
         },
         
         onEnter() {

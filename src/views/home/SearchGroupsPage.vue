@@ -6,6 +6,7 @@
             <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
             <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
                 :grupo="pub"
+                @inscribirse="inscribirse"
             />
         </div>
     </section>
@@ -63,6 +64,15 @@ export default {
                 })
             }
 
+        },
+
+        async inscribirse(id){
+            try{
+                await this.store.inscribirGrupo(id)
+                this.$toast.success(`Inscripción exitosa`);
+            }catch(error){
+                console.log(error)
+            }
         }
     }
     
