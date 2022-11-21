@@ -4,7 +4,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
-import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, getListaPublicaciones } from "@/services/user.js"
+import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, getListaPublicaciones, inscribirGrupo } from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -127,6 +127,18 @@ export const useUserStore = defineStore('user', {
 
     selectGrupo(grupo){
       this.currentGrupo=grupo
+    },
+
+    async inscribirGrupo(grupoID){
+      try {
+        console.log(grupoID)
+        console.log(this.email)
+        await inscribirGrupo(grupoID,this.email)
+        await confirmUser(this.email)
+      }catch(error){
+        console.log(error)
+      }
+      
     }
   },
   

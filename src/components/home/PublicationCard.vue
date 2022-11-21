@@ -48,8 +48,13 @@ export default {
             this.store.selectGrupo(this.grupo)
 
         },
-        inscribir() {
-            console.log(this.grupo)
+        async inscribir() {
+            try{
+                await this.store.inscribirGrupo(this.grupo.id)
+            }catch(error){
+                console.log(error)
+            }
+            
         },
     },
 }
