@@ -55,11 +55,7 @@ export default {
 
         },
         async inscribir() {
-            try{
-                await this.store.inscribirGrupo(this.grupo.id)
-            }catch(error){
-                console.log(error)
-            }
+            this.$emit("inscribirse", this.grupo.id)
             
         },
     },

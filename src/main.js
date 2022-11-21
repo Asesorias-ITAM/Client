@@ -1,14 +1,13 @@
-import { createApp, watch } from "vue";
+import { createApp} from "vue";
 import App from "./App.vue";
 import router from "./router";
-import './index.css';
+import toast from '@k90mirzaei/vue-toast'
+import '@k90mirzaei/vue-toast/dist/index.css'
+//import './index.css';
 
 import "./assets/tailwind.css";
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import { markRaw } from 'vue'
-// adapt this based on where your router is
-
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -44,4 +43,7 @@ pinia.use(piniaPluginPersistedstate) // Nota: agregar persist:true en los métod
 
 app.use(pinia);
 app.use(router);
+app.use(toast)
 app.mount("#app");
+
+// npm i --save-dev vue-toast

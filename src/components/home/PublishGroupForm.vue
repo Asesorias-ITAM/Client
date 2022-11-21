@@ -63,14 +63,15 @@ export default {
         }
     },
     methods: {
-        crearGrupo() {
+        async crearGrupo() {
             //"0" ? parseInt("0") : 0
             const publicacion = {
                 "materia": this.materia,
                 "descripcion": this.descripcion,
                 "precio": this.precio ? parseInt(this.precio) : 0
             }
-            this.store.crearGrupo(publicacion)
+            await this.store.crearGrupo(publicacion)
+            this.$toast.success(`Grupo creado con éxito`);
         },
         
         onEnter() {

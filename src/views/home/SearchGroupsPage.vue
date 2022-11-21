@@ -1,13 +1,17 @@
 <template>
     <section class="card-grid my-3 mx-3">
         <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
-        <div class="flex flex-wrap gap-6">
+        <div class="h-[78vh] overflow-auto">
+            <div class="flex flex-wrap gap-6">
             <!-- columns-3xs gap-6 -->
             <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
             <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
                 :grupo="pub"
+                @inscribirse="inscribirse"
             />
         </div>
+        </div>
+        
     </section>
 </template>
 
@@ -39,12 +43,6 @@ export default {
     data() {
         return {
             pubList: [],
-            pubListPlaceholder: [{id: 0, materia: "Economía I", asesor: "Juan Acosta", descripcion: placeholder_desc},
-                       {id: 1, materia: "Ideas III", asesor: "Rosa Sarmiento", descripcion: placeholder_desc},
-                       {id: 2, materia: "SCE", asesor: "POJO", descripcion: placeholder_desc},
-                       {id: 3, materia: "OPC", asesor: "Don Ramón", descripcion: placeholder_desc},
-                       {id: 4, materia: "Redes I", asesor: "1ms", descripcion: placeholder_desc},
-                      ],
             filtro: ""
         }
     },
@@ -69,6 +67,15 @@ export default {
                 })
             }
 
+        },
+
+        async inscribirse(id){
+            try{
+                await this.store.inscribirGrupo(id)
+                this.$toast.success(`Inscripción exitosa`);
+            }catch(error){
+                console.log(error)
+            }
         }
     }
     
@@ -82,9 +89,4 @@ export default {
     overflow: hidden;
 }
 
-.customcontent{
-    width: 13.5rem; 
-    min-width: 13.5rem;
-    max-width: 13.5rem;
-}
 </style>

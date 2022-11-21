@@ -38,6 +38,7 @@ export default {
     "PublicationCard":      components + home + "PublicationCard.vue",
     "PublishGroupForm":     components + home + "PublishGroupForm.vue",
     "MenuButton":           components + home + "MenuButton.vue",
+    "GroupCard":            components + home + "GroupCard.vue",
 
     // Generic
     "ActionButton":         components + generic + "ActionButton.vue",
