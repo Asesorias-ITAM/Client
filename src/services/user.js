@@ -128,3 +128,22 @@ export const getListaPublicaciones = async () =>{
 
   return result
 }
+
+export const inscribirGrupo = async(ID, correo)=>{
+  const query = gql`
+    mutation InscribirGrupo($id: ID, $correo: String!) {
+      updateAlumno(
+        data: {grupos: {connect: {where: {id: $id}}}}
+        where: {correo: $correo}
+      ) {
+        id
+      } 
+    }
+    `;
+    const variables = {
+      "id": ID,
+      "correo": correo
+    }
+    const result = await graphQLClient.request(query, variables)
+    return result
+}

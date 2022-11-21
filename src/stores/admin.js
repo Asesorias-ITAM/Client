@@ -4,7 +4,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito2.js";
 
-import { getListaAlumnos, getListaPublicaciones } from "@/services/admin.js"
+import { getListaAlumnos, getListaPublicaciones, eliminarPublicacion } from "@/services/admin.js"
 
 //const router = useRouter();
 export const useAdminStore = defineStore("admin", {
@@ -70,8 +70,17 @@ export const useAdminStore = defineStore("admin", {
       const l = await getListaPublicaciones()
       //console.log(l.publicacions)
       return l.publicacions
+    },
+    async eliminarPublicacion(ID){
+      try {
+        console.log("publicacion a elimnar: "+ID)
+        await eliminarPublicacion(ID)
+      }catch(error){
+        console.log(error)
+      }
+      
     }
-    
+ 
   },
   
   persist: true,

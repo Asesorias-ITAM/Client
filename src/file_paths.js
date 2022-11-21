@@ -20,6 +20,7 @@ export default {
 
     // Home
     "HomePage":             views + home + "HomePage.vue",
+    "GroupPage":            views + home + "GroupPage.vue",
     "SearchGroupsPage":     views + home + "SearchGroupsPage.vue",
     "PublishGroupPage":     views + home + "PublishGroupPage.vue",
     "MyGroupsPage":         views + home + "PublishGroupPage.vue",
@@ -68,6 +69,7 @@ export default {
     "DirectorioAlumnos":    components + admin + "DirectorioAlumnos.vue",
     "FilaTabla":            components + admin + "FilaTabla.vue",
     "TarjetaAlumno":        components + admin + "TarjetaAlumno.vue",
+    "TarjetaPublicacion":   components + admin + "TarjetaPublicacion.vue",
 
     // -----------------------
     // ######################################################

@@ -1,13 +1,11 @@
 <template>
     <section class="card-grid my-3">
+        <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
         <div class="columns-3xs gap-6">
-        <!-- <div class="grid grid-cols-4 gap-6"> -->
-            <PublicationCard v-for="pub of pubList" :key="pub.id" v-bind="pub"/>    
-            <!-- TODO: Utiliza las tarjetas placeholder si no encuentra nada. Las placeholder 
-                aparecen por un momento en lo que cargan las otras; hay que arreglar eso
-                o no poner placeholders -->
-            <!-- <PublicationCard v-for="pub of pubList.length === 0 ? pubListPlaceholder : pubList" :key="pub.id" v-bind="pub"/> -->
-        <!-- </div> -->
+            <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
+            <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
+                :grupo="pub"
+            />
         </div>
     </section>
 </template>
@@ -24,7 +22,8 @@ let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 export default {
     name: "SearchGroupsPage",
     components: { 
-        PublicationCard: defineAsyncComponent(() => import("@/" + paths["PublicationCard"]))
+        PublicationCard: defineAsyncComponent(() => import("@/" + paths["PublicationCard"])),
+        TextInput: defineAsyncComponent(() => import("@/" + paths["TextInput"])),
     },
     setup() {
         const router = useRouter();
@@ -35,6 +34,7 @@ export default {
             router
         }
     },
+    
     data() {
         return {
             pubList: [],
@@ -44,11 +44,33 @@ export default {
                        {id: 3, materia: "OPC", asesor: "Don Ramón", descripcion: placeholder_desc},
                        {id: 4, materia: "Redes I", asesor: "1ms", descripcion: placeholder_desc},
                       ],
+            filtro: ""
         }
     },
     async beforeCreate(){
         this.pubList = await this.store.listaPublicaciones()
     },
+    computed: {
+        listaVisible(){
+            return this.filtrarMaterias(this.filtro, this.pubList)
+        }
+    },
+    methods:{
+        filtrarMaterias(filtro,lista){
+            if(!filtro){
+                return lista
+            }else{
+                const regexObj = new RegExp("\\s*"+filtro,'i')
+                return lista.filter(grupo => {
+                    //console.log(publicacion)
+                    return (regexObj.test(grupo.materia) || regexObj.test(grupo.alumno.nombre+" "+ grupo.alumno.apellido))
+    
+                })
+            }
+
+        }
+    }
+    
 }
 </script>
 

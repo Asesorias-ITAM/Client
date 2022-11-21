@@ -102,7 +102,7 @@ export default {
             if (!val) {
                 return lista
             } else {
-                const regexObj = new RegExp("\\s*"+this.filtroNombre,'i')
+                const regexObj = new RegExp("\\s*"+val,'i')
                 
                 return lista.filter(alumno => {
                     //console.log(alumno)
@@ -112,8 +112,6 @@ export default {
             }
         },
         selectAlumno(alum) {
-            console.log(this.selectedAlumno === alum)
-
             if(this.activatedAlumno && this.selectedAlumno===alum) {
                 this.selectedAlumno = null
                 this.activatedAlumno = false
