@@ -157,7 +157,8 @@ export const useUserStore = defineStore('user', {
 
     async dejarGrupo(groupID){
       try{
-        return await dejarGrupo(groupID,this.email)
+        await dejarGrupo(groupID,this.email)
+        await confirmUser(this.email)
       }catch(error){
         console.log(error)
       }

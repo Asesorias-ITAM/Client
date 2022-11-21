@@ -201,13 +201,10 @@ export const getAsesores = async (correo) =>{
 
 export const dejarGrupo = async(ID, correo)=>{
   const query = gql`
-    mutation InscribirGrupo($id: ID, $correo: String!) {
-      updateAlumno(
-        data: {grupos: {connect: {where: {id: $id}}}}
-        where: {correo: $correo}
-      ) {
+    mutation DejarGrupo($id: ID, $correo: String!) {
+      updateAlumno(data: {grupos: {disconnect: {id: $id}}}, where: {correo: $correo}) {
         id
-      } 
+      }
     }
     `;
     const variables = {

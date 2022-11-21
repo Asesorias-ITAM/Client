@@ -51,11 +51,9 @@ export default {
 
         },
         async dejarGrupo() {
-            try{
-                await this.store.inscribirGrupo(this.grupo.id)
-            }catch(error){
-                console.log(error)
-            }
+            
+            this.$emit("dejarGrupo",this.grupo.id)
+            
             
         },
     },
