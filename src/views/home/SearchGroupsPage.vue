@@ -1,7 +1,13 @@
 <template>
     <section class="card-grid my-3">
-        <div class="grid grid-cols-4 gap-6">
-            <PublicationCard v-for="pub of pubList.length === 0 ? pubListPlaceholder : pubList" :key="pub.id" v-bind="pub"/>
+        <div class="columns-3xs gap-6">
+        <!-- <div class="grid grid-cols-4 gap-6"> -->
+            <PublicationCard v-for="pub of pubList" :key="pub.id" v-bind="pub"/>    
+            <!-- TODO: Utiliza las tarjetas placeholder si no encuentra nada. Las placeholder 
+                aparecen por un momento en lo que cargan las otras; hay que arreglar eso
+                o no poner placeholders -->
+            <!-- <PublicationCard v-for="pub of pubList.length === 0 ? pubListPlaceholder : pubList" :key="pub.id" v-bind="pub"/> -->
+        <!-- </div> -->
         </div>
     </section>
 </template>

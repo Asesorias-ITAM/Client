@@ -22,10 +22,7 @@ module.exports = {
 
         /*Highlighting*/
         "texto-hover-light-1": "#95959d", /*Al poner el mouse sobre el texto*/
-        "menu-button-hover": "#0ead8e",
-        "menu-button-seleccionado": "#fafafa",
-        "texto-hover-dark-1": "#afafb6", /*Al poner el mouse sobre el texto*/
-        
+        "texto-hover-dark-1": "#afafb6",
 
         /*Texto*/
         "texto-light-1": "#27272a", /*Texto estándar*/
@@ -37,6 +34,10 @@ module.exports = {
         /*Botones*/
         "boton-tema-light": "#49494d", /*Botón para cambiar entre claro/oscuro*/ /*slate-800; 1e293b*/
         "boton-tema-dark": "#dddddd", /*slate-400; #94a3b8*/
+        "menu-button-hover": "#0ead8e",
+        "menu-button-seleccionado": "#fafafa",
+        "card-button-hover": "#cccccf",
+        "card-button-hover-dark": "#838387",
 
         /*Misc*/
         "borde-light-1": "#e5e7eb", /*Bordes de login y registro*/

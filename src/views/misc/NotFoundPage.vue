@@ -1,5 +1,6 @@
 <template>
-    <h1>Oops, it looks like the page you're looking for doesn't exist.</h1>
+    <h1 class="text-9xl font-bold">404</h1>
+    <p>Buscabas una página, pero probablemente no sea esta.</p>
     <img src = "@/assets/old_man_shrug.jpg"/>
 </template>
 

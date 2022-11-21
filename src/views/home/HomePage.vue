@@ -1,27 +1,4 @@
 <template>
-<!--<div class="grid grid-cols-7">
-        <div class="sidebar col-span-1 min-h-[90.2vh] bg-verde-itam-2">
-            <section class="flex flex-col justify-items-center px-14  text-center text-2xl">
-                
-                <RouterButton text="Buscar" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed'" class="py-5"/>
-                <RouterButton text="Crear grupo" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed' "/>
-                
-
-                <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
-                <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
-                <MenuButton text="Mis Asesorías" type="unPressed" class="mt-10"/>
-                
-                <MenuButton text="Mi Perfil" type="unPressed" @click="view_perfil" class="mt-10"/>
-                <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
-            </section>
-        </div>
-        
-        <section class="col-span-6">
-            <router-view></router-view>
-        </section>
-        {{asesor}}
-    </div> -->
-    
     <div class="home">
         <aside class="flex flex-auto flex-col h-full overflow-hidden p-4 bg-verde-itam-2">
             <section class="menu pt-2">
@@ -110,7 +87,7 @@ export default {
     display: flex;
 
     .content {
-        flex: 1 1 0;
+        flex: 1 1 auto;
 		//padding: 2rem;
     }
 }
