@@ -6,7 +6,7 @@
         <h2 class="mx-3 my-5 text-xl">{{"Dada por: "+publicacion.alumno.nombre + " "+ publicacion.alumno.apellido}}</h2>
         <p  class="mx-3 my-5 text-base">{{publicacion.descripcion}}</p>
         <footer class="card-footer">
-            <button class="px-2 py-1 mx-2.5 rounded-md bg-red-400 dark:bg-fondo-dark-tarjeta-2" @click="eliminar">Eliminar</button>
+            <button class="px-2 py-1 mx-2.5 rounded-md bg-red-300 hover:bg-red-400 dark:bg-red-400 dark:hover:bg-red-500" @click="eliminar">Eliminar</button>
         </footer>
     </article>
 </template>

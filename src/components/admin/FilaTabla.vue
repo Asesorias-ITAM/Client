@@ -33,7 +33,7 @@ export default {
 }
 
 .unPressed{
-    @apply bg-fondo-light-1 hover:text-white hover:bg-verde-itam-2
+    @apply bg-fondo-light-1 dark:bg-fondo-dark-2 hover:text-white hover:bg-verde-itam-2 
 }
 
 </style>

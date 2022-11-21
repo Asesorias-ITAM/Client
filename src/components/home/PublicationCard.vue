@@ -8,8 +8,12 @@
         <p  class="mx-3 my-5 text-base">{{grupo.descripcion}}</p>
         <footer class="card-footer">
             
-            <router-link :to="pubLink" class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2" @click="ver_curso">Ver curso</router-link>
-            <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2" @click="inscribir">Inscribirme</button>
+            <router-link :to="pubLink" class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark" @click="ver_curso">
+                Ver curso
+            </router-link>
+            <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark" @click="inscribir">
+                Inscribirme
+            </button>
         
         </footer>
     <!-- </article> -->

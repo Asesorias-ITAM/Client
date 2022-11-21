@@ -6,13 +6,12 @@
                     
                     <RouterButton text="Directorio" class = "mt-24" destination="/admin_home/directorio" :type="path==='/admin_home/directorio' ? 'pressed' : 'unPressed' " />
                     <RouterButton text="Publicaciones" class = "mt-24" destination="/admin_home/publicaciones" :type="path==='/admin_home/publicaciones' ? 'pressed' : 'unPressed' " />
-                
+                    
                     <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
                 </div>
                 
             </div>
             <div class="col-span-10">
-                
                 <router-view></router-view>
             </div>
         </div>
