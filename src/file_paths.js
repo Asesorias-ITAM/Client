@@ -1,4 +1,3 @@
-const root = "@/"
 const views = "views/"
 const components = "components/"
 const admin = "admin/"
@@ -47,8 +46,8 @@ export default {
     "CustomLabel":          components + generic + "CustomLabel.vue",
 
     //Misc.
-    "UpperBar":             components + "UpperBar.vue",
-    "ThemeButton":          components + "ThemeButton.vue",
+    "UpperBar":             components + misc + "UpperBar.vue",
+    "ThemeButton":          components + misc + "ThemeButton.vue",
     // -----------------------
 
     // ######################################################   
@@ -71,5 +70,5 @@ export default {
     "TarjetaAlumno":        components + admin + "TarjetaAlumno.vue",
 
     // -----------------------
-    // ######################################################   
+    // ######################################################
 }
