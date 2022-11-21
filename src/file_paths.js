@@ -24,7 +24,7 @@ export default {
     "SearchGroupsPage":     views + home + "SearchGroupsPage.vue",
     "PublishGroupPage":     views + home + "PublishGroupPage.vue",
     "MyGroupsPage":         views + home + "PublishGroupPage.vue",
-    "PublishGroupPage":     views + home + "PublishGroupPage.vue",
+    "TutorsPage":     views + home + "TutorsPage.vue",
 
     // Misc.
     "NotFoundPage":         views + misc + "NotFoundPage.vue",

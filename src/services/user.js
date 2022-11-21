@@ -29,6 +29,30 @@ export const createAlum = async (alum) => {
   return result
 }
 
+export const getDatosAlum  = async(email) => {
+  //console.log(email)
+  const query = gql`
+  query DatosUsuario($correo: String!) {
+    alumno(where: {correo: $correo}) {
+      id
+      nombre
+      apellido
+      asesor
+      carrera
+      correo
+      telefono
+    }
+  }
+  `;
+  const variables = {
+    "correo": email,
+  }
+  
+  const result = await graphQLClient.request(query, variables)
+  //console.log(result.alumno)
+  return result.alumno
+} 
+
 export const checkAlum = async(email) => {
     //console.log(email)
     const query = gql`

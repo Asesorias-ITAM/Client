@@ -30,6 +30,15 @@ const routes = [
       import(/* webpackChunkName: "about" */ "@/" + paths["HomePage"]),
       children: [
         {
+          path: "my_tutors",
+          name: "tutors",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/" + paths["TutorsPage"]),
+          children:[
+            
+          ]
+        },
+        {
           path: "search",
           name: "Search Groups",
           component: () =>

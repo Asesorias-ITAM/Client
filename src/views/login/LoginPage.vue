@@ -97,7 +97,7 @@ export default {
                 onSuccess: Session => {
                     this.setUserSessionInfo(Session)
                     this.router.replace({
-                        name: "Home",
+                        name: "tutors",
                     })
                     //console.log("Post Autenticación")
                     //console.log(cognitoUser)

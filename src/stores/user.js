@@ -4,7 +4,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 //imports userpool data from config
 import { POOL_DATA } from "@/config/cognito.js";
 
-import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, getListaPublicaciones, inscribirGrupo } from "@/services/user.js"
+import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, getListaPublicaciones, inscribirGrupo, getDatosAlum } from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -12,7 +12,6 @@ export const useUserStore = defineStore('user', {
         cognitoUserName: null,
         cognitoSub: null,
         email: null,
-        asesor: null,
         idToken: null,
         accessToken: null,
         refreshToken: null,
@@ -21,7 +20,8 @@ export const useUserStore = defineStore('user', {
         session: null,
         // gets reference to the Cognito user pool
         userPool: new CognitoUserPool(POOL_DATA),
-        currentGrupo: null
+        currentGrupo: null,
+        currUser: null
 
       }
     ),
@@ -51,14 +51,19 @@ export const useUserStore = defineStore('user', {
       this.logout(state)
     },
 
-    login(Session){
-      this.session = Session
-      this.idToken = Session.getIdToken().getJwtToken()
-      this.username = Session.idToken.payload["cognito:username"]
-      this.asesor = Session.idToken.payload["custom:Asesor"]
-      this.isAuthenticated = true
-      this.email = Session.idToken.payload.email
-      console.log(this.session)
+    async login(Session){
+      try {
+        this.session = Session
+        this.idToken = Session.getIdToken().getJwtToken()
+        this.email = Session.idToken.payload.email
+        this.currUser = await getDatosAlum(this.email)
+        this.isAuthenticated = true
+        console.log(this.currUser)
+        
+      //console.log(this.session)
+      }catch(error){
+        console.log(error)
+      }  
       
     },
 

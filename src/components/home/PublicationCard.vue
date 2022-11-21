@@ -1,5 +1,5 @@
 <template>
-    <article class="min-h-48 mb-6 rounded-lg overflow-hidden shadow-md bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
+    <article class="min-h-48 customcard rounded-lg overflow-hidden shadow-md bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1">
     <!-- <article class="m-3 min-w-8 max-w-md min-h-48 rounded-lg overflow-hidden shadow-md bg-fondo-tarjeta-1 dark:bg-fondo-dark-tarjeta-1"> -->
         <div class="bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2">
             <h1 class="px-3 py-4 text-3xl font-bold">{{grupo.materia}}</h1>
@@ -69,6 +69,12 @@ export default {
 	display: flex;
 	justify-content: flex-center;
 	border-top: 1px solid var(#efefef);
+}
+
+.customcard{
+    width: 20rem; 
+    min-width: 19rem;
+    max-width: 19rem;
 }
 </style>
 

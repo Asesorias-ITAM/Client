@@ -2,12 +2,14 @@
     <div class="home">
         <aside class="flex flex-auto flex-col h-full overflow-hidden p-4 bg-verde-itam-2">
             <section class="menu pt-2">
-                <MenuButton text="Mis asesores" img="home.svg" destination="/home/my_tutors" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
-                <MenuButton text="Buscar" img="search.svg" destination="/home/search" :type="path==='/home/search' ? 'pressed': 'unPressed'"/>
-                <MenuButton text="Crear grupo" img="group_add.svg" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed'"/>
-                <MenuButton text="Mis grupos" img="group.svg" destination="/home/my_groups" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
+                <MenuButton text="Mis asesores" img="home.svg" destination="/home/my_tutors" :type="path==='/home/my_tutors' ? 'pressed' : 'unPressed'"/>
+                <MenuButton text="Buscar" img="search.svg" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed'"/>
+                <div v-if="asesor">
+                    <MenuButton text="Crear grupo" img="group_add.svg" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed'"/>
+                    <MenuButton text="Mis grupos" img="group.svg" destination="/home/my_groups" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
+                </div>
+                
             </section>
-
             <!-- Agrega espacio entre Cerrar Sesión y los demás botones -->
             <div class="flex"></div>
 
@@ -51,16 +53,20 @@ export default {
     data() {
         return {
             session: this.store.session,
-            asesor: this.store.asesor,
+            asesor: null
         }
     },
-    beforeCreate() {
+    async beforeCreate() {
         if (this.store.session === null) {
             this.router.replace({
                 name: "Login",
             })
         }
+        console.log(this.store.currUser)
+        this.asesor=await this.store.currUser.asesor
     },
+    
+    
     computed: {
         path() {
             return this.route.path
