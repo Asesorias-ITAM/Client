@@ -1,7 +1,7 @@
 <template>
     <section class="card-grid my-3">
         <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
-        <div class="grid grid-cols-4 gap-6">
+        <div class="columns-3xs gap-6">
             <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
             <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
                 :grupo="pub"

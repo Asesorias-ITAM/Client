@@ -1,38 +1,25 @@
 <template>
-    <!--{{store.email}}-->
-
-    <!--div class="grid grid-flow-col auto-cols-auto bgfondo-dark-1"-->
-    <div class="grid grid-cols-7">
-        <div class="sidebar col-span-1 min-h-[90.2vh] bg-verde-itam-2">
-            <section class="flex flex-col justify-items-center px-14  text-center text-2xl">
-                
-                <RouterButton text="Buscar" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed' " class="py-5"/>
-                <RouterButton text="Crear grupo" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed' "/>
-                
-
-                <MenuButton text="Mis Asesores" type="unPressed" class="mt-10"/>
-                <MenuButton text="Mis Grupos" type="pressed" class="mt-10"/>
-                <MenuButton text="Mis Asesorías" type="unPressed" class="mt-10"/> <!--v-if="store.session.asesor"-->
-                
-                <MenuButton text="Mi Perfil" type="unPressed" @click="view_perfil" class="mt-10"/>
-                <MenuButton text="Cerrar Sesión" type="unPressed" @click="logout" class="mt-10"/>
+    <div class="home">
+        <aside class="flex flex-auto flex-col h-full overflow-hidden p-4 bg-verde-itam-2">
+            <section class="menu pt-2">
+                <MenuButton text="Mis asesores" img="home.svg" destination="/home/my_tutors" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
+                <MenuButton text="Buscar" img="search.svg" destination="/home/search" :type="path==='/home/search' ? 'pressed': 'unPressed'"/>
+                <MenuButton text="Crear grupo" img="group_add.svg" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed'"/>
+                <MenuButton text="Mis grupos" img="group.svg" destination="/home/my_groups" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
             </section>
+
+            <!-- Agrega espacio entre Cerrar Sesión y los demás botones -->
+            <div class="flex"></div>
+
+            <section class="menu">
+                <MenuButton text="Ajustes" img="settings.svg" destination="/home/settings" :type="path==='/home/settings' ? 'pressed' : 'unPressed'"/>
+                <MenuButton text="Cerrar sesión" img="logout.svg" type="unPressed" @click="logout"/>
+            </section>
+        </aside>
+        
+        <div class="content">
+            <router-view/>
         </div>
-        
-        <!--section class="card-grid grid-flow-col auto-cols-auto"-->
-        <section class="col-span-6">
-            <!--div class="grid grid-flow-col auto-cols-auto gap-6"-->
-            <router-view></router-view>
-        </section>
-        
-        <!--section class="card-grid my-3">
-            <div class="grid grid-cols-4 gap-6">
-                <PublicationCard materia="Economía I" asesor="Juan Acosta" desc="placeholder_desc"/>
-            </div>
-        </section-->
-        {{asesor}}
-        
-        
     </div>
 </template>
 
@@ -95,9 +82,34 @@ export default {
 }
 </script>
 
-<style scoped>
-.sidebar {
-    max-width: 14rem;
+<style lang="scss" scoped>
+.home {
+    display: flex;
+
+    .content {
+        flex: 1 1 auto;
+		//padding: 2rem;
+    }
 }
 
+aside {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+    width: 13.5rem; //width: calc(13rem);// + 32px);
+    min-width: 13.5rem;
+    max-width: 13.5rem;
+    height: 100%;
+    min-height: 90vh; // TODO: hacer esto dinámico con flexbox
+
+    .flex {
+		flex: 0.9 1 auto;
+	}
+
+    .menu {
+		margin: 0 -1rem;
+        font-size: 1.4rem; /* 24px */
+        line-height: 1.9rem; /* 32px */
+    }
+}
 </style>
