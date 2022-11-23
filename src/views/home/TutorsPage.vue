@@ -9,7 +9,7 @@
                 />
             </div>
         </div>
-        <div v-else class="text-center text-5xl text-white/25">
+        <div v-else class="text-center text-5xl dark:text-white/25 text-black/25">
             No está inscrito en nada...
         </div>
     </section>
