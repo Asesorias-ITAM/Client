@@ -1,12 +1,16 @@
 <template>
     <section class="card-grid my-3 mx-3">
-        <div class="h-[78vh] overflow-auto">
-            <div class="flex flex-wrap gap-6">
+        <div v-if="listaVisible.length>0" class="h-[78vh] overflow-auto">
+            <div class="flex flex-wrap gap-4">
                 <!-- columns-3xs gap-6 -->
                 <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
-                <GroupCard v-for="grupo in listaVisible" :key="grupo.id" :grupo="grupo" @dejarGrupo="dejarGrupo"
+                <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
+                    :grupo="pub"
                 />
             </div>
+        </div>
+        <div v-else class="text-center text-5xl dark:text-white/25 text-black/25">
+            No está inscrito en nada...
         </div>
     </section>
 </template>
@@ -20,7 +24,7 @@ import { useRouter } from "vue-router";
 export default{
     name:"TutorsPage.vue",
     components: { 
-        GroupCard: defineAsyncComponent(() => import("@/" + paths["GroupCard"])),
+        PublicationCard: defineAsyncComponent(() => import("@/" + paths["PublicationCard"])),
         
     },
 
@@ -39,26 +43,17 @@ export default{
         }
     },
     async beforeCreate(){
-        this.listaAsesores = await this.store.getAsesores()
-        console.log(this.listaAsesores)
+
+        this.store.getAsesores()
+        //console.log(this.store.currAsesores)
     },
     computed: {
         listaVisible(){
             
-            return this.listaAsesores
+            return this.store.currAsesores
         }
         
     },
-    methods:{
-        async dejarGrupo(id){
-            try{
-                await this.store.dejarGrupo(id)
-                this.listaAsesores = await this.store.getAsesores()
-            }catch(error){
-                console.log(error)
-            }
-        }
-    }
 }
 </script>
 <style scoped>

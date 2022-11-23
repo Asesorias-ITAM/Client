@@ -41,6 +41,9 @@ export const getDatosAlum  = async(email) => {
       carrera
       correo
       telefono
+      grupos {
+        id
+      }
     }
   }
   `;
