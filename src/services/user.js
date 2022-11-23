@@ -41,6 +41,9 @@ export const getDatosAlum  = async(email) => {
       carrera
       correo
       telefono
+      grupos {
+        id
+      }
     }
   }
   `;
@@ -191,6 +194,23 @@ export const getAsesores = async (correo) =>{
       }
     }
   }`
+  const variables = {
+    "correo": correo
+  }
+  const result = await graphQLClient.request(query, variables)
+
+  return result.alumno.grupos
+}
+
+export const getJustGroupID = async (correo) =>{
+  const query = gql`
+    query GetGroupID($correo: String!) {
+      alumno(where: {correo: $correo}) {
+        grupos {
+          id
+        }
+      }
+    }`
   const variables = {
     "correo": correo
   }

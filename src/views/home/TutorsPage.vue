@@ -1,7 +1,8 @@
 <template>
+    {{this.store.groupIDs()}}
     <section class="card-grid my-3 mx-3">
         <div class="h-[78vh] overflow-auto">
-            <div class="flex flex-wrap gap-6">
+            <div class="flex flex-wrap gap-4">
                 <!-- columns-3xs gap-6 -->
                 <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
                 <GroupCard v-for="grupo in listaVisible" :key="grupo.id" :grupo="grupo" @dejarGrupo="dejarGrupo"

@@ -2,7 +2,7 @@
     <section class="card-grid my-3 mx-3">
         <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
         <div class="h-[78vh] overflow-auto">
-                <div class="flex flex-wrap gap-6">
+                <div class="flex flex-wrap gap-4">
                 <!-- columns-3xs gap-6 -->
                 <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
                 <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 

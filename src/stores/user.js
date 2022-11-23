@@ -5,7 +5,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, 
-  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo } from "@/services/user.js"
+  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, getJustGroupID } from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -30,6 +30,7 @@ export const useUserStore = defineStore('user', {
 
     //gets current logged in user
     cognitoUser: (state) => state.userPool.getCurrentUser(),
+    
     
   },
   actions: {
@@ -162,6 +163,15 @@ export const useUserStore = defineStore('user', {
       }catch(error){
         console.log(error)
       }
+    },
+
+    async groupIDs(){
+      try{
+        return await getJustGroupID(this.email)
+      }catch(error){
+        console.log(error)
+      }
+      
     }
   },
   
