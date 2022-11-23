@@ -39,6 +39,15 @@ const routes = [
           ]
         },
         {
+          path: "my_groups",
+          name: "myGroups",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/" + paths["MyGroups"]),
+          children:[
+            
+          ]
+        },
+        {
           path: "search",
           name: "Search Groups",
           component: () =>
@@ -63,7 +72,7 @@ const routes = [
           path: "publish_group",
           name: "Publish group",
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/" + paths["PublishGroupPage"]),
+            import(/* webpackChunkName: "about" */ "@/" + paths["PublishPage"]),
         },
       ],
   },
