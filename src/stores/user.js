@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', {
         userPool: new CognitoUserPool(POOL_DATA),
         currentGrupo: null,
         currUser: null,
-        currAsesores: null,
+        currAsesores: [],
         groupIDs: new Set()
 
       }
