@@ -23,7 +23,7 @@
                 @click="dejar"
             v-else>
                 Dejar grupo
-                </button>
+            </button>
             
         
         </footer>
@@ -58,7 +58,12 @@ export default {
             return `/home/${this.grupo.id}`
         },
         pertenece(){
-            return this.store.groupIDs.has(this.grupo.id)
+            try{
+                return this.store.groupIDs.has(this.grupo.id)
+            }catch{
+                return false
+            }
+            
         }
     },
     components: {},

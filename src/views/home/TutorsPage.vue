@@ -10,7 +10,7 @@
             </div>
         </div>
         <div v-else class="text-center text-5xl text-white/25">
-            Parece ser que no estás inscrito en nada...
+            No está inscrito en nada...
         </div>
     </section>
 </template>

@@ -41,12 +41,21 @@
                         </div>
 
                     </div>
-
-                    
-                    
                 </div>
             </div>
-        </div>
+            <div class="flex flex-row-reverse">
+                <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark" 
+                    @click="inscribir"
+                    v-if="!pertenece">
+                    Inscribirme
+                </button>
+                <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark"
+                    @click="dejar"
+                    v-else>
+                    Dejar grupo
+                </button>
+            </div>
+    </div>
 </template>
 
 <script>
@@ -79,8 +88,35 @@ export default {
         },
         asesor(){
             return this.group.alumno.nombre + " " + this.group.alumno.apellido
+        },
+        pertenece(){
+            return this.store.groupIDs.has(this.group.id)
         }
 
+    },
+    methods:{
+        async inscribir() {
+            try{
+                await this.store.inscribirGrupo(this.group.id)
+                this.listaAsesores = await this.store.getAsesores()
+                this.$toast.success(`Inscripción exitosa`);
+            }catch(error){
+                console.log(error)
+            }
+            this.$emit("inscribirse", this.group.id)
+            
+        },
+        async dejar() {
+            try{
+                await this.store.dejarGrupo(this.group.id)
+                this.listaAsesores = await this.store.getAsesores()
+                this.$toast.success(`Salida exitosa`);
+            }catch(error){
+                console.log(error)
+            }
+            this.$emit("dejar", this.group.id)
+            
+        },
     }
 }
 </script>
