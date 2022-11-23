@@ -5,7 +5,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, 
-  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, getJustGroupID } from "@/services/user.js"
+  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo} from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -22,7 +22,9 @@ export const useUserStore = defineStore('user', {
         // gets reference to the Cognito user pool
         userPool: new CognitoUserPool(POOL_DATA),
         currentGrupo: null,
-        currUser: null
+        currUser: null,
+        currAsesores: null,
+        groupIDs: new Set()
 
       }
     ),
@@ -60,7 +62,6 @@ export const useUserStore = defineStore('user', {
         this.email = Session.idToken.payload.email
         this.currUser = await getDatosAlum(this.email)
         this.isAuthenticated = true
-        console.log(this.currUser)
         
       //console.log(this.session)
       }catch(error){
@@ -138,8 +139,8 @@ export const useUserStore = defineStore('user', {
 
     async inscribirGrupo(grupoID){
       try {
-        console.log(grupoID)
-        console.log(this.email)
+        //console.log(grupoID)
+        //console.log(this.email)
         await inscribirGrupo(grupoID,this.email)
         await confirmUser(this.email)
       }catch(error){
@@ -150,7 +151,8 @@ export const useUserStore = defineStore('user', {
 
     async getAsesores(){
       try{
-        return await getAsesores(this.email)
+        this.currAsesores = await getAsesores(this.email)
+        this.groupIDs =  await this.groupOnlyIDs(this.currAsesores)
       }catch(error){
         console.log(error)
       }
@@ -165,13 +167,13 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async groupIDs(){
-      try{
-        return await getJustGroupID(this.email)
-      }catch(error){
-        console.log(error)
-      }
-      
+    async groupOnlyIDs(asesores){
+      let con = new Set()
+	    await asesores.forEach(item => {
+        con.add(item.id)
+      });
+  
+      return con
     }
   },
   

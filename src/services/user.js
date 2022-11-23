@@ -202,23 +202,6 @@ export const getAsesores = async (correo) =>{
   return result.alumno.grupos
 }
 
-export const getJustGroupID = async (correo) =>{
-  const query = gql`
-    query GetGroupID($correo: String!) {
-      alumno(where: {correo: $correo}) {
-        grupos {
-          id
-        }
-      }
-    }`
-  const variables = {
-    "correo": correo
-  }
-  const result = await graphQLClient.request(query, variables)
-
-  return result.alumno.grupos
-}
-
 export const dejarGrupo = async(ID, correo)=>{
   const query = gql`
     mutation DejarGrupo($id: ID, $correo: String!) {

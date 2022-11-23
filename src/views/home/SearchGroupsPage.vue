@@ -7,7 +7,6 @@
                 <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
                 <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
                     :grupo="pub"
-                    @inscribirse="inscribirse"
                 />
             </div>
         </div>
@@ -21,8 +20,6 @@ import paths from "@/file_paths.js"
 
 import { useUserStore } from '@/stores/user'
 import { useRouter } from "vue-router";
-
-let placeholder_desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget lacus lectus. Nullam sed augue eget elit viverra dignissim. Ut nec urna in."
 
 export default {
     name: "SearchGroupsPage",
@@ -47,6 +44,7 @@ export default {
         }
     },
     async beforeCreate(){
+        this.store.getAsesores()
         this.pubList = await this.store.listaPublicaciones()
     },
     computed: {
@@ -69,14 +67,6 @@ export default {
 
         },
 
-        async inscribirse(id){
-            try{
-                await this.store.inscribirGrupo(id)
-                this.$toast.success(`Inscripción exitosa`);
-            }catch(error){
-                console.log(error)
-            }
-        }
     }
     
 }
