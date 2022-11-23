@@ -1,5 +1,5 @@
 <template>
-    <section class="card-grid my-3 mx-3">
+    <section class="pt-4 pl-10 mt-3 mx-3">
         <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
         <div class="h-[78vh] overflow-auto">
                 <div class="flex flex-wrap gap-4">
@@ -48,15 +48,15 @@ export default {
         this.pubList = await this.store.listaPublicaciones()
     },
     computed: {
-        listaVisible(){
+        listaVisible() {
             return this.filtrarMaterias(this.filtro, this.pubList)
         }
     },
     methods:{
-        filtrarMaterias(filtro,lista){
-            if(!filtro){
+        filtrarMaterias(filtro,lista) {
+            if(!filtro) {
                 return lista
-            }else{
+            } else {
                 const regexObj = new RegExp("\\s*"+filtro,'i')
                 return lista.filter(grupo => {
                     //console.log(publicacion)
@@ -73,10 +73,4 @@ export default {
 </script>
 
 <style scoped>
-.card-grid {
-	padding: 1rem 2rem;
-	font-size: 0.875rem;
-    overflow: hidden;
-}
-
 </style>

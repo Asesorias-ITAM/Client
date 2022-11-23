@@ -50,6 +50,7 @@ export default {
 
     //Misc.
     "UpperBar":             components + misc + "UpperBar.vue",
+    "UpperBar_":            components + misc + "UpperBar_.vue",
     "ThemeButton":          components + misc + "ThemeButton.vue",
     // -----------------------
 

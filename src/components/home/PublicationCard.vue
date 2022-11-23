@@ -109,9 +109,8 @@ export default {
 }
 
 .customcard{
-    width: 20rem; 
-    min-width: 19rem;
-    max-width: 19rem;
+    min-width: 17.5rem;
+    max-width: 17.5rem;
 }
 </style>
 
