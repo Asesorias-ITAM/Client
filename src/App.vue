@@ -1,6 +1,7 @@
 <template>
   <div>
     <upper-bar/>
+    <!-- <upper-bar_/> -->
     <router-view/>                                                                        
   </div>
     
@@ -14,6 +15,7 @@ export default {
   name: "App",
   components: {
     UpperBar: defineAsyncComponent(() => import("@/" + paths["UpperBar"])), //importa el componente dinámicamente
+    UpperBar_: defineAsyncComponent(() => import("@/" + paths["UpperBar_"])), //importa el componente dinámicamente
   },
 };
 </script>
@@ -21,7 +23,8 @@ export default {
 <style lang="scss">
 html.dark {
   color-scheme: dark;
-  @apply bg-fondo-general-dark
+  @apply bg-fondo-general-dark;
+  //@apply bg-verde-itam-1;
 }
 
 /*#app {

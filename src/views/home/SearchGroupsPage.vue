@@ -1,7 +1,7 @@
 <template>
-    <section class="card-grid my-3 mx-3">
+    <section class="pt-4 pl-10 mt-3 mx-3">
         <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
-        <div class="h-[78vh] overflow-auto">
+        <div class="flex flex-col flex-auto max-h-[76vh] overflow-y-auto"><!--h-[78vh]-->
             <div class="flex flex-wrap gap-6">
             <!-- columns-3xs gap-6 -->
             <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
@@ -46,19 +46,19 @@ export default {
             filtro: ""
         }
     },
-    async beforeCreate(){
+    async beforeCreate() {
         this.pubList = await this.store.listaPublicaciones()
     },
     computed: {
-        listaVisible(){
+        listaVisible() {
             return this.filtrarMaterias(this.filtro, this.pubList)
         }
     },
     methods:{
-        filtrarMaterias(filtro,lista){
-            if(!filtro){
+        filtrarMaterias(filtro,lista) {
+            if(!filtro) {
                 return lista
-            }else{
+            } else {
                 const regexObj = new RegExp("\\s*"+filtro,'i')
                 return lista.filter(grupo => {
                     //console.log(publicacion)
@@ -68,12 +68,11 @@ export default {
             }
 
         },
-
-        async inscribirse(id){
-            try{
+        async inscribirse(id) {
+            try {
                 await this.store.inscribirGrupo(id)
                 this.$toast.success(`Inscripción exitosa`);
-            }catch(error){
+            } catch(error) {
                 console.log(error)
             }
         }
@@ -83,10 +82,4 @@ export default {
 </script>
 
 <style scoped>
-.card-grid {
-	padding: 1rem 2rem;
-	font-size: 0.875rem;
-    overflow: hidden;
-}
-
 </style>

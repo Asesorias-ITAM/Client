@@ -19,9 +19,11 @@ const isDark = useDark()
 const toggleDark = useToggle(isDark)
 </script>
 
-<style>
+<style lang="scss">
 .btn-lbl {
   display: inline-block;
+  //min-height: 30px;
+  //min-width: 30px;
 }
 
 :root {

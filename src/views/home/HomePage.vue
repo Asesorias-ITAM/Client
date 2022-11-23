@@ -95,8 +95,10 @@ export default {
     display: flex;
 
     .content {
-        flex: 1 1 auto;
-		//padding: 2rem;
+        flex: 1 2 auto;
+        flex-flow: column;
+        max-height: 2rem;
+        //max-height: min-content;
     }
 }
 
@@ -107,7 +109,10 @@ aside {
     width: 13.5rem; //width: calc(13rem);// + 32px);
     min-width: 13.5rem;
     max-width: 13.5rem;
-    height: 100%;
+    overflow: hidden;
+    //height: 100%;
+    
+
     min-height: 90vh; // TODO: hacer esto dinámico con flexbox
 
     .flex {

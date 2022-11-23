@@ -68,7 +68,7 @@ img {
 
     //background-color: #ff00c8; //var(--dark-alt);
     //border-right: 5px solid #ff00c8;
-
+    
     img {
         filter: brightness(0%) saturate(100%); // Vuelve el ícono negro para aplicar el siguiente filtro
         filter: invert(51%) sepia(56%) saturate(3544%) hue-rotate(136deg) brightness(96%) contrast(101%);
