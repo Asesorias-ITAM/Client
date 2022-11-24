@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <aside class="flex flex-auto flex-col h-full overflow-hidden p-4 bg-verde-itam-2">
+        <aside class="flex flex-auto flex-col h-[92vh] overflow-hidden p-4 bg-verde-itam-2">
             <section class="menu pt-2">
                 <MenuButton text="Mis asesores" img="home.svg" destination="/home/my_tutors" :type="path==='/home/my_tutors' ? 'pressed' : 'unPressed'"/>
                 <MenuButton text="Buscar" img="search.svg" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed'"/>

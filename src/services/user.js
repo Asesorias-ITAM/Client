@@ -139,6 +139,7 @@ export const crearGrupo = async (publicacion) => {
     "descripcion":publicacion.descripcion,
     "correo":publicacion.correo
   }
+  console.log(variables)
   const result = await graphQLClient.request(query, variables)
   //console.log(result.createPublicacion.id)
   return result.createPublicacion.id
@@ -271,7 +272,7 @@ export const dejarGrupo = async(ID, correo)=>{
     return result
 }
 
-/*export const eliminarGrupo = async (ID) =>{
+export const eliminarPublicacion = async (ID) =>{
   const query = gql`
   mutation EliminarPublicacion($id:ID ) {
       deletePublicacion(where: {id: $id}) {
@@ -283,4 +284,37 @@ export const dejarGrupo = async(ID, correo)=>{
   }
   const result = await graphQLClient.request(query, variables)
   return result
-}*/
+}
+
+export const stopPublishGrupo = async(correo)=>{
+  const query = gql`
+    mutation unPublishPublications($correo: String!) {
+      unpublishManyPublicacions(where: {alumno: {correo: $correo}}) {
+        count
+      }
+    }
+    `;
+    const variables = {
+      "correo": correo,
+    }
+    const result = await graphQLClient.request(query, variables)
+    return result
+}
+
+export const restorePublishGrupo = async(correo)=>{
+  const query = gql`
+    mutation restorePublishPublications($correo: String!) {
+      publishManyPublicacions(to: PUBLISHED, where: {alumno: {correo: $correo}}) {
+      count
+    }
+    }
+    `;
+    const variables = {
+      "correo": correo,
+    }
+    const result = await graphQLClient.request(query, variables)
+    return result
+}
+
+
+

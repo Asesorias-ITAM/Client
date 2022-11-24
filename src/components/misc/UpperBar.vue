@@ -2,7 +2,7 @@
     <header>
         <div class="flex flex-initial flex-row justify-center items-center w-full h-[10vh] bg-verde-itam-1">
             <div class="text-center" style="display: inline-block;">
-                <h1 class="text-texto-light-2 text-7xl font-bold">ASESORÍAS ITAM</h1>
+                <h1 class="text-texto-light-2 text-7xl font-bold ">ASESORÍAS ITAM</h1>
             </div>
             <div class="mb-7 relative left-80">
                 <ThemeButton/>

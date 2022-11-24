@@ -29,20 +29,22 @@
         <div class="header w-[97%]">
 
             <div class="header-navigation flex grow items-center justify-between">
+
                 <div class="header-logo">
                     <img class="logo" src="@/assets/logo.svg"/>
                     <img class="logo-bg" src="@/assets/logo_bg.svg"/>
+                </div>
 
-                    <div class="flex titulo">
+                <div class="pl-44 flex titulo">
                         <h1 class="ml-[30rem] text-6xl font-bold text-texto-light-2">
                             ASESORÍAS ITAM
                         </h1>
-                    </div>
                 </div>
-                
+
                 <div class="theme_button flex mb-7">
                     <ThemeButton/>
                 </div>
+
             </div>
 
         </div>

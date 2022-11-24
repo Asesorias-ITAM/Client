@@ -3,11 +3,11 @@
         <TextInput v-model="filtro" placeholder="Buscar..." class="width-full"/>
         
         <div class="h-[78vh] overflow-auto">
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-10">
                 <!-- columns-3xs gap-6 -->
                 <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
                 <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 
-                    :grupo="pub"
+                    :grupo="pub" @change="update"
                 />
             </div>
         </div>
@@ -43,8 +43,9 @@ export default {
             filtro: ""
         }
     },
-    async beforeCreate(){
+    async created(){
         this.store.getAsesores()
+        this.store.getGrupos()
         this.pubList = await this.store.listaPublicaciones()
     },
     computed: {
@@ -66,6 +67,11 @@ export default {
             }
 
         },
+        async update(){
+            this.store.getAsesores()
+            this.store.getGrupos()
+            this.pubList = await this.store.listaPublicaciones()
+        }
 
     }
     

@@ -1,7 +1,7 @@
 <template>
     <section class="pt-4 pl-10 mt-3 mx-3">
         <div v-if="listaVisible.length>0" class="h-[78vh] overflow-auto">
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-10">
                 <!-- columns-3xs gap-6 -->
                 <!-- pub of listaVisible.length === 0 ? pubListPlaceholder : listaVisible -->
                 <PublicationCard v-for="pub in listaVisible" :key="pub.id" v-bind="pub" 

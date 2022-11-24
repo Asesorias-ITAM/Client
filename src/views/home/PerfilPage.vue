@@ -96,6 +96,11 @@ export default {
             this.tempUser.carrera = this.tempUser.carrera.filter(carr => carr!=="")
             console.log(this.tempUser)
             await this.store.updatePerfil(this.tempUser)
+            if(this.tempUser.asesor){
+                this.store.restorePublications()
+            }else{
+                this.store.stopPublications()
+            }
             this.refreshData()
 
         },
