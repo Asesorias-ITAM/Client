@@ -5,7 +5,8 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, 
-  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, updateDatosAlum, getPublicaciones} from "@/services/user.js"
+  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, 
+  updateDatosAlum, getPublicaciones, eliminarPublicacion, stopPublishGrupo, restorePublishGrupo} from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -121,7 +122,7 @@ export const useUserStore = defineStore('user', {
       console.log(this.email)
       try{
         const id = await crearGrupo(publicacion)
-        console.log(id)
+        //console.log(publicacion)
         await publishGrupo(id)
         
       }catch (err){
@@ -210,19 +211,31 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    /*
-    async eliminarGrupo(ID){
-      try{
-        console.log("Grupo a eliminar")
-        console.log(ID)
-        await updateDatosAlum(newPerfil)
-        await confirmUser(newPerfil.correo)
-        this.currUser = await getDatosAlum(this.email)
-        console.log(this.currUser)
+    async eliminarPublicacion(ID){
+      try {
+        console.log("publicacion a elimnar: "+ID)
+        await eliminarPublicacion(ID)
       }catch(error){
         console.log(error)
       }
-    }*/
+      
+    },
+     async restorePublications(){
+      try {
+        
+        await restorePublishGrupo(this.email)
+      }catch(error){
+        console.log(error)
+      }
+     },
+     async stopPublications(){
+      try {
+        
+        await stopPublishGrupo(this.email)
+      }catch(error){
+        console.log(error)
+      }
+     }
   },
   
   

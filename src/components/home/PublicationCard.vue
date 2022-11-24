@@ -16,13 +16,18 @@
             </router-link>
             <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark" 
             @click="inscribir"
-            v-if="!pertenece">
+            v-if="pertenencia==='general'">
                 Inscribirme
             </button>
             <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark"
                 @click="dejar"
-            v-else>
+                v-if="pertenencia==='asesores'">
                 Dejar grupo
+            </button>
+            <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark"
+                @click="borrar"
+                v-if="pertenencia==='publicaciones'">
+                Borrar
             </button>
             
         
@@ -56,9 +61,15 @@ export default {
         pubLink() {
             return `/home/${this.grupo.id}`
         },
-        pertenece() {
+        pertenencia() {
             try {
-                return this.store.groupIDs.has(this.grupo.id)
+                if(this.store.groupIDs.has(this.grupo.id)){
+                    return "asesores"
+                }else if(this.store.pubsIDs.has(this.grupo.id)){
+                    return "publicaciones"
+                }else{
+                    return "general"
+                }       
             } catch {
                 return false
             }
@@ -70,28 +81,41 @@ export default {
         ver_curso() {
             //console.log(this.publicacion)
             this.store.selectGrupo(this.grupo)
+            console.log(this.grupo.descripcion)
         },
         async inscribir() {
             try {
                 await this.store.inscribirGrupo(this.grupo.id)
-                this.listaAsesores = await this.store.getAsesores()
+                await this.store.getAsesores()
                 this.$toast.success(`Inscripción exitosa`);
             } catch(error) {
                 console.log(error)
             }
-            this.$emit("inscribirse", this.grupo.id)
+            this.$emit("change", this.grupo.id)
             
         },
         async dejar() {
             try{
                 await this.store.dejarGrupo(this.grupo.id)
-                this.listaAsesores = await this.store.getAsesores()
+                await this.store.getAsesores()
                 this.$toast.success(`Salida exitosa`);
             }catch(error){
                 console.log(error)
             }
             
-            this.$emit("dejar", this.grupo.id)
+            this.$emit("change", this.grupo.id)
+        },
+        async borrar() {
+            try{
+                await this.store.eliminarPublicacion(this.grupo.id)
+                await this.store.getGrupos()
+                this.$toast.success(`Borrado exitoso`);
+                //console.log("Publicación a eliminar: "+this.grupo.id)
+            }catch(error){
+                console.log(error)
+            }
+            
+            this.$emit("change", this.grupo.id)
         },
     },
 }

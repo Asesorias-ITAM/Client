@@ -46,13 +46,18 @@
             <div class="flex flex-row-reverse">
                 <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark" 
                     @click="inscribir"
-                    v-if="!pertenece">
+                    v-if="pertenencia==='general'">
                     Inscribirme
                 </button>
                 <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark"
                     @click="dejar"
-                    v-else>
+                    v-if="pertenencia==='asesores'">
                     Dejar grupo
+                </button>
+                <button class="px-2 py-1 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark"
+                    @click="borrar"
+                    v-if="pertenencia==='publicaciones'">
+                    Borrar
                 </button>
             </div>
     </div>
@@ -89,8 +94,20 @@ export default {
         asesor(){
             return this.group.alumno.nombre + " " + this.group.alumno.apellido
         },
-        pertenece(){
-            return this.store.groupIDs.has(this.group.id)
+
+        pertenencia() {
+            try {
+                if(this.store.groupIDs.has(this.group.id)){
+                    return "asesores"
+                }else if(this.store.pubsIDs.has(this.group.id)){
+                    return "publicaciones"
+                }else{
+                    return "general"
+                }       
+            } catch {
+                return false
+            }
+            
         }
 
     },
@@ -116,6 +133,21 @@ export default {
             }
             this.$emit("dejar", this.group.id)
             
+        },
+        async borrar() {
+            try{
+                await this.store.eliminarPublicacion(this.group.id)
+                await this.store.getGrupos()
+                this.$toast.success(`Borrado exitoso`);
+                this.router.replace({
+                        name: "Search Groups",
+                    })
+                //console.log("Publicación a eliminar: "+this.grupo.id)
+            }catch(error){
+                console.log(error)
+            }
+            
+            this.$emit("change", this.group.id)
         },
     }
 }
