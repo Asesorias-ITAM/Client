@@ -228,6 +228,33 @@ export const getAsesores = async (correo) =>{
   return result.alumno.grupos
 }
 
+export const getPublicaciones = async (correo) =>{
+  const query = gql`
+  query getPublicaciones($correo: String!) {
+    alumno(where: {correo: $correo}) {
+      publicacions(first: 100) {
+        id
+        materia
+        precio
+        alumno {
+          id
+          nombre
+          apellido
+          carrera
+          correo
+          telefono
+        }
+      }
+    }
+  }`
+  const variables = {
+    "correo": correo
+  }
+  const result = await graphQLClient.request(query, variables)
+
+  return result.alumno.publicacions
+}
+
 export const dejarGrupo = async(ID, correo)=>{
   const query = gql`
     mutation DejarGrupo($id: ID, $correo: String!) {

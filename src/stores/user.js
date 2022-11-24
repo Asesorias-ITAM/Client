@@ -5,7 +5,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, 
-  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, updateDatosAlum} from "@/services/user.js"
+  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, updateDatosAlum, getPublicaciones} from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -24,7 +24,9 @@ export const useUserStore = defineStore('user', {
         currentGrupo: null,
         currUser: null,
         currAsesores: [],
-        groupIDs: new Set()
+        currPublicaciones: [],
+        groupIDs: new Set(),
+        pubsIDs: new Set()
 
       }
     ),
@@ -149,10 +151,21 @@ export const useUserStore = defineStore('user', {
       
     },
 
+    //Grupos de mis asesores
     async getAsesores(){
       try{
         this.currAsesores = await getAsesores(this.email)
         this.groupIDs =  await this.groupOnlyIDs(this.currAsesores)
+      }catch(error){
+        console.log(error)
+      }
+    },
+
+    //Grupos donde soy asesor
+    async getGrupos(){
+      try{
+        this.currPublicaciones = await getPublicaciones(this.email)
+        this.pubsIDs =  await this.pubOnlyIDs(this.currPublicaciones)
       }catch(error){
         console.log(error)
       }
@@ -170,6 +183,14 @@ export const useUserStore = defineStore('user', {
     async groupOnlyIDs(asesores){
       let con = new Set()
 	    await asesores.forEach(item => {
+        con.add(item.id)
+      });
+  
+      return con
+    },
+    async pubOnlyIDs(publis){
+      let con = new Set()
+	    await publis.forEach(item => {
         con.add(item.id)
       });
   

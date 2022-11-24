@@ -1,6 +1,4 @@
 <template>
-    
-    {{this.tempUser}}
     <div class="container min-h-full max-w-[75%] mx-auto">
             <div class="text-2xl subpixel-antialiased font-sans ">
                 <div class=" mt-16 border-4 border-borde-light-1 dark:border-borde-dark-1 bg-fondo-light-1 dark:bg-fondo-dark-2 drop-shadow-2xl">
