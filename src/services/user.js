@@ -54,7 +54,33 @@ export const getDatosAlum  = async(email) => {
   const result = await graphQLClient.request(query, variables)
   //console.log(result.alumno)
   return result.alumno
-} 
+}
+
+export const updateDatosAlum  = async(alum) => {
+  //console.log(email)
+  const query = gql`
+  mutation updateAlumno($correo: String! ,$nombre: String!, $apellido: String!, $asesor: Boolean!, $carrera: [String!]!, $telefono: String!) {
+  updateAlumno(
+    data: {nombre: $nombre, apellido: $apellido, asesor: $asesor, carrera: $carrera, telefono: $telefono}
+    where: {correo: $correo}
+  ) {
+    id
+  }
+}
+  `;
+  const variables = {
+    "correo": alum.correo,
+    "nombre": alum.nombre,
+    "apellido": alum.apellido,
+    "asesor": alum.asesor,
+    "carrera": alum.carrera,
+    "telefono": alum.telefono
+  }
+  
+  const result = await graphQLClient.request(query, variables)
+  //console.log(result.alumno)
+  return result.updateAlumno.id
+}
 
 export const checkAlum = async(email) => {
     //console.log(email)

@@ -5,7 +5,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, 
-  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo} from "@/services/user.js"
+  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, updateDatosAlum} from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', {
         userPool: new CognitoUserPool(POOL_DATA),
         currentGrupo: null,
         currUser: null,
-        currAsesores: null,
+        currAsesores: [],
         groupIDs: new Set()
 
       }
@@ -174,6 +174,19 @@ export const useUserStore = defineStore('user', {
       });
   
       return con
+    },
+
+    async updatePerfil(newPerfil){
+      try{
+        console.log("Perfil a cambiar")
+        console.log(newPerfil)
+        await updateDatosAlum(newPerfil)
+        await confirmUser(newPerfil.correo)
+        this.currUser = await getDatosAlum(this.email)
+        console.log(this.currUser)
+      }catch(error){
+        console.log(error)
+      }
     }
   },
   

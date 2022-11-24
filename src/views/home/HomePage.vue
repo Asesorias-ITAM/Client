@@ -4,8 +4,7 @@
             <section class="menu pt-2">
                 <MenuButton text="Mis asesores" img="home.svg" destination="/home/my_tutors" :type="path==='/home/my_tutors' ? 'pressed' : 'unPressed'"/>
                 <MenuButton text="Buscar" img="search.svg" destination="/home/search" :type="path==='/home/search' ? 'pressed' : 'unPressed'"/>
-                
-                <div v-if="asesor">
+                <div v-if="this.asesor">
                     <MenuButton text="Crear grupo" img="group_add.svg" destination="/home/publish_group" :type="path==='/home/publish_group' ? 'pressed' : 'unPressed'"/>
                     <MenuButton text="Mis grupos" img="group.svg" destination="/home/my_groups" :type="path==='/home/my_groups' ? 'pressed' : 'unPressed'"/>
                 </div>
@@ -55,7 +54,6 @@ export default {
     data() {
         return {
             session: this.store.session,
-            asesor: null
         }
     },
     async beforeCreate() {
@@ -64,14 +62,15 @@ export default {
                 name: "Login",
             })
         }
-        //console.log(this.store.currUser)
-        this.asesor= await this.store.currUser.asesor
     },
     
     
     computed: {
         path() {
             return this.route.path
+        },
+        asesor(){
+            return this.store.currUser.asesor
         }
     },
     methods: {

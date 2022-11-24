@@ -62,17 +62,20 @@ const routes = [
           component: () =>
             import(/* webpackChunkName: "about" */ "@/" + paths["GroupPage"]),
         },
-        /*{
-          path: "student_groups",
-          name: "Student Groups",
-          component: () =>
-            import("@/views/StudentGroupPage.vue"),
-        },*/
         {
           path: "publish_group",
           name: "Publish group",
           component: () =>
             import(/* webpackChunkName: "about" */ "@/" + paths["PublishPage"]),
+        },
+        {
+          path: "settings",
+          name: "My profile",
+          component: () =>
+            import(/* webpackChunkName: "about" */ "@/" + paths["PerfilPage"]),
+          children:[
+            
+          ]
         },
       ],
   },

@@ -44,7 +44,7 @@ module.exports = {
         "borde-light-1": "#e5e7eb", /*Bordes de login y registro*/
         "borde-dark-1": "#3e434c",
 
-        "color-prueba": "#ff0000" /*Un color llamativo para comprobar que se realizó un cambio*/
+        "color-prueba": "#80021B" /*Un color llamativo para comprobar que se realizó un cambio*/
       },
     },
   },
