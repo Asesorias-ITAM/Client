@@ -27,7 +27,6 @@ export default{
         PublicationCard: defineAsyncComponent(() => import("@/" + paths["PublicationCard"])),
         
     },
-
     setup(){
         const router = useRouter();
         const store = useUserStore()
@@ -43,16 +42,13 @@ export default{
         }
     },
     async beforeCreate(){
-
         this.store.getAsesores()
         //console.log(this.store.currAsesores)
     },
     computed: {
         listaVisible(){
-            
             return this.store.currAsesores
         }
-        
     },
 }
 </script>

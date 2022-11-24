@@ -8,7 +8,7 @@
         <div class="h-16 overflow-auto">
             <p  class="mx-3 my-5 text-base">{{grupo.descripcion}}</p>
         </div>
-        
+
         <footer class="h-38 card-footer">
             
             <router-link :to="pubLink" class="px-2 py-1 mx-2.5 rounded-md bg-fondo-tarjeta-2 dark:bg-fondo-dark-tarjeta-2 hover:bg-card-button-hover dark:hover:bg-card-button-hover-dark" @click="ver_curso">
@@ -35,7 +35,6 @@
 import { useUserStore } from '@/stores/user'
 import { useRouter } from "vue-router"
 
-
 export default {
     name: "PublicationCard",
     setup() {
@@ -54,13 +53,13 @@ export default {
         },
     },
     computed:{
-        pubLink(){
+        pubLink() {
             return `/home/${this.grupo.id}`
         },
-        pertenece(){
-            try{
+        pertenece() {
+            try {
                 return this.store.groupIDs.has(this.grupo.id)
-            }catch{
+            } catch {
                 return false
             }
             
@@ -71,14 +70,13 @@ export default {
         ver_curso() {
             //console.log(this.publicacion)
             this.store.selectGrupo(this.grupo)
-
         },
         async inscribir() {
-            try{
+            try {
                 await this.store.inscribirGrupo(this.grupo.id)
                 this.listaAsesores = await this.store.getAsesores()
                 this.$toast.success(`Inscripción exitosa`);
-            }catch(error){
+            } catch(error) {
                 console.log(error)
             }
             this.$emit("inscribirse", this.grupo.id)
@@ -92,8 +90,8 @@ export default {
             }catch(error){
                 console.log(error)
             }
-            this.$emit("dejar", this.grupo.id)
             
+            this.$emit("dejar", this.grupo.id)
         },
     },
 }

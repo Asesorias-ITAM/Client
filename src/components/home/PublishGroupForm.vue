@@ -8,7 +8,7 @@
                         <CustomLabel data-test="field-validator" class="bad" :text="error" v-if="error!==''"/>
 
                         <label class="mt-2">Materia</label>
-                        <TextInput v-model="materia" @keyup.enter="onEnter"/>
+                        <TextInput maxlength="30" v-model="materia" @keyup.enter="onEnter"/>
                         
                         <label>Descripción</label>
                         <TextArea v-model="descripcion" @keyup.enter="onEnter" :placeholder="desc_placeholder" class=""></TextArea>

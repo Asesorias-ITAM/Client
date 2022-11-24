@@ -270,3 +270,17 @@ export const dejarGrupo = async(ID, correo)=>{
     const result = await graphQLClient.request(query, variables)
     return result
 }
+
+/*export const eliminarGrupo = async (ID) =>{
+  const query = gql`
+  mutation EliminarPublicacion($id:ID ) {
+      deletePublicacion(where: {id: $id}) {
+          id
+      }
+  }`
+  const variables = {
+      "id": ID,
+  }
+  const result = await graphQLClient.request(query, variables)
+  return result
+}*/

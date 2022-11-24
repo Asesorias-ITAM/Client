@@ -19,7 +19,6 @@ export default {
             type: Object,
             require: true
         },
-        
     },
     components: {},
     methods: {

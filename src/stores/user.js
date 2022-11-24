@@ -155,7 +155,7 @@ export const useUserStore = defineStore('user', {
     async getAsesores(){
       try{
         this.currAsesores = await getAsesores(this.email)
-        this.groupIDs =  await this.groupOnlyIDs(this.currAsesores)
+        this.groupIDs = await this.groupOnlyIDs(this.currAsesores)
       }catch(error){
         console.log(error)
       }
@@ -165,7 +165,7 @@ export const useUserStore = defineStore('user', {
     async getGrupos(){
       try{
         this.currPublicaciones = await getPublicaciones(this.email)
-        this.pubsIDs =  await this.pubOnlyIDs(this.currPublicaciones)
+        this.pubsIDs = await this.pubOnlyIDs(this.currPublicaciones)
       }catch(error){
         console.log(error)
       }
@@ -208,7 +208,21 @@ export const useUserStore = defineStore('user', {
       }catch(error){
         console.log(error)
       }
-    }
+    },
+
+    /*
+    async eliminarGrupo(ID){
+      try{
+        console.log("Grupo a eliminar")
+        console.log(ID)
+        await updateDatosAlum(newPerfil)
+        await confirmUser(newPerfil.correo)
+        this.currUser = await getDatosAlum(this.email)
+        console.log(this.currUser)
+      }catch(error){
+        console.log(error)
+      }
+    }*/
   },
   
   
