@@ -1,5 +1,5 @@
 <template>
-    <button type="button" @click="toggleDark()" class="switch-label bg-boton-tema-light dark:bg-boton-tema-dark"> <!--"bg-slate-800 dark:bg-slate-400 rounded"-->
+    <button type="button" @click="toggleDark()" class="switch-label bg-boton-tema-light dark:bg-boton-tema-dark">
         <label class="btn-lbl"> <!--"inline-block"--> <!--"switch-label"-->
             <div class="moon"> <img src="@/assets/moon.svg"/> </div>
             <div class="sun"> <img src="@/assets/sun.svg"/> </div>
@@ -62,7 +62,7 @@ const toggleDark = useToggle(isDark)
   transition: background 0.5s ease;
   justify-content: space-between;
   width: calc(var(--element-size) * 1.177);
-  z-index: 1;
+  //z-index: 1;
 }
 
 /*Formato del círculo que se mueve*/
@@ -79,6 +79,6 @@ const toggleDark = useToggle(isDark)
 
 /*Animación*/
 .switch-toggle-checked {
-  transform: translateX(calc(var(--element-size) * 0.59)) !important;
+  transform: translateX(calc(var(--element-size) * 0.59)); //!important
 }
 </style>
