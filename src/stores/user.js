@@ -174,6 +174,16 @@ export const useUserStore = defineStore('user', {
       });
   
       return con
+    },
+
+    async updatePerfil(newPerfil){
+      try{
+        console.log("Perfil a cambiar")
+        console.log(newPerfil)
+        //this.currUser = await getDatosAlum(this.email)
+      }catch(error){
+        console.log(error)
+      }
     }
   },
   

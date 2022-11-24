@@ -37,16 +37,16 @@
   
   <style scoped>
   button {
-    @apply text-white;
+    @apply text-white outline rounded-full hover:font-bold dark:outline-fondo-dark-2 hover:bg-fondo-light-1;
   }
   
   .primary {
-    @apply text-white outline rounded-full bg-verde-itam-1 dark:outline-fondo-dark-2
-     hover:bg-fondo-light-1 hover:text-verde-itam-2 hover:outline-verde-itam-2 hover:font-bold;
+    @apply bg-verde-itam-1 
+      hover:text-verde-itam-2 hover:outline-verde-itam-2;
   }
   
   .secondary {
-    @apply text-white bg-transparent hover:bg-verde-itam-1 hover:text-white;
+    @apply bg-color-prueba hover:text-color-prueba hover:outline-color-prueba;
   }
   </style>
   
