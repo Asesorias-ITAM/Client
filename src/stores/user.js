@@ -5,7 +5,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { POOL_DATA } from "@/config/cognito.js";
 
 import { createAlum, checkAlum, confirmUser, crearGrupo, publishGrupo, 
-  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo} from "@/services/user.js"
+  getListaPublicaciones, inscribirGrupo, getDatosAlum, getAsesores, dejarGrupo, updateDatosAlum} from "@/services/user.js"
 
 export const useUserStore = defineStore('user', {
   state: () => (
@@ -180,7 +180,10 @@ export const useUserStore = defineStore('user', {
       try{
         console.log("Perfil a cambiar")
         console.log(newPerfil)
-        //this.currUser = await getDatosAlum(this.email)
+        await updateDatosAlum(newPerfil)
+        await confirmUser(newPerfil.correo)
+        this.currUser = await getDatosAlum(this.email)
+        console.log(this.currUser)
       }catch(error){
         console.log(error)
       }
