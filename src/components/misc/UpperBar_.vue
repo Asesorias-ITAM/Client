@@ -35,7 +35,7 @@
                     <img class="logo-bg" src="@/assets/logo_bg.svg"/>
                 </div>
 
-                <div class="pl-44 flex titulo">
+                <div class="flex titulo">
                         <h1 class="ml-[30rem] text-6xl font-bold text-texto-light-2">
                             ASESORÍAS ITAM
                         </h1>
